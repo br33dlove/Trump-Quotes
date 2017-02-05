@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">mvpandroid</string>
+
+    <string name="template.hello_world">Hello World!</string>
+</resources>
