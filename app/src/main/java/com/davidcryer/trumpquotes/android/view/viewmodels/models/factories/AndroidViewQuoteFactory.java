@@ -7,14 +7,6 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.fac
 
 public class AndroidViewQuoteFactory implements ViewQuoteFactory<AndroidViewQuote> {
 
-    private AndroidViewQuoteFactory() {
-
-    }
-
-    public static AndroidViewQuoteFactory newInstance() {
-        return new AndroidViewQuoteFactory();
-    }
-
     @Override
     public AndroidViewQuote create(Quote quote) {
         return AndroidViewQuoteImpl.newInstance(quote.id(), quote.text());
