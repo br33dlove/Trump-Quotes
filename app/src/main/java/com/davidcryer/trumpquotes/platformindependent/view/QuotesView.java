@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface QuotesView<ViewQuoteType extends ViewQuote> extends MvpView<QuotesMvpViewModel<ViewQuoteType>> {
     void showLoadingNewQuote();
+    void hideLoadingNewQuote();
     void showNewQuote(final ViewQuoteType quote);
     void addNewQuoteToHistory(final ViewQuoteType quote);
     void showQuoteHistory(final List<ViewQuoteType> quotes);

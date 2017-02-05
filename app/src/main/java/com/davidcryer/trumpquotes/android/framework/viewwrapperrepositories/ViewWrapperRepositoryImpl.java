@@ -10,12 +10,8 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
     private final ViewWrapperFactory viewWrapperFactory;
     private ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> quotesViewWrapper;
 
-    private ViewWrapperRepositoryImpl(final ViewWrapperFactory viewWrapperFactory) {
+    public ViewWrapperRepositoryImpl(final ViewWrapperFactory viewWrapperFactory) {
         this.viewWrapperFactory = viewWrapperFactory;
-    }
-
-    static ViewWrapperRepository newInstance(final ViewWrapperFactory viewWrapperFactory) {
-        return new ViewWrapperRepositoryImpl(viewWrapperFactory);
     }
 
     @Override
@@ -23,7 +19,7 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
         if (quotesViewWrapper == null) {
             quotesViewWrapper = savedState == null ? viewWrapperFactory.createQuotesViewWrapper() : viewWrapperFactory.createQuotesViewWrapper(savedState);
         }
-        quotesViewWrapper.register(view);
+        quotesViewWrapper.register(view, savedState != null);
         return quotesViewWrapper.viewEventsListener();
     }
 
