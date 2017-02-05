@@ -4,5 +4,5 @@ import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Prese
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
 
 public interface PresenterFactory {
-    Presenter<QuotesView.EventsListener> createAddressPresenter(final QuotesView viewWrapper);
+    Presenter<QuotesView.EventsListener> createQuotesPresenter(final QuotesView viewWrapper);
 }

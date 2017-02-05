@@ -28,12 +28,12 @@ public class ViewWrapperFactoryImpl implements ViewWrapperFactory {
     }
 
     @Override
-    public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createTemplateViewWrapper() {
+    public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createQuotesViewWrapper() {
         return QuotesViewWrapper.newInstance(presenterFactory, templateViewModelFactory);
     }
 
     @Override
-    public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createTemplateViewWrapper(Bundle savedState) {
+    public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createQuotesViewWrapper(Bundle savedState) {
         return QuotesViewWrapper.retrieveInstanceOrGetNew(savedState, presenterFactory, templateViewModelFactory);
     }
 }

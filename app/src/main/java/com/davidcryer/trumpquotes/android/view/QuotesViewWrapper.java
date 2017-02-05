@@ -15,7 +15,7 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     private final QuotesView.EventsListener wrapperEventsListener;
 
     private QuotesViewWrapper(final PresenterFactory presenterFactory, final QuotesAndroidViewModel viewModel) {
-        wrapperEventsListener = presenterFactory.createAddressPresenter(viewWrapper()).eventsListener();
+        wrapperEventsListener = presenterFactory.createQuotesPresenter(viewWrapper()).eventsListener();
         this.viewModel = viewModel;
     }
 

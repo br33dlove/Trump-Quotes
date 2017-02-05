@@ -8,7 +8,7 @@ import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperF
 
 class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
     private final ViewWrapperFactory viewWrapperFactory;
-    private ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> templateViewWrapper;
+    private ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> quotesViewWrapper;
 
     private ViewWrapperRepositoryImpl(final ViewWrapperFactory viewWrapperFactory) {
         this.viewWrapperFactory = viewWrapperFactory;
@@ -21,22 +21,22 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
     @Override
     public QuotesAndroidView.EventsListener bind(QuotesAndroidView view, Bundle savedState) {
         android.util.Log.v(ViewWrapperRepositoryImpl.class.getSimpleName(), "bind, savedState is null: " + (savedState == null ? "true" : "false"));
-        if (templateViewWrapper == null) {
-            templateViewWrapper = savedState == null ? viewWrapperFactory.createTemplateViewWrapper() : viewWrapperFactory.createTemplateViewWrapper(savedState);
+        if (quotesViewWrapper == null) {
+            quotesViewWrapper = savedState == null ? viewWrapperFactory.createQuotesViewWrapper() : viewWrapperFactory.createQuotesViewWrapper(savedState);
         }
-        templateViewWrapper.register(view);
-        return templateViewWrapper.viewEventsListener();
+        quotesViewWrapper.register(view);
+        return quotesViewWrapper.viewEventsListener();
     }
 
     @Override
     public void unbind(QuotesAndroidView view, ViewUnbindType unbindType) {
         android.util.Log.v(ViewWrapperRepositoryImpl.class.getSimpleName(), "unbind, type: " + unbindType.name());
-        if (templateViewWrapper != null) {
-            templateViewWrapper.unregister();
+        if (quotesViewWrapper != null) {
+            quotesViewWrapper.unregister();
             if (!unbindType.equals(ViewUnbindType.CONFIG_CHANGE)) {
-                templateViewWrapper.releaseResources();
+                quotesViewWrapper.releaseResources();
                 if (unbindType.equals(ViewUnbindType.FINISH)) {
-                    templateViewWrapper = null;
+                    quotesViewWrapper = null;
                 }
             }
         }

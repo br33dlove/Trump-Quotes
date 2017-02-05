@@ -15,7 +15,7 @@ public class PresenterFactoryImpl implements PresenterFactory {
     }
 
     @Override
-    public Presenter<QuotesView.EventsListener> createAddressPresenter(final QuotesView viewWrapper) {
+    public Presenter<QuotesView.EventsListener> createQuotesPresenter(final QuotesView viewWrapper) {
         return QuotesPresenter.newInstance(viewWrapper);
     }
 }
