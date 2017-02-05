@@ -1,7 +1,7 @@
-package com.davidcryer.trumpquotes.android.view.models.factories;
+package com.davidcryer.trumpquotes.android.view.viewmodels.factories;
 
-import com.davidcryer.trumpquotes.android.view.models.QuotesAndroidViewModel;
-import com.davidcryer.trumpquotes.android.view.models.QuotesViewModel;
+import com.davidcryer.trumpquotes.android.view.viewmodels.QuotesAndroidViewModel;
+import com.davidcryer.trumpquotes.android.view.viewmodels.QuotesViewModel;
 
 public class QuotesAndroidViewModelFactoryImpl implements QuotesAndroidViewModelFactory {
     private final static boolean DEFAULT_SCREEN_CHANGED = false;

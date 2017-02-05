@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.davidcryer.trumpquotes.android.view.QuotesViewWrapper;
 import com.davidcryer.trumpquotes.android.view.ViewWrapper;
-import com.davidcryer.trumpquotes.android.view.models.factories.QuotesAndroidViewModelFactory;
+import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactory;
 

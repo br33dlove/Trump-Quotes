@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.view.models.models;
+package com.davidcryer.trumpquotes.android.view.viewmodels.models;
 
 import android.os.Parcel;
 

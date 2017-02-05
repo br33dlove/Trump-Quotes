@@ -2,8 +2,8 @@ package com.davidcryer.trumpquotes.android.framework.application;
 
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.view.models.factories.QuotesAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.models.factories.QuotesAndroidViewModelFactoryImpl;
+import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
+import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactory;

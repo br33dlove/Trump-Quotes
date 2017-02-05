@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.view.models;
+package com.davidcryer.trumpquotes.android.view.viewmodels;
 
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuotesMvpViewModel;
