@@ -7,7 +7,7 @@ import com.davidcryer.trumpquotes.android.view.models.factories.QuotesAndroidVie
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
-import com.davidcryer.trumpquotes.platformindependent.view.models.QuotesMvpViewModel;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuotesMvpViewModel;
 
 public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> {
     private final static String ARG_VIEW_MODEL = QuotesViewWrapper.class.getSimpleName();
@@ -39,7 +39,7 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
         return new QuotesView() {
 
             @Override
-            public void someScreenChange() {
+            public void showQuote() {
                 viewModel.screenChanged(view());
             }
 
@@ -56,7 +56,7 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
 
             @Override
             public void onSomeEvent() {
-                wrapperEventsListener.onSomeEvent();
+                wrapperEventsListener.onNewQuoteSwipedLeft();
             }
 
             @Override

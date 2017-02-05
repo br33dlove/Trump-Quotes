@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.view;
 
-import com.davidcryer.trumpquotes.platformindependent.view.models.MvpViewModel;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.MvpViewModel;
 
 public interface MvpView<ViewModelType extends MvpViewModel> {
     ViewModelType viewModel();
