@@ -2,8 +2,8 @@ package com.davidcryer.trumpquotes.android.framework.application;
 
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.view.models.factories.TemplateAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.models.factories.TemplateAndroidViewModelFactoryImpl;
+import com.davidcryer.trumpquotes.android.view.models.factories.QuotesAndroidViewModelFactory;
+import com.davidcryer.trumpquotes.android.view.models.factories.QuotesAndroidViewModelFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactory;
@@ -23,7 +23,7 @@ class ApplicationDependencyProvider {
         return PresenterFactoryImpl.newInstance();
     }
 
-    private static TemplateAndroidViewModelFactory createTemplateAndroidViewModelFactory() {
-        return TemplateAndroidViewModelFactoryImpl.newInstance();
+    private static QuotesAndroidViewModelFactory createTemplateAndroidViewModelFactory() {
+        return QuotesAndroidViewModelFactoryImpl.newInstance();
     }
 }

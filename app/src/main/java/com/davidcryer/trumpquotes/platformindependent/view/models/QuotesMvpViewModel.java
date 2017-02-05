@@ -1,5 +1,5 @@
 package com.davidcryer.trumpquotes.platformindependent.view.models;
 
-public interface TemplateMvpViewModel extends MvpViewModel {
+public interface QuotesMvpViewModel extends MvpViewModel {
 
 }

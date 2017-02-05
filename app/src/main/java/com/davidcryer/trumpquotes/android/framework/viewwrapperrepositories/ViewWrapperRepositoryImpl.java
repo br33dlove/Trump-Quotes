@@ -3,12 +3,12 @@ package com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories;
 import android.os.Bundle;
 
 import com.davidcryer.trumpquotes.android.view.ViewWrapper;
-import com.davidcryer.trumpquotes.android.view.ui.TemplateAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 
 class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
     private final ViewWrapperFactory viewWrapperFactory;
-    private ViewWrapper<TemplateAndroidView, TemplateAndroidView.EventsListener> templateViewWrapper;
+    private ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> templateViewWrapper;
 
     private ViewWrapperRepositoryImpl(final ViewWrapperFactory viewWrapperFactory) {
         this.viewWrapperFactory = viewWrapperFactory;
@@ -19,7 +19,7 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
     }
 
     @Override
-    public TemplateAndroidView.EventsListener bind(TemplateAndroidView view, Bundle savedState) {
+    public QuotesAndroidView.EventsListener bind(QuotesAndroidView view, Bundle savedState) {
         android.util.Log.v(ViewWrapperRepositoryImpl.class.getSimpleName(), "bind, savedState is null: " + (savedState == null ? "true" : "false"));
         if (templateViewWrapper == null) {
             templateViewWrapper = savedState == null ? viewWrapperFactory.createTemplateViewWrapper() : viewWrapperFactory.createTemplateViewWrapper(savedState);
@@ -29,7 +29,7 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
     }
 
     @Override
-    public void unbind(TemplateAndroidView view, ViewUnbindType unbindType) {
+    public void unbind(QuotesAndroidView view, ViewUnbindType unbindType) {
         android.util.Log.v(ViewWrapperRepositoryImpl.class.getSimpleName(), "unbind, type: " + unbindType.name());
         if (templateViewWrapper != null) {
             templateViewWrapper.unregister();

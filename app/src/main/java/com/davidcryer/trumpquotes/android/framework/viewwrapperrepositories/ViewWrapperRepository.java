@@ -2,9 +2,9 @@ package com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories;
 
 import android.os.Bundle;
 
-import com.davidcryer.trumpquotes.android.view.ui.TemplateAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 
 public interface ViewWrapperRepository {
-    TemplateAndroidView.EventsListener bind(final TemplateAndroidView view, final Bundle savedState);
-    void unbind(final TemplateAndroidView view, final ViewUnbindType unbindType);
+    QuotesAndroidView.EventsListener bind(final QuotesAndroidView view, final Bundle savedState);
+    void unbind(final QuotesAndroidView view, final ViewUnbindType unbindType);
 }

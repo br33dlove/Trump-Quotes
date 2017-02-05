@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
-import com.davidcryer.trumpquotes.android.view.ui.TemplateAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 
-public class TemplateFragment extends ViewBindingFragment<TemplateAndroidView.EventsListener> implements TemplateAndroidView {
+public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.EventsListener> implements QuotesAndroidView {
 
-    public static TemplateFragment newInstance() {
-        return new TemplateFragment();
+    public static QuotesFragment newInstance() {
+        return new QuotesFragment();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class TemplateFragment extends ViewBindingFragment<TemplateAndroidView.Ev
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_template, container, false);
+        final View view = inflater.inflate(R.layout.fragment_quotes, container, false);
         initialiseViewReferences(view);
         return view;
     }
@@ -42,7 +42,7 @@ public class TemplateFragment extends ViewBindingFragment<TemplateAndroidView.Ev
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.template_menu, menu);
+        inflater.inflate(R.menu.quotes_menu, menu);
     }
 
     @Override
@@ -52,25 +52,25 @@ public class TemplateFragment extends ViewBindingFragment<TemplateAndroidView.Ev
 
     @Override
     public void someScreenChange() {
-        android.util.Log.v(TemplateFragment.class.getSimpleName(), "someScreenChange");
+        android.util.Log.v(QuotesFragment.class.getSimpleName(), "someScreenChange");
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        android.util.Log.v(TemplateFragment.class.getSimpleName(), "onSaveInstanceState");
+        android.util.Log.v(QuotesFragment.class.getSimpleName(), "onSaveInstanceState");
         eventsListener.onSaveInstance(outState);
     }
 
     @Override
-    protected TemplateAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
-        android.util.Log.v(TemplateFragment.class.getSimpleName(), "bind");
+    protected QuotesAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
+        android.util.Log.v(QuotesFragment.class.getSimpleName(), "bind");
         return viewWrapperRepository.bind(this, savedState);
     }
 
     @Override
     protected void unbind(ViewWrapperRepository viewWrapperRepository, ViewUnbindType unbindType) {
-        android.util.Log.v(TemplateFragment.class.getSimpleName(), "unbind");
+        android.util.Log.v(QuotesFragment.class.getSimpleName(), "unbind");
         viewWrapperRepository.unbind(this, unbindType);
     }
 

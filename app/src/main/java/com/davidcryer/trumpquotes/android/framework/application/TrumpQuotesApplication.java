@@ -4,10 +4,10 @@ import android.app.Application;
 
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 
-public class MvpTemplateApplication extends Application implements ViewWrapperRepositoryFactoryProvider {
+public class TrumpQuotesApplication extends Application implements ViewWrapperRepositoryFactoryProvider {
     private final ViewWrapperRepositoryFactory viewWrapperRepositoryFactory;
 
-    public MvpTemplateApplication() {
+    public TrumpQuotesApplication() {
         super();
         viewWrapperRepositoryFactory = ApplicationDependencyProvider.viewWrapperRepositoryFactory();
     }

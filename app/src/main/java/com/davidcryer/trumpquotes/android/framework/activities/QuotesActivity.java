@@ -8,19 +8,19 @@ import android.support.v7.widget.Toolbar;
 
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper;
-import com.davidcryer.trumpquotes.android.view.ui.fragments.TemplateFragment;
+import com.davidcryer.trumpquotes.android.view.ui.fragments.QuotesFragment;
 
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.addFragment;
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.noFragmentBoundToView;
 
-public class TemplateActivity extends ViewWrapperRepositoryActivity {
+public class QuotesActivity extends ViewWrapperRepositoryActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_bar_with_content);
         setupToolbar();
-        addTemplateFragment();
+        addQuotesFragment();
     }
 
     private void setupToolbar() {
@@ -32,15 +32,15 @@ public class TemplateActivity extends ViewWrapperRepositoryActivity {
         }
     }
 
-    private void addTemplateFragment() {
+    private void addQuotesFragment() {
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        if (noFragmentBoundToView(fragmentManager, getTemplateFragmentViewContainer())) {
-            addFragment(fragmentManager, TemplateFragment.newInstance(), getTemplateFragmentViewContainer());
+        if (noFragmentBoundToView(fragmentManager, getQuotesFragmentViewContainer())) {
+            addFragment(fragmentManager, QuotesFragment.newInstance(), getQuotesFragmentViewContainer());
         }
     }
 
     @IdRes
-    private int getTemplateFragmentViewContainer() {
+    private int getQuotesFragmentViewContainer() {
         return R.id.content;
     }
 

@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.factories;
 
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.TemplatePresenter;
-import com.davidcryer.trumpquotes.platformindependent.view.TemplateView;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuotesPresenter;
+import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
 
 public class PresenterFactoryImpl implements PresenterFactory {
 
@@ -15,7 +15,7 @@ public class PresenterFactoryImpl implements PresenterFactory {
     }
 
     @Override
-    public Presenter<TemplateView.EventsListener> createAddressPresenter(final TemplateView viewWrapper) {
-        return TemplatePresenter.newInstance(viewWrapper);
+    public Presenter<QuotesView.EventsListener> createAddressPresenter(final QuotesView viewWrapper) {
+        return QuotesPresenter.newInstance(viewWrapper);
     }
 }

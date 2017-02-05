@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.factories;
 
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
-import com.davidcryer.trumpquotes.platformindependent.view.TemplateView;
+import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
 
 public interface PresenterFactory {
-    Presenter<TemplateView.EventsListener> createAddressPresenter(final TemplateView viewWrapper);
+    Presenter<QuotesView.EventsListener> createAddressPresenter(final QuotesView viewWrapper);
 }
