@@ -9,7 +9,7 @@ public class TrumpQuotesApplication extends Application implements ViewWrapperRe
 
     public TrumpQuotesApplication() {
         super();
-        viewWrapperRepositoryFactory = ApplicationDependencyProvider.viewWrapperRepositoryFactory();
+        viewWrapperRepositoryFactory = ApplicationDependencyProvider.viewWrapperRepositoryFactory(this);
     }
 
     @Override

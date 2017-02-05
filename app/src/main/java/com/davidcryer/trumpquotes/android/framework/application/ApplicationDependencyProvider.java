@@ -1,7 +1,10 @@
 package com.davidcryer.trumpquotes.android.framework.application;
 
+import android.content.Context;
+
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
+import com.davidcryer.trumpquotes.android.model.quotes.AndroidQuoteStore;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
@@ -16,16 +19,16 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.fac
 
 class ApplicationDependencyProvider {
 
-    static ViewWrapperRepositoryFactory viewWrapperRepositoryFactory() {
-        return ViewWrapperRepositoryFactoryImpl.newInstance(createViewStateFactory());
+    static ViewWrapperRepositoryFactory viewWrapperRepositoryFactory(final Context context) {
+        return ViewWrapperRepositoryFactoryImpl.newInstance(createViewStateFactory(context));
     }
 
-    private static ViewWrapperFactory createViewStateFactory() {
-        return ViewWrapperFactoryImpl.newInstance(createPresenterFactory(), createQuotesAndroidViewModelFactory());
+    private static ViewWrapperFactory createViewStateFactory(final Context context) {
+        return ViewWrapperFactoryImpl.newInstance(createPresenterFactory(context), createQuotesAndroidViewModelFactory());
     }
 
-    private static PresenterFactory<AndroidViewQuote> createPresenterFactory() {
-        return new PresenterFactoryImpl<>(createQuoteRequester(), createQuoteStore(), createViewQuoteFactory());
+    private static PresenterFactory<AndroidViewQuote> createPresenterFactory(final Context context) {
+        return new PresenterFactoryImpl<>(createQuoteRequester(), createQuoteStore(context), createViewQuoteFactory());
     }
 
     private static QuoteRequester createQuoteRequester() {
@@ -33,9 +36,8 @@ class ApplicationDependencyProvider {
         return null;
     }
 
-    private static QuoteStore createQuoteStore() {
-        //TODO
-        return null;
+    private static QuoteStore createQuoteStore(final Context context) {
+        return new AndroidQuoteStore(context, );//TODO move to factory
     }
 
     private static ViewQuoteFactory<AndroidViewQuote> createViewQuoteFactory() {
