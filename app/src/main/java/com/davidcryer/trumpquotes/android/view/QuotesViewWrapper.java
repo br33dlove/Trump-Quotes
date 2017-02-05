@@ -18,13 +18,13 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     private final QuotesAndroidViewModel viewModel;
     private final QuotesView.EventsListener wrapperEventsListener;
 
-    private QuotesViewWrapper(final PresenterFactory presenterFactory, final QuotesAndroidViewModel viewModel) {
+    private QuotesViewWrapper(final PresenterFactory<AndroidViewQuote> presenterFactory, final QuotesAndroidViewModel viewModel) {
         wrapperEventsListener = presenterFactory.createQuotesPresenter(viewWrapper).eventsListener();
         this.viewModel = viewModel;
     }
 
     public static ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> newInstance(
-            final PresenterFactory presenterFactory,
+            final PresenterFactory<AndroidViewQuote> presenterFactory,
             final QuotesAndroidViewModelFactory viewModelFactory
     ) {
         return new QuotesViewWrapper(presenterFactory, viewModelFactory.create());
@@ -32,7 +32,7 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
 
     public static ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> retrieveInstanceOrGetNew(
             final Bundle savedState,
-            final PresenterFactory presenterFactory,
+            final PresenterFactory<AndroidViewQuote> presenterFactory,
             final QuotesAndroidViewModelFactory viewModelFactory
     ) {
         final QuotesAndroidViewModel viewModel = savedState.getParcelable(ARG_VIEW_MODEL);
