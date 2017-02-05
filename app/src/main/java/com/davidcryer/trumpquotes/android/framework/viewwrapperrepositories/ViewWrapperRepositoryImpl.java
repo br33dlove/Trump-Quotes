@@ -20,7 +20,6 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
 
     @Override
     public QuotesAndroidView.EventsListener bind(QuotesAndroidView view, Bundle savedState) {
-        android.util.Log.v(ViewWrapperRepositoryImpl.class.getSimpleName(), "bind, savedState is null: " + (savedState == null ? "true" : "false"));
         if (quotesViewWrapper == null) {
             quotesViewWrapper = savedState == null ? viewWrapperFactory.createQuotesViewWrapper() : viewWrapperFactory.createQuotesViewWrapper(savedState);
         }
@@ -30,7 +29,6 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
 
     @Override
     public void unbind(QuotesAndroidView view, ViewUnbindType unbindType) {
-        android.util.Log.v(ViewWrapperRepositoryImpl.class.getSimpleName(), "unbind, type: " + unbindType.name());
         if (quotesViewWrapper != null) {
             quotesViewWrapper.unregister();
             if (!unbindType.equals(ViewUnbindType.CONFIG_CHANGE)) {

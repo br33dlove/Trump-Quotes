@@ -52,25 +52,21 @@ public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.Events
 
     @Override
     public void someScreenChange() {
-        android.util.Log.v(QuotesFragment.class.getSimpleName(), "someScreenChange");
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        android.util.Log.v(QuotesFragment.class.getSimpleName(), "onSaveInstanceState");
         eventsListener.onSaveInstance(outState);
     }
 
     @Override
     protected QuotesAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
-        android.util.Log.v(QuotesFragment.class.getSimpleName(), "bind");
         return viewWrapperRepository.bind(this, savedState);
     }
 
     @Override
     protected void unbind(ViewWrapperRepository viewWrapperRepository, ViewUnbindType unbindType) {
-        android.util.Log.v(QuotesFragment.class.getSimpleName(), "unbind");
         viewWrapperRepository.unbind(this, unbindType);
     }
 

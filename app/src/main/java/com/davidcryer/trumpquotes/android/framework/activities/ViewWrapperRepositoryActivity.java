@@ -22,7 +22,6 @@ class ViewWrapperRepositoryActivity extends AppCompatActivity implements ViewWra
     }
 
     private void initialiseViewWrapperRepositoryFragment() {
-        android.util.Log.v(ViewWrapperRepositoryActivity.class.getSimpleName(), "initialiseViewWrapperRepositoryFragment");
         viewWrapperRepositoryFragment = (ViewWrapperRepositoryFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_VIEW_WRAPPER_REPOSITORY);
         if (viewWrapperRepositoryFragment == null) {
             viewWrapperRepositoryFragment = ViewWrapperRepositoryFragment.newInstance();
@@ -50,7 +49,6 @@ class ViewWrapperRepositoryActivity extends AppCompatActivity implements ViewWra
         }
 
         private void initialiseViewWrapperRepository() {
-            android.util.Log.v(ViewWrapperRepositoryActivity.class.getSimpleName(), "initialiseViewWrapperRepository");
             viewWrapperRepository = viewWrapperRepositoryFactory().create();
         }
 

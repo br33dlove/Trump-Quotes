@@ -19,13 +19,11 @@ public class QuotesPresenter extends Presenter<QuotesView.EventsListener> {
 
             @Override
             public void onSomeEvent() {
-                android.util.Log.v(QuotesPresenter.class.getSimpleName(), "onSomeEvent");
                 viewWrapper.someScreenChange();
             }
 
             @Override
             public void onReleaseResources() {
-                android.util.Log.v(QuotesPresenter.class.getSimpleName(), "onReleaseResources");
             }
         };
     }
