@@ -8,12 +8,12 @@ import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
-public class PresenterFactoryImpl<ViewQuoteType extends ViewQuote> implements PresenterFactory<ViewQuoteType> {
+public class QuotePresenterFactoryImpl<ViewQuoteType extends ViewQuote> implements QuotePresenterFactory<ViewQuoteType> {
     private final QuoteRequester quoteRequester;
     private final QuoteStore quoteStore;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
-    public PresenterFactoryImpl(
+    public QuotePresenterFactoryImpl(
             final QuoteRequester quoteRequester,
             final QuoteStore quoteStore,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
@@ -24,7 +24,7 @@ public class PresenterFactoryImpl<ViewQuoteType extends ViewQuote> implements Pr
     }
 
     @Override
-    public Presenter<QuotesView.EventsListener> createQuotesPresenter(final QuotesView<ViewQuoteType> viewWrapper) {
+    public Presenter<QuotesView.EventsListener> create(final QuotesView<ViewQuoteType> viewWrapper) {
         return new QuotesPresenter<>(viewWrapper, quoteRequester, quoteStore, viewQuoteFactory);
     }
 }

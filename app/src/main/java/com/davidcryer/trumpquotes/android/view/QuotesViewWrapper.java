@@ -6,10 +6,9 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.QuotesAndroidViewModel
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
-import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactory;
+import com.davidcryer.trumpquotes.platformindependent.presenter.factories.QuotePresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuotesMvpViewModel;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 
 import java.util.List;
 
@@ -18,13 +17,13 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     private final QuotesAndroidViewModel viewModel;
     private final QuotesView.EventsListener wrapperEventsListener;
 
-    private QuotesViewWrapper(final PresenterFactory<AndroidViewQuote> presenterFactory, final QuotesAndroidViewModel viewModel) {
-        wrapperEventsListener = presenterFactory.createQuotesPresenter(viewWrapper).eventsListener();
+    private QuotesViewWrapper(final QuotePresenterFactory<AndroidViewQuote> presenterFactory, final QuotesAndroidViewModel viewModel) {
+        wrapperEventsListener = presenterFactory.create(viewWrapper).eventsListener();
         this.viewModel = viewModel;
     }
 
     public static ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> newInstance(
-            final PresenterFactory<AndroidViewQuote> presenterFactory,
+            final QuotePresenterFactory<AndroidViewQuote> presenterFactory,
             final QuotesAndroidViewModelFactory viewModelFactory
     ) {
         return new QuotesViewWrapper(presenterFactory, viewModelFactory.create());
@@ -32,7 +31,7 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
 
     public static ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> retrieveInstanceOrGetNew(
             final Bundle savedState,
-            final PresenterFactory<AndroidViewQuote> presenterFactory,
+            final QuotePresenterFactory<AndroidViewQuote> presenterFactory,
             final QuotesAndroidViewModelFactory viewModelFactory
     ) {
         final QuotesAndroidViewModel viewModel = savedState.getParcelable(ARG_VIEW_MODEL);

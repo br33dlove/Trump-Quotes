@@ -2,38 +2,28 @@ package com.davidcryer.trumpquotes.android.view.viewwrapperfactories;
 
 import android.os.Bundle;
 
+import com.davidcryer.trumpquotes.android.presenter.factories.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.view.QuotesViewWrapper;
 import com.davidcryer.trumpquotes.android.view.ViewWrapper;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
-import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactory;
 
 public class ViewWrapperFactoryImpl implements ViewWrapperFactory {
-    private final PresenterFactory presenterFactory;
+    private final PresenterFactoryFactory presenterFactoryFactory;
     private final QuotesAndroidViewModelFactory templateViewModelFactory;
 
-    private ViewWrapperFactoryImpl(
-            final PresenterFactory presenterFactory,
-            final QuotesAndroidViewModelFactory templateViewModelFactory
-    ) {
-        this.presenterFactory = presenterFactory;
+    public ViewWrapperFactoryImpl(final PresenterFactoryFactory presenterFactoryFactory, final QuotesAndroidViewModelFactory templateViewModelFactory) {
+        this.presenterFactoryFactory = presenterFactoryFactory;
         this.templateViewModelFactory = templateViewModelFactory;
-    }
-
-    public static ViewWrapperFactoryImpl newInstance(
-            final PresenterFactory presenterFactory,
-            final QuotesAndroidViewModelFactory templateViewModelFactory
-    ) {
-        return new ViewWrapperFactoryImpl(presenterFactory, templateViewModelFactory);
     }
 
     @Override
     public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createQuotesViewWrapper() {
-        return QuotesViewWrapper.newInstance(presenterFactory, templateViewModelFactory);
+        return QuotesViewWrapper.newInstance(presenterFactoryFactory.createQuotesPresenterFactory(), templateViewModelFactory);
     }
 
     @Override
     public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createQuotesViewWrapper(Bundle savedState) {
-        return QuotesViewWrapper.retrieveInstanceOrGetNew(savedState, presenterFactory, templateViewModelFactory);
+        return QuotesViewWrapper.retrieveInstanceOrGetNew(savedState, presenterFactoryFactory.createQuotesPresenterFactory(), templateViewModelFactory);
     }
 }

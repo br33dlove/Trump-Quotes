@@ -15,6 +15,6 @@ public class ViewWrapperRepositoryFactoryImpl implements ViewWrapperRepositoryFa
 
     @Override
     public ViewWrapperRepository create() {
-        return ViewWrapperRepositoryImpl.newInstance(viewWrapperFactory);
+        return new ViewWrapperRepositoryImpl(viewWrapperFactory);
     }
 }
