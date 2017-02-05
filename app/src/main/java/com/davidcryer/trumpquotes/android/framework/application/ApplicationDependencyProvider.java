@@ -1,10 +1,11 @@
 package com.davidcryer.trumpquotes.android.framework.application;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.model.quotes.AndroidQuoteStore;
+import com.davidcryer.trumpquotes.android.model.quotes.SQLiteQuoteStoreFactory;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
@@ -13,6 +14,7 @@ import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperF
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStore;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStoreFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.factories.PresenterFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
@@ -37,7 +39,15 @@ class ApplicationDependencyProvider {
     }
 
     private static QuoteStore createQuoteStore(final Context context) {
-        return new AndroidQuoteStore(context, );//TODO move to factory
+        return createQuoteStoreFactory(context).create();
+    }
+
+    private static QuoteStoreFactory createQuoteStoreFactory(final Context context) {
+        return new SQLiteQuoteStoreFactory(context, createCursorFactory());
+    }
+
+    private static SQLiteDatabase.CursorFactory createCursorFactory() {
+        return null;
     }
 
     private static ViewQuoteFactory<AndroidViewQuote> createViewQuoteFactory() {
