@@ -1,8 +1,6 @@
-package com.davidcryer.trumpquotes.platformindependent.presenter;
+package com.davidcryer.trumpquotes.platformindependent.model.quotes;
 
 import android.support.annotation.NonNull;
-
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 
 import java.util.List;
 

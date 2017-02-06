@@ -5,7 +5,8 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteRequeste
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteResponseHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStore;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteResponseHandlerFactory;
-import com.davidcryer.trumpquotes.platformindependent.presenter.QuoteHelper;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
@@ -97,11 +98,8 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
 
             @Override
             public void onDeleteAllQuotesClicked() {
-                final ViewQuote[] viewQuotes = viewWrapper.viewModel().quoteHistory();
-                final String[] quoteIds = new String[viewQuotes.length];
-                for (int i = 0; i < viewQuotes.length; i++) {
-                    quoteIds[i] = viewQuotes[i].id();
-                }
+                final ViewQuote[] viewQuotesInHistory = viewWrapper.viewModel().quoteHistory();
+                final String[] quoteIds = ViewQuoteHelper.ids(viewQuotesInHistory);
                 quoteStore.clear(quoteIds);
                 viewWrapper.removeAllQuotesInHistory();
             }
