@@ -5,14 +5,10 @@ public class Quote {
     private final String text;
     private final long createdTimestamp;
 
-    private Quote(String id, String text, long createdTimestamp) {
+    Quote(String id, String text, long createdTimestamp) {
         this.id = id;
         this.text = text;
         this.createdTimestamp = createdTimestamp;
-    }
-
-    static Quote newInstance(final String id, final String text, final long createdTimestamp) {
-        return new Quote(id, text, createdTimestamp);
     }
 
     public String id() {
