@@ -94,13 +94,14 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     private final QuotesAndroidView.EventsListener viewEventsListener = new QuotesAndroidView.EventsListener() {
 
         @Override
-        public void onRequestNewQuote() {
-            wrapperEventsListener.onRequestNewQuote();
+        public void onViewCreated() {
+            wrapperEventsListener.onRequestFirstNewQuote();
+            wrapperEventsListener.onRequestQuoteHistory();
         }
 
         @Override
-        public void onRequestQuoteHistory() {
-            wrapperEventsListener.onRequestQuoteHistory();
+        public void onRetryNewQuoteRequestClicked() {
+            wrapperEventsListener.onRetryNewQuoteRequestClicked();
         }
 
         @Override

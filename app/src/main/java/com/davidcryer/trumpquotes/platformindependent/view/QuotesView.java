@@ -16,7 +16,8 @@ public interface QuotesView<ViewQuoteType extends ViewQuote> extends MvpView<Quo
     void showFailureToGetNewQuote();
 
     interface EventsListener extends MvpView.EventsListener {
-        void onRequestNewQuote();
+        void onRequestFirstNewQuote();
+        void onRetryNewQuoteRequestClicked();
         void onRequestQuoteHistory();
         void onNewQuoteSwipedLeft();
         void onNewQuoteSwipedRight();

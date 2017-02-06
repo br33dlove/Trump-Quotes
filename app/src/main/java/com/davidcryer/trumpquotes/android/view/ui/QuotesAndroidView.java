@@ -15,8 +15,8 @@ public interface QuotesAndroidView extends AndroidMvpView {
     void removeAllQuotesInHistory();
 
     interface EventsListener extends AndroidMvpView.EventsListener {
-        void onRequestNewQuote();
-        void onRequestQuoteHistory();
+        void onViewCreated();
+        void onRetryNewQuoteRequestClicked();
         void onNewQuoteSwipedLeft();
         void onNewQuoteSwipedRight();
         void onDeleteQuoteInHistoryClicked(final AndroidViewQuote quote);

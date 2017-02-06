@@ -37,9 +37,15 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
         return new QuotesView.EventsListener() {//TODO tidy up
 
             @Override
-            public void onRequestNewQuote() {
+            public void onRequestFirstNewQuote() {
                 viewWrapper.showLoadingNewQuote();
                 //TODO check store first
+                quoteRequester.requestQuote(quoteResponseHandlerFactory.create(quoteCallback));
+            }
+
+            @Override
+            public void onRetryNewQuoteRequestClicked() {
+                viewWrapper.showLoadingNewQuote();
                 quoteRequester.requestQuote(quoteResponseHandlerFactory.create(quoteCallback));
             }
 
