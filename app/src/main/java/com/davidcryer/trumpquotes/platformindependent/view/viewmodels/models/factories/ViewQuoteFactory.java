@@ -3,7 +3,9 @@ package com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.fa
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 
+import java.util.List;
+
 public interface ViewQuoteFactory<ViewQuoteType extends ViewQuote> {
     ViewQuoteType create(final Quote quote);
-    ViewQuoteType[] createArray(final Quote[] quotes);
+    List<ViewQuoteType> create(final List<Quote> quotes);
 }
