@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStore;
 
-class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {
+class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {//TODO have an sqliteopenhelper instead, and use this class to manage handlers and callbacks
 
     SQLiteQuoteStore(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
