@@ -7,6 +7,7 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuotesMvpV
 import java.util.List;
 
 public interface QuotesAndroidViewModel extends QuotesMvpViewModel<AndroidViewQuote>, AndroidViewModel<QuotesAndroidView> {
+    void showFailureToGetNewQuote(final QuotesAndroidView view);
     void showLoadingNewQuote(final QuotesAndroidView view);
     void hideLoadingNewQuote(final QuotesAndroidView view);
     void showNewQuote(final QuotesAndroidView view, final AndroidViewQuote quote);

@@ -5,6 +5,7 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 import java.util.List;
 
 public interface QuotesAndroidView extends AndroidMvpView {
+    void showFailureToGetNewQuote();
     void showLoadingNewQuote();
     void hideLoadingNewQuote();
     void showNewQuote(final AndroidViewQuote quote);
@@ -14,7 +15,8 @@ public interface QuotesAndroidView extends AndroidMvpView {
     void removeAllQuotesInHistory();
 
     interface EventsListener extends AndroidMvpView.EventsListener {
-        void onCreate();
+        void onRequestNewQuote();
+        void onRequestQuoteHistory();
         void onNewQuoteSwipedLeft();
         void onNewQuoteSwipedRight();
         void onDeleteQuoteInHistoryClicked(final AndroidViewQuote quote);

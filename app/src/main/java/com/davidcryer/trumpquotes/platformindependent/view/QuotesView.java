@@ -13,9 +13,11 @@ public interface QuotesView<ViewQuoteType extends ViewQuote> extends MvpView<Quo
     void showQuoteHistory(final List<ViewQuoteType> quotes);
     void removeQuoteInHistory(final ViewQuoteType quote);
     void removeAllQuotesInHistory();
+    void showFailureToGetNewQuote();
 
     interface EventsListener extends MvpView.EventsListener {
-        void onCreate();
+        void onRequestNewQuote();
+        void onRequestQuoteHistory();
         void onNewQuoteSwipedLeft();
         void onNewQuoteSwipedRight();
         void onDeleteQuoteInHistoryClicked(final int index);

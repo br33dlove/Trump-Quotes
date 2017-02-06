@@ -11,6 +11,7 @@ import java.util.List;
 public class QuotesViewModel implements QuotesAndroidViewModel {
     private AndroidViewQuote newQuote;
     private List<AndroidViewQuote> quoteHistory;
+    private boolean showFailureToGetNewQuote;
     private boolean showLoadingNewQuote;
     private boolean newQuoteUpdated;
     private boolean quoteHistoryUpdated;
@@ -18,12 +19,14 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     public QuotesViewModel(
             AndroidViewQuote newQuote,
             List<AndroidViewQuote> quoteHistory,
+            boolean showFailureToGetNewQuote,
             boolean showLoadingNewQuote,
             boolean quoteHistoryUpdated,
             boolean newQuoteUpdated
     ) {
         this.newQuote = newQuote;
         this.quoteHistory = quoteHistory;
+        this.showFailureToGetNewQuote = showFailureToGetNewQuote;
         this.showLoadingNewQuote = showLoadingNewQuote;
         this.quoteHistoryUpdated = quoteHistoryUpdated;
         this.newQuoteUpdated = newQuoteUpdated;
@@ -32,6 +35,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     private QuotesViewModel(final Parcel parcel) {
         newQuote = parcel.readParcelable(AndroidViewQuote.class.getClassLoader());
         quoteHistory = Arrays.asList((AndroidViewQuote[]) parcel.readParcelableArray(AndroidViewQuote.class.getClassLoader()));
+        showFailureToGetNewQuote = parcel.readByte() != 0;
         showLoadingNewQuote = parcel.readByte() != 0;
         quoteHistoryUpdated = parcel.readByte() != 0;
         newQuoteUpdated = parcel.readByte() != 0;
@@ -46,6 +50,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(newQuote, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeParcelableArray(quoteHistory.toArray(new AndroidViewQuote[quoteHistory.size()]), PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeByte((byte) (showFailureToGetNewQuote ? 1 : 0));
         dest.writeByte((byte) (showLoadingNewQuote ? 1 : 0));
         dest.writeByte((byte) (quoteHistoryUpdated ? 1 : 0));
         dest.writeByte((byte) (newQuoteUpdated ? 1 : 0));
@@ -62,6 +67,14 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
             return new QuotesAndroidViewModel[size];
         }
     };
+
+    @Override
+    public void showFailureToGetNewQuote(QuotesAndroidView view) {
+        showFailureToGetNewQuote = true;
+        if (view != null) {
+            view.showFailureToGetNewQuote();
+        }
+    }
 
     @Override
     public void showLoadingNewQuote(QuotesAndroidView view) {
@@ -130,6 +143,9 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
             view.showLoadingNewQuote();
         } else {
             view.hideLoadingNewQuote();
+        }
+        if (showFailureToGetNewQuote) {
+            view.showFailureToGetNewQuote();
         }
         if (setAllData || newQuoteUpdated) {
             newQuoteUpdated = false;

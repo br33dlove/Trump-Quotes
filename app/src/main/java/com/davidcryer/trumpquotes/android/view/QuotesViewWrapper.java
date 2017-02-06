@@ -41,6 +41,11 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     private final QuotesView<AndroidViewQuote> viewWrapper = new QuotesView<AndroidViewQuote>() {
 
         @Override
+        public void showFailureToGetNewQuote() {
+            viewModel.showFailureToGetNewQuote(view());
+        }
+
+        @Override
         public void showLoadingNewQuote() {
             viewModel.showLoadingNewQuote(view());
         }
@@ -89,8 +94,13 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     private final QuotesAndroidView.EventsListener viewEventsListener = new QuotesAndroidView.EventsListener() {
 
         @Override
-        public void onCreate() {
-            wrapperEventsListener.onCreate();
+        public void onRequestNewQuote() {
+            wrapperEventsListener.onRequestNewQuote();
+        }
+
+        @Override
+        public void onRequestQuoteHistory() {
+            wrapperEventsListener.onRequestQuoteHistory();
         }
 
         @Override
