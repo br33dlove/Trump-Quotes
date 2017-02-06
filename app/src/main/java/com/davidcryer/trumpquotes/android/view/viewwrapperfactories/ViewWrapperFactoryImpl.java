@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.android.view.viewwrapperfactories;
 
 import android.os.Bundle;
 
-import com.davidcryer.trumpquotes.android.presenter.factories.PresenterFactoryFactory;
+import com.davidcryer.trumpquotes.android.presenter.presenters.factories.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.view.QuotesViewWrapper;
 import com.davidcryer.trumpquotes.android.view.ViewWrapper;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;

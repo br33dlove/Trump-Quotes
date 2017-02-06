@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.platformindependent.presenter.factories;
+package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories;
 
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;

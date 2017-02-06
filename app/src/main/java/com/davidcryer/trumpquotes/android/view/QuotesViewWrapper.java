@@ -6,7 +6,7 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.QuotesAndroidViewModel
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
-import com.davidcryer.trumpquotes.platformindependent.presenter.factories.QuotePresenterFactory;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.QuotePresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuotesMvpViewModel;
 
