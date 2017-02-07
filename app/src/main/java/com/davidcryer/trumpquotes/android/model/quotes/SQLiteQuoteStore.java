@@ -49,12 +49,17 @@ class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {//TODO ha
     }
 
     @Override
+    public void retrieveJudgedQuotes(RetrieveCallback callback) {
+        //TODO
+    }
+
+    @Override
     public void retrieveUnJudgedQuotes(RetrieveCallback callback) {
         //TODO
     }
 
     @Override
-    public void retrieveJudgedQuotes(RetrieveCallback callback) {
+    public void updateQuoteAsJudged(String quoteId) {
         //TODO
     }
 }

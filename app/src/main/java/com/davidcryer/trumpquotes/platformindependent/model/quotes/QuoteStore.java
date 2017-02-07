@@ -5,8 +5,9 @@ import java.util.List;
 public interface QuoteStore {
     void store(final Quote... quotes);
     void clear(final String... quoteIds);
-    void retrieveUnJudgedQuotes(final RetrieveCallback callback);
     void retrieveJudgedQuotes(final RetrieveCallback callback);
+    void retrieveUnJudgedQuotes(final RetrieveCallback callback);
+    void updateQuoteAsJudged(final String quoteId);
 
     interface RetrieveCallback {
         void onReturn(final List<Quote> quotes);
