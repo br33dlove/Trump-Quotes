@@ -41,7 +41,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
             @Override
             public void onRequestFirstNewQuote() {
                 showLoadingNewQuote();
-                getUnJudgedQuoteFromStoreElseRequestNewQuoteAndDisplay();
+                getUnJudgedQuoteFromStoreOrRequestNewQuoteAndDisplay();
             }
 
             @Override
@@ -52,7 +52,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
 
             @Override
             public void onRequestQuoteHistory() {
-                getQuoteHistoryFromStore();
+                getQuoteHistoryFromStoreAndDisplay();
             }
 
             @Override
@@ -86,7 +86,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
         };
     }
 
-    private void getUnJudgedQuoteFromStoreElseRequestNewQuoteAndDisplay() {
+    private void getUnJudgedQuoteFromStoreOrRequestNewQuoteAndDisplay() {
         quoteStore.retrieveUnJudgedQuotes(new QuoteStore.RetrieveCallback() {
             @Override
             public void onReturn(List<Quote> quotes) {
@@ -110,7 +110,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
         quoteRequester.requestQuote(quoteResponseHandler);
     }
 
-    private void getQuoteHistoryFromStore() {
+    private void getQuoteHistoryFromStoreAndDisplay() {
         quoteStore.retrieveJudgedQuotes(new QuoteStore.RetrieveCallback() {
             @Override
             public void onReturn(List<Quote> quotes) {
