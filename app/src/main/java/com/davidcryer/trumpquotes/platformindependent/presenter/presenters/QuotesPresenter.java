@@ -15,7 +15,7 @@ import java.util.List;
 
 public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<QuotesView.EventsListener> {
     private final QuotesView<ViewQuoteType> viewWrapper;
-    private final QuoteResponseHandlerFactory quoteResponseHandlerFactory;
+    private final QuoteResponseHandler quoteResponseHandler;
     private final QuoteRequester quoteRequester;
     private final QuoteStore quoteStore;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
@@ -28,7 +28,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
     ) {
         this.viewWrapper = viewWrapper;
-        this.quoteResponseHandlerFactory = quoteResponseHandlerFactory;
+        this.quoteResponseHandler = quoteResponseHandlerFactory.create(quoteCallback);
         this.quoteRequester = quoteRequester;
         this.quoteStore = quoteStore;
         this.viewQuoteFactory = viewQuoteFactory;
@@ -36,79 +36,116 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
 
     @Override
     public QuotesView.EventsListener eventsListener() {
-        return new QuotesView.EventsListener() {//TODO tidy up
+        return new QuotesView.EventsListener() {
 
             @Override
             public void onRequestFirstNewQuote() {
-                viewWrapper.showLoadingNewQuote();
-                quoteStore.retrieveUnJudgedQuotes(new QuoteStore.RetrieveCallback() {
-                    @Override
-                    public void onReturn(List<Quote> quotes) {
-                        final Quote mostRecentQuote = QuoteHelper.removeMostRecent(quotes);
-                        if (mostRecentQuote == null) {
-                            quoteRequester.requestQuote(quoteResponseHandlerFactory.create(quoteCallback));
-                        } else {
-                            viewWrapper.hideLoadingNewQuote();
-                            viewWrapper.showNewQuote(viewQuoteFactory.create(mostRecentQuote));
-                            quoteStore.clear(QuoteHelper.ids(quotes));
-                        }
-                    }
-                });
+                showLoadingNewQuote();
+                getUnJudgedQuoteFromStoreElseRequestNewQuoteAndDisplay();
             }
 
             @Override
             public void onRetryNewQuoteRequestClicked() {
-                viewWrapper.showLoadingNewQuote();
-                quoteRequester.requestQuote(quoteResponseHandlerFactory.create(quoteCallback));
+                showLoadingNewQuote();
+                requestNewQuoteAndDisplay();
             }
 
             @Override
             public void onRequestQuoteHistory() {
-                quoteStore.retrieveJudgedQuotes(new QuoteStore.RetrieveCallback() {
-                    @Override
-                    public void onReturn(List<Quote> quotes) {
-                        final List<ViewQuoteType> viewQuotes = viewQuoteFactory.create(quotes);
-                        viewWrapper.showQuoteHistory(viewQuotes);
-                    }
-                });
+                getQuoteHistoryFromStore();
             }
 
             @Override
             public void onNewQuoteSwipedLeft() {
-                viewWrapper.showLoadingNewQuote();
-                final ViewQuoteType viewQuote = viewWrapper.viewModel().newQuote();
-                viewWrapper.addNewQuoteToHistory(viewQuote);
-                quoteRequester.requestQuote(quoteResponseHandlerFactory.create(quoteCallback));
+                showLoadingNewQuote();
+                updateNewQuoteAsJudgedInStoreAndAddToHistory();
+                requestNewQuoteAndDisplay();
             }
 
             @Override
             public void onNewQuoteSwipedRight() {
-                viewWrapper.showLoadingNewQuote();
-                final ViewQuote viewQuote = viewWrapper.viewModel().newQuote();
-                quoteStore.clear(viewQuote.id());
-                quoteRequester.requestQuote(quoteResponseHandlerFactory.create(quoteCallback));
+                showLoadingNewQuote();
+                removeNewQuoteFromStore();
+                requestNewQuoteAndDisplay();
             }
 
             @Override
             public void onDeleteQuoteInHistoryClicked(int index) {
-                final ViewQuoteType viewQuote = viewWrapper.viewModel().quoteHistory()[index];
-                quoteStore.clear(viewQuote.id());
-                viewWrapper.removeQuoteInHistory(viewQuote);
+                removeQuoteFromStoreAndHistory(index);
             }
 
             @Override
             public void onDeleteAllQuotesClicked() {
-                final ViewQuote[] viewQuotesInHistory = viewWrapper.viewModel().quoteHistory();
-                final String[] quoteIds = ViewQuoteHelper.ids(viewQuotesInHistory);
-                quoteStore.clear(quoteIds);
-                viewWrapper.removeAllQuotesInHistory();
+                removeAllJudgedQuotesFromStoreAndAllQuotesFromHistory();
             }
 
             @Override
             public void onReleaseResources() {
-                //TODO cancel request if ongoing
+                cancelOngoingQuoteRequests();
             }
         };
+    }
+
+    private void getUnJudgedQuoteFromStoreElseRequestNewQuoteAndDisplay() {
+        quoteStore.retrieveUnJudgedQuotes(new QuoteStore.RetrieveCallback() {
+            @Override
+            public void onReturn(List<Quote> quotes) {
+                final Quote mostRecentQuote = QuoteHelper.removeMostRecent(quotes);
+                if (mostRecentQuote == null) {
+                    requestNewQuoteAndDisplay();
+                } else {
+                    viewWrapper.hideLoadingNewQuote();
+                    viewWrapper.showNewQuote(viewQuoteFactory.create(mostRecentQuote));
+                    quoteStore.clear(QuoteHelper.ids(quotes));
+                }
+            }
+        });
+    }
+
+    private void showLoadingNewQuote() {
+        viewWrapper.showLoadingNewQuote();
+    }
+
+    private void requestNewQuoteAndDisplay() {
+        quoteRequester.requestQuote(quoteResponseHandler);
+    }
+
+    private void getQuoteHistoryFromStore() {
+        quoteStore.retrieveJudgedQuotes(new QuoteStore.RetrieveCallback() {
+            @Override
+            public void onReturn(List<Quote> quotes) {
+                final List<ViewQuoteType> viewQuotes = viewQuoteFactory.create(quotes);
+                viewWrapper.showQuoteHistory(viewQuotes);
+            }
+        });
+    }
+
+    private void updateNewQuoteAsJudgedInStoreAndAddToHistory() {
+        final ViewQuoteType viewQuote = viewWrapper.viewModel().newQuote();
+        quoteStore.updateQuoteAsJudged(viewQuote.id());
+        viewWrapper.addNewQuoteToHistory(viewQuote);
+    }
+
+    private void removeNewQuoteFromStore() {
+        final ViewQuote viewQuote = viewWrapper.viewModel().newQuote();
+        quoteStore.clear(viewQuote.id());
+    }
+
+    private void removeQuoteFromStoreAndHistory(final int index) {
+        final ViewQuoteType viewQuote = viewWrapper.viewModel().quoteHistory()[index];
+        quoteStore.clear(viewQuote.id());
+        viewWrapper.removeQuoteInHistory(viewQuote);
+    }
+
+    private void removeAllJudgedQuotesFromStoreAndAllQuotesFromHistory() {
+        final ViewQuote[] viewQuotesInHistory = viewWrapper.viewModel().quoteHistory();
+        final String[] quoteIds = ViewQuoteHelper.ids(viewQuotesInHistory);
+        quoteStore.clear(quoteIds);
+        viewWrapper.removeAllQuotesInHistory();
+    }
+
+    private void cancelOngoingQuoteRequests() {
+        quoteRequester.cancelRequest(quoteResponseHandler);
     }
 
     private final QuoteResponseHandler.Callback quoteCallback = new QuoteResponseHandler.Callback() {
