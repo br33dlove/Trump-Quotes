@@ -8,23 +8,23 @@ import java.util.List;
 import java.util.Map;
 
 public class QuoteRequesterImpl implements QuoteRequester {
-    private final QuoteRequestExecutor service;
+    private final QuoteRequestExecutor requestExecutor;
     private final Map<QuoteRequestCallback, LinkedList<QuoteRequest>> requestsMap;
 
-    public QuoteRequesterImpl(QuoteRequestExecutor service, Map<QuoteRequestCallback, LinkedList<QuoteRequest>> requestsMap) {
-        this.service = service;
+    public QuoteRequesterImpl(QuoteRequestExecutor requestExecutor, Map<QuoteRequestCallback, LinkedList<QuoteRequest>> requestsMap) {
+        this.requestExecutor = requestExecutor;
         this.requestsMap = requestsMap;
     }
 
     @Override
     public void requestRandomQuote(QuoteRequestCallback requestCallback) {
-        final QuoteRequest request = service.requestRandomQuote(requestCallback);
+        final QuoteRequest request = requestExecutor.requestRandomQuote(requestCallback);
         MapHelper.forKeyAddValueToLinkedListInMap(requestCallback, request, requestsMap);
     }
 
     @Override
     public void requestPersonalisedQuote(String name, QuoteRequestCallback requestCallback) {
-        final QuoteRequest request = service.requestPersonalisedQuote(name, requestCallback);
+        final QuoteRequest request = requestExecutor.requestPersonalisedQuote(name, requestCallback);
         MapHelper.forKeyAddValueToLinkedListInMap(requestCallback, request, requestsMap);
     }
 
