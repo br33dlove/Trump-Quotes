@@ -4,10 +4,10 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 
-public class AndroidQuoteStoreHandler implements QuoteStoreHandler {
+public class AndroidHandlerQuoteStoreHandler implements QuoteStoreHandler {
     private final QuoteStore quoteStore;
 
-    public AndroidQuoteStoreHandler(QuoteStore quoteStore) {
+    public AndroidHandlerQuoteStoreHandler(QuoteStore quoteStore) {
         this.quoteStore = quoteStore;
     }
 
