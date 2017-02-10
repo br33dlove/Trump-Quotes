@@ -1,10 +1,9 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteRequester;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteResponseHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStore;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteResponseHandlerFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
@@ -15,20 +14,17 @@ import java.util.List;
 
 public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<QuotesView.EventsListener> {
     private final QuotesView<ViewQuoteType> viewWrapper;
-    private final QuoteResponseHandler quoteResponseHandler;
     private final QuoteRequester quoteRequester;
     private final QuoteStore quoteStore;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
     public QuotesPresenter(
             final QuotesView<ViewQuoteType> viewWrapper,
-            final QuoteResponseHandlerFactory quoteResponseHandlerFactory,
             final QuoteRequester quoteRequester,
             final QuoteStore quoteStore,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
     ) {
         this.viewWrapper = viewWrapper;
-        this.quoteResponseHandler = quoteResponseHandlerFactory.create(quoteCallback);
         this.quoteRequester = quoteRequester;
         this.quoteStore = quoteStore;
         this.viewQuoteFactory = viewQuoteFactory;
@@ -107,7 +103,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
     }
 
     private void requestNewQuoteAndDisplay() {
-        quoteRequester.requestQuote(quoteResponseHandler);
+        quoteRequester.requestRandomQuote(quoteCallback);
     }
 
     private void getQuoteHistoryFromStoreAndDisplay() {
@@ -145,10 +141,10 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
     }
 
     private void cancelOngoingQuoteRequests() {
-        quoteRequester.cancelRequest(quoteResponseHandler);
+        quoteRequester.release(quoteCallback);
     }
 
-    private final QuoteResponseHandler.Callback quoteCallback = new QuoteResponseHandler.Callback() {
+    private final QuoteRequestCallback quoteCallback = new QuoteRequestCallback() {
 
         @Override
         public void success(Quote quote) {

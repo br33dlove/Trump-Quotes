@@ -30,11 +30,7 @@ class ApplicationDependencyProvider {
     }
 
     private static PresenterFactoryFactory createPresenterFactory(final Context context) {
-        return new PresenterFactoryFactoryImpl(createQuoteResponseHandlerFactory(), createQuoteRequesterFactory(), createQuoteStoreFactory(context), createViewQuoteFactory());
-    }
-
-    private static QuoteResponseHandlerFactory createQuoteResponseHandlerFactory() {
-        return null;//TODO
+        return new PresenterFactoryFactoryImpl(createQuoteRequesterFactory(), createQuoteStoreFactory(context), createViewQuoteFactory());
     }
 
     private static QuoteRequesterFactory createQuoteRequesterFactory() {

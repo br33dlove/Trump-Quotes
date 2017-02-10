@@ -9,18 +9,15 @@ import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.facto
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
 public class PresenterFactoryFactoryImpl implements PresenterFactoryFactory {
-    private final QuoteResponseHandlerFactory quoteResponseHandlerFactory;
     private final QuoteRequesterFactory quoteRequesterFactory;
     private final QuoteStoreFactory quoteStoreFactory;
     private final ViewQuoteFactory<AndroidViewQuote> viewQuoteFactory;
 
     public PresenterFactoryFactoryImpl(
-            final QuoteResponseHandlerFactory quoteResponseHandlerFactory,
             final QuoteRequesterFactory quoteRequesterFactory,
             final QuoteStoreFactory quoteStoreFactory,
             final ViewQuoteFactory<AndroidViewQuote> viewQuoteFactory
     ) {
-        this.quoteResponseHandlerFactory = quoteResponseHandlerFactory;
         this.quoteRequesterFactory = quoteRequesterFactory;
         this.quoteStoreFactory = quoteStoreFactory;
         this.viewQuoteFactory = viewQuoteFactory;
@@ -28,6 +25,6 @@ public class PresenterFactoryFactoryImpl implements PresenterFactoryFactory {
 
     @Override
     public QuotePresenterFactory<AndroidViewQuote> createQuotesPresenterFactory() {
-        return new QuotePresenterFactoryImpl<>(quoteResponseHandlerFactory, quoteRequesterFactory.create(), quoteStoreFactory.create(), viewQuoteFactory);
+        return new QuotePresenterFactoryImpl<>(quoteRequesterFactory.create(), quoteStoreFactory.create(), viewQuoteFactory);
     }
 }
