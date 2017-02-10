@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public class QuoteRequesterImpl implements QuoteRequester {
-    private final QuoteService service;
+    private final QuoteRequestExecutor service;
     private final Map<QuoteRequestCallback, LinkedList<QuoteRequest>> requestsMap;
 
-    public QuoteRequesterImpl(QuoteService service, Map<QuoteRequestCallback, LinkedList<QuoteRequest>> requestsMap) {
+    public QuoteRequesterImpl(QuoteRequestExecutor service, Map<QuoteRequestCallback, LinkedList<QuoteRequest>> requestsMap) {
         this.service = service;
         this.requestsMap = requestsMap;
     }
