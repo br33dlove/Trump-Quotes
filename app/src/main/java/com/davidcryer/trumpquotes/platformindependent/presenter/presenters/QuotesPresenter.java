@@ -1,9 +1,9 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStoreHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequester;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStore;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
@@ -15,18 +15,18 @@ import java.util.List;
 public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<QuotesView.EventsListener> {
     private final QuotesView<ViewQuoteType> viewWrapper;
     private final QuoteRequester quoteRequester;
-    private final QuoteStore quoteStore;
+    private final QuoteStoreHandler quoteStoreHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
     public QuotesPresenter(
             final QuotesView<ViewQuoteType> viewWrapper,
             final QuoteRequester quoteRequester,
-            final QuoteStore quoteStore,
+            final QuoteStoreHandler quoteStoreHandler,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
     ) {
         this.viewWrapper = viewWrapper;
         this.quoteRequester = quoteRequester;
-        this.quoteStore = quoteStore;
+        this.quoteStoreHandler = quoteStoreHandler;
         this.viewQuoteFactory = viewQuoteFactory;
     }
 
@@ -83,7 +83,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
     }
 
     private void getUnJudgedQuoteFromStoreOrRequestNewQuoteAndDisplay() {
-        quoteStore.retrieveUnJudgedQuotes(new QuoteStore.RetrieveCallback() {
+        quoteStoreHandler.retrieveUnJudgedQuotes(new QuoteStoreHandler.RetrieveCallback() {
             @Override
             public void onReturn(List<Quote> quotes) {
                 final Quote mostRecentQuote = QuoteHelper.removeMostRecent(quotes);
@@ -92,7 +92,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
                 } else {
                     viewWrapper.hideLoadingNewQuote();
                     viewWrapper.showNewQuote(viewQuoteFactory.create(mostRecentQuote));
-                    quoteStore.clear(QuoteHelper.ids(quotes));
+                    quoteStoreHandler.clear(QuoteHelper.ids(quotes));
                 }
             }
         });
@@ -107,7 +107,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
     }
 
     private void getQuoteHistoryFromStoreAndDisplay() {
-        quoteStore.retrieveJudgedQuotes(new QuoteStore.RetrieveCallback() {
+        quoteStoreHandler.retrieveJudgedQuotes(new QuoteStoreHandler.RetrieveCallback() {
             @Override
             public void onReturn(List<Quote> quotes) {
                 final List<ViewQuoteType> viewQuotes = viewQuoteFactory.create(quotes);
@@ -118,25 +118,25 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
 
     private void updateNewQuoteAsJudgedInStoreAndAddToHistory() {
         final ViewQuoteType viewQuote = viewWrapper.viewModel().newQuote();
-        quoteStore.updateQuoteAsJudged(viewQuote.id());
+        quoteStoreHandler.updateQuoteAsJudged(viewQuote.id());
         viewWrapper.addNewQuoteToHistory(viewQuote);
     }
 
     private void removeNewQuoteFromStore() {
         final ViewQuote viewQuote = viewWrapper.viewModel().newQuote();
-        quoteStore.clear(viewQuote.id());
+        quoteStoreHandler.clear(viewQuote.id());
     }
 
     private void removeQuoteFromStoreAndHistory(final int index) {
         final ViewQuoteType viewQuote = viewWrapper.viewModel().quoteHistory()[index];
-        quoteStore.clear(viewQuote.id());
+        quoteStoreHandler.clear(viewQuote.id());
         viewWrapper.removeQuoteInHistory(viewQuote);
     }
 
     private void removeAllJudgedQuotesFromStoreAndAllQuotesFromHistory() {
         final ViewQuote[] viewQuotesInHistory = viewWrapper.viewModel().quoteHistory();
         final String[] quoteIds = ViewQuoteHelper.ids(viewQuotesInHistory);
-        quoteStore.clear(quoteIds);
+        quoteStoreHandler.clear(quoteIds);
         viewWrapper.removeAllQuotesInHistory();
     }
 
@@ -150,7 +150,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
         public void success(Quote quote) {
             viewWrapper.hideLoadingNewQuote();
             viewWrapper.showNewQuote(viewQuoteFactory.create(quote));
-            quoteStore.store(quote);
+            quoteStoreHandler.store(quote);
         }
 
         @Override

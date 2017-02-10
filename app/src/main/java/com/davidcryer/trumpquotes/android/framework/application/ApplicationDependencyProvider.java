@@ -17,6 +17,7 @@ import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperF
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteRequesterFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteResponseHandlerFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteStoreFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteStoreHandlerFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
 class ApplicationDependencyProvider {
@@ -30,10 +31,14 @@ class ApplicationDependencyProvider {
     }
 
     private static PresenterFactoryFactory createPresenterFactory(final Context context) {
-        return new PresenterFactoryFactoryImpl(createQuoteRequesterFactory(), createQuoteStoreFactory(context), createViewQuoteFactory());
+        return new PresenterFactoryFactoryImpl(createQuoteRequesterFactory(), createQuoteStoreHandlerFactory(context), createViewQuoteFactory());
     }
 
     private static QuoteRequesterFactory createQuoteRequesterFactory() {
+        return null;//TODO
+    }
+
+    private static QuoteStoreHandlerFactory createQuoteStoreHandlerFactory(final Context context) {
         return null;//TODO
     }
 
