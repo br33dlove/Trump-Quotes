@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.android.model.quotes;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStore;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStoreHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 
 public class AndroidQuoteStoreHandler implements QuoteStoreHandler {
     private final QuoteStore quoteStore;

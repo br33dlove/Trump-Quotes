@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories;
 
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteStoreHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuotesPresenter;

@@ -14,10 +14,9 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.factories.AndroidViewQuoteFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteRequesterFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteResponseHandlerFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteStoreFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.factories.QuoteStoreHandlerFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.factories.QuoteRequesterFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreHandlerFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
 class ApplicationDependencyProvider {

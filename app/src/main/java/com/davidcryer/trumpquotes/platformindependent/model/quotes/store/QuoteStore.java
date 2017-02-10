@@ -1,4 +1,6 @@
-package com.davidcryer.trumpquotes.platformindependent.model.quotes;
+package com.davidcryer.trumpquotes.platformindependent.model.quotes.store;
+
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 
 public interface QuoteStore {
     void store(final Quote... quotes);
