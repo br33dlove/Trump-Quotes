@@ -18,13 +18,13 @@ public class QuoteRequesterImpl implements QuoteRequester {
 
     @Override
     public void requestRandomQuote(QuoteRequestCallback requestCallback) {
-        final QuoteRequest request = requestExecutor.requestRandomQuote(requestCallback);
+        final QuoteRequest request = requestExecutor.executeRandomQuoteRequest(requestCallback);
         MapHelper.forKeyAddValueToLinkedListInMap(requestCallback, request, requestsMap);
     }
 
     @Override
     public void requestPersonalisedQuote(String name, QuoteRequestCallback requestCallback) {
-        final QuoteRequest request = requestExecutor.requestPersonalisedQuote(name, requestCallback);
+        final QuoteRequest request = requestExecutor.executePersonalisedQuoteRequest(name, requestCallback);
         MapHelper.forKeyAddValueToLinkedListInMap(requestCallback, request, requestsMap);
     }
 

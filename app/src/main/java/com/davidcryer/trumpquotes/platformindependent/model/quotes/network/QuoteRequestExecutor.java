@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.model.quotes.network;
 
 public interface QuoteRequestExecutor<RequestType extends QuoteRequest> {
-    RequestType requestRandomQuote(final QuoteRequestCallback requestCallback);
-    RequestType requestPersonalisedQuote(final String name, final QuoteRequestCallback requestCallback);
+    RequestType executeRandomQuoteRequest(final QuoteRequestCallback requestCallback);
+    RequestType executePersonalisedQuoteRequest(final String name, final QuoteRequestCallback requestCallback);
 }
