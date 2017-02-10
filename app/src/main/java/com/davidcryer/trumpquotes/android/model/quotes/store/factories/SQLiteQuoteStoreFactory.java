@@ -1,8 +1,9 @@
-package com.davidcryer.trumpquotes.android.model.quotes.store;
+package com.davidcryer.trumpquotes.android.model.quotes.store.factories;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.davidcryer.trumpquotes.android.model.quotes.store.SQLiteQuoteStore;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreFactory;
 
