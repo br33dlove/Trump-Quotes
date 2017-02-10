@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.quotes;
+package com.davidcryer.trumpquotes.android.model.quotes.store;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;

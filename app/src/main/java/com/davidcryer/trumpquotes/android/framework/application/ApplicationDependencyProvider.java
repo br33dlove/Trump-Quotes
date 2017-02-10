@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.model.quotes.SQLiteQuoteStoreFactory;
+import com.davidcryer.trumpquotes.android.model.quotes.store.SQLiteQuoteStoreFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.factories.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.factories.PresenterFactoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
