@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface RetrofitQuoteCaller {
+public interface RetrofitQuoteCalls {
     @GET("v1/quotes/random")
     Call<Quote> randomQuote();
 

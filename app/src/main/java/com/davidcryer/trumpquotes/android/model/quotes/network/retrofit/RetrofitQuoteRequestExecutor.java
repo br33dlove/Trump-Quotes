@@ -1,25 +1,26 @@
 package com.davidcryer.trumpquotes.android.model.quotes.network.retrofit;
 
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequest;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestExecutor;
 
-public class RetrofitQuoteRequestExecutor implements QuoteRequestExecutor {
-    private final RetrofitQuoteCaller quoteCaller;
+public class RetrofitQuoteRequestExecutor implements QuoteRequestExecutor<RetrofitQuoteRequest> {
+    private final RetrofitQuoteCalls quoteCaller;
 
-    public RetrofitQuoteRequestExecutor(RetrofitQuoteCaller quoteCaller) {
+    public RetrofitQuoteRequestExecutor(RetrofitQuoteCalls quoteCaller) {
         this.quoteCaller = quoteCaller;
     }
 
     @Override
-    public QuoteRequest executeRandomQuoteRequest(QuoteRequestCallback requestCallback) {
-        final RetrofitQuoteRequest request = new RetrofitQuoteRequest(quoteCaller.randomQuote());
-        request.execute();
+    public RetrofitQuoteRequest executeRandomQuoteRequest(QuoteRequestCallback requestCallback) {
+        final RetrofitQuoteRequest request = new RetrofitAsyncQuoteRequest(quoteCaller.randomQuote(), requestCallback);
+        request.executeAsync();
         return request;
     }
 
     @Override
-    public QuoteRequest executePersonalisedQuoteRequest(String name, QuoteRequestCallback requestCallback) {
-        return null;
+    public RetrofitQuoteRequest executePersonalisedQuoteRequest(String name, QuoteRequestCallback requestCallback) {
+        final RetrofitQuoteRequest request = new RetrofitAsyncQuoteRequest(quoteCaller.personalisedQuote(name), requestCallback);
+        request.executeAsync();
+        return request;
     }
 }
