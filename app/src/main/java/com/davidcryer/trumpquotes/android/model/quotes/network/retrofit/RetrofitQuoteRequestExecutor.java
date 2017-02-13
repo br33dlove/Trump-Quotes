@@ -4,6 +4,8 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.Quote
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestExecutor;
 
+import java.util.Arrays;
+
 public class RetrofitQuoteRequestExecutor implements QuoteRequestExecutor {
     private final RetrofitQuoteCalls quoteCaller;
 
@@ -12,15 +14,15 @@ public class RetrofitQuoteRequestExecutor implements QuoteRequestExecutor {
     }
 
     @Override
-    public QuoteRequest executeRandomQuoteRequest(QuoteRequestCallback requestCallback) {
-        final QuoteRequest request = new RetrofitQuoteRequestImpl(quoteCaller.randomQuote(), requestCallback);
+    public QuoteRequest executeRandomQuoteRequest(final QuoteRequestCallback... requestCallbacks) {
+        final QuoteRequest request = new RetrofitQuoteRequestImpl(quoteCaller.randomQuote(), Arrays.asList(requestCallbacks));
         request.executeAsync();
         return request;
     }
 
     @Override
-    public QuoteRequest executePersonalisedQuoteRequest(String name, QuoteRequestCallback requestCallback) {
-        final QuoteRequest request = new RetrofitQuoteRequestImpl(quoteCaller.personalisedQuote(name), requestCallback);
+    public QuoteRequest executePersonalisedQuoteRequest(String name, final QuoteRequestCallback... requestCallbacks) {
+        final QuoteRequest request = new RetrofitQuoteRequestImpl(quoteCaller.personalisedQuote(name), Arrays.asList(requestCallbacks));
         request.executeAsync();
         return request;
     }

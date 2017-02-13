@@ -20,10 +20,6 @@ class RetrofitQuoteRequestImpl implements QuoteRequest {
         this.callbacks = callbacks;
     }
 
-    RetrofitQuoteRequestImpl(Call<Quote> call, final QuoteRequestCallback callback) {
-        this(call, Collections.singletonList(callback));
-    }
-
     @Override
     public void executeAsync() {
         call.enqueue(new Callback<Quote>() {
