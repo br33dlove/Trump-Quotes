@@ -10,7 +10,7 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
     private final ViewWrapperFactory viewWrapperFactory;
     private ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> quotesViewWrapper;
 
-    public ViewWrapperRepositoryImpl(final ViewWrapperFactory viewWrapperFactory) {
+    ViewWrapperRepositoryImpl(final ViewWrapperFactory viewWrapperFactory) {
         this.viewWrapperFactory = viewWrapperFactory;
     }
 
@@ -28,8 +28,9 @@ class ViewWrapperRepositoryImpl implements ViewWrapperRepository {
         if (quotesViewWrapper != null) {
             quotesViewWrapper.unregister();
             if (!unbindType.equals(ViewUnbindType.CONFIG_CHANGE)) {
-                quotesViewWrapper.releaseResources();
-                if (unbindType.equals(ViewUnbindType.FINISH)) {
+                final boolean isFinishing = unbindType.equals(ViewUnbindType.FINISH);
+                quotesViewWrapper.releaseResources(isFinishing);
+                if (isFinishing) {
                     quotesViewWrapper = null;
                 }
             }

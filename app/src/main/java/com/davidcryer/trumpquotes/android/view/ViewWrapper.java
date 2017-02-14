@@ -20,7 +20,7 @@ public abstract class ViewWrapper<ViewType extends AndroidMvpView, ViewEventsLis
         this.view = null;
     }
 
-    public abstract void releaseResources();
+    public abstract void releaseResources(final boolean isFinishing);
 
     public abstract ViewEventsListenerType viewEventsListener();
 }

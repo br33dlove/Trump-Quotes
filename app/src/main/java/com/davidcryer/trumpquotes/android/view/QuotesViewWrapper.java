@@ -137,7 +137,7 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     }
 
     @Override
-    public void releaseResources() {
-        wrapperEventsListener.onReleaseResources();
+    public void releaseResources(final boolean isFinishing) {
+        wrapperEventsListener.onReleaseResources(isFinishing);
     }
 }

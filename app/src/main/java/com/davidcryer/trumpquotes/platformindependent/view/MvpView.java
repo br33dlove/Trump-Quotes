@@ -6,6 +6,6 @@ public interface MvpView<ViewModelType extends MvpViewModel> {
     ViewModelType viewModel();
 
     interface EventsListener {
-        void onReleaseResources();
+        void onReleaseResources(final boolean isFinishing);
     }
 }
