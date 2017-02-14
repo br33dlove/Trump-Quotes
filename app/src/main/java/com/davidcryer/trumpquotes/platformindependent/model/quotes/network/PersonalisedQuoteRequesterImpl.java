@@ -20,11 +20,11 @@ public class PersonalisedQuoteRequesterImpl implements PersonalisedQuoteRequeste
         if (preferLastReceivedQuote) {
             requestCallback.success(lastReceivedQuote);
         } else if (request == null) {
-            makeNewRequest(name, requestCallback);
+            executeNewRequest(name, requestCallback);
         }
     }
 
-    private void makeNewRequest(final String name, final QuoteRequestCallback requestCallback) {
+    private void executeNewRequest(final String name, final QuoteRequestCallback requestCallback) {
         callbacks.add(requestCallback);
         request = requestFactory.randomQuoteRequest(new QuoteRequestCallback() {
             @Override

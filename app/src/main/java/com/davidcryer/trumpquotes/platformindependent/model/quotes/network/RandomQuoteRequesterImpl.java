@@ -20,11 +20,11 @@ public class RandomQuoteRequesterImpl implements RandomQuoteRequester {
         if (preferLastReceivedQuote) {
             requestCallback.success(lastReceivedQuote);
         } else if (request == null) {
-            makeNewRequest(requestCallback);
+            executeNewRequest(requestCallback);
         }
     }
 
-    private void makeNewRequest(final QuoteRequestCallback requestCallback) {
+    private void executeNewRequest(final QuoteRequestCallback requestCallback) {
         callbacks.add(requestCallback);
         request = requestFactory.randomQuoteRequest(new QuoteRequestCallback() {
             @Override
