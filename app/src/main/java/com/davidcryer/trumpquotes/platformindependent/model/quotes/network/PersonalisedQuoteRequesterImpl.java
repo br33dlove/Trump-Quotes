@@ -26,7 +26,7 @@ public class PersonalisedQuoteRequesterImpl implements PersonalisedQuoteRequeste
 
     private void executeNewRequest(final String name, final QuoteRequestCallback requestCallback) {
         callbacks.add(requestCallback);
-        request = requestFactory.randomQuoteRequest(new QuoteRequestCallback() {
+        request = requestFactory.personalisedQuoteRequest(name, new QuoteRequestCallback() {
             @Override
             public void success(Quote quote) {
                 clearRequest();
