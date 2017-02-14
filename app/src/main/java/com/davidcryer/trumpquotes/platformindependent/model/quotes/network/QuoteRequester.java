@@ -4,7 +4,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 
 import java.util.Set;
 
-public abstract class QuoteRequester {
+public abstract class QuoteRequester {//TODO separate from Quote and make generic
     private final Set<QuoteRequestCallback> callbacks;
     private Quote lastReceivedQuote;
     private QuoteRequest request;
