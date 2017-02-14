@@ -3,7 +3,7 @@ package com.davidcryer.trumpquotes.platformindependent.presenter.presenters;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequester;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.PersonalisedQuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
@@ -14,18 +14,18 @@ import java.util.List;
 
 public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<QuotesView.EventsListener> {
     private final QuotesView<ViewQuoteType> viewWrapper;
-    private final QuoteRequester quoteRequester;
+    private final PersonalisedQuoteRequester personalisedQuoteRequester;
     private final QuoteStoreHandler quoteStoreHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
     public QuotesPresenter(
             final QuotesView<ViewQuoteType> viewWrapper,
-            final QuoteRequester quoteRequester,
+            final PersonalisedQuoteRequester personalisedQuoteRequester,
             final QuoteStoreHandler quoteStoreHandler,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
     ) {
         this.viewWrapper = viewWrapper;
-        this.quoteRequester = quoteRequester;
+        this.personalisedQuoteRequester = personalisedQuoteRequester;
         this.quoteStoreHandler = quoteStoreHandler;
         this.viewQuoteFactory = viewQuoteFactory;
     }
@@ -103,7 +103,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
     }
 
     private void requestNewQuoteAndDisplay() {
-        quoteRequester.requestRandomQuote(quoteCallback);
+        personalisedQuoteRequester.requestRandomQuote(quoteCallback);
     }
 
     private void getQuoteHistoryFromStoreAndDisplay() {
@@ -141,7 +141,7 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
     }
 
     private void cancelOngoingQuoteRequests() {
-        quoteRequester.release(quoteCallback);
+        personalisedQuoteRequester.remove(quoteCallback);
     }
 
     private final QuoteRequestCallback quoteCallback = new QuoteRequestCallback() {

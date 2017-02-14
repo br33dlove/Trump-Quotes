@@ -44,6 +44,11 @@ class RetrofitQuoteRequestImpl implements QuoteRequest {
     }
 
     @Override
+    public boolean isExecuted() {
+        return call.isExecuted();
+    }
+
+    @Override
     public void cancel() {
         call.cancel();
         callbacks.clear();

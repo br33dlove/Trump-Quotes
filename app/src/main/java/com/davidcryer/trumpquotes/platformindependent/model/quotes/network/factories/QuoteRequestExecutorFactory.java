@@ -1,7 +1,7 @@
 package com.davidcryer.trumpquotes.platformindependent.model.quotes.network.factories;
 
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestExecutor;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestFactory;
 
 public interface QuoteRequestExecutorFactory {
-    QuoteRequestExecutor create();
+    QuoteRequestFactory create();
 }

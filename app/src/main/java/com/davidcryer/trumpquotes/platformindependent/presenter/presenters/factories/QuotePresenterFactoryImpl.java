@@ -1,7 +1,7 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequester;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.PersonalisedQuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuotesPresenter;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
@@ -9,22 +9,22 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.Vie
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
 public class QuotePresenterFactoryImpl<ViewQuoteType extends ViewQuote> implements QuotePresenterFactory<ViewQuoteType> {
-    private final QuoteRequester quoteRequester;
+    private final PersonalisedQuoteRequester personalisedQuoteRequester;
     private final QuoteStoreHandler quoteStoreHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
     public QuotePresenterFactoryImpl(
-            final QuoteRequester quoteRequester,
+            final PersonalisedQuoteRequester personalisedQuoteRequester,
             final QuoteStoreHandler quoteStoreHandler,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
     ) {
-        this.quoteRequester = quoteRequester;
+        this.personalisedQuoteRequester = personalisedQuoteRequester;
         this.quoteStoreHandler = quoteStoreHandler;
         this.viewQuoteFactory = viewQuoteFactory;
     }
 
     @Override
     public Presenter<QuotesView.EventsListener> create(final QuotesView<ViewQuoteType> viewWrapper) {
-        return new QuotesPresenter<>(viewWrapper, quoteRequester, quoteStoreHandler, viewQuoteFactory);
+        return new QuotesPresenter<>(viewWrapper, personalisedQuoteRequester, quoteStoreHandler, viewQuoteFactory);
     }
 }
