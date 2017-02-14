@@ -3,7 +3,7 @@ package com.davidcryer.trumpquotes.platformindependent.presenter.presenters;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.PersonalisedQuoteRequester;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters.PersonalisedQuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;

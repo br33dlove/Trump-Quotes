@@ -1,4 +1,8 @@
-package com.davidcryer.trumpquotes.platformindependent.model.quotes.network;
+package com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters;
+
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequest;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestFactory;
 
 import java.util.Set;
 
