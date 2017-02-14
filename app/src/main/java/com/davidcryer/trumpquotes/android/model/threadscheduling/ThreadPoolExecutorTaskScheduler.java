@@ -19,7 +19,7 @@ public class ThreadPoolExecutorTaskScheduler implements TaskScheduler {
     }
 
     @Override
-    public <ResponseValueType> void scheduleOnSuccessCallback(final ResponseValueType responseValue, final Task.Callback<ResponseValueType> callback) {
+    public <ResponseValuesType> void scheduleOnSuccessCallback(final ResponseValuesType responseValue, final Task.Callback<ResponseValuesType> callback) {
         handler.post(new Runnable() {
             @Override
             public void run() {

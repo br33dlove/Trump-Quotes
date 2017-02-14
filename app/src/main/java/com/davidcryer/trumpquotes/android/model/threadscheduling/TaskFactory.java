@@ -1,5 +1,5 @@
 package com.davidcryer.trumpquotes.android.model.threadscheduling;
 
-public interface TaskFactory<RequestValuesType, ResponseValueType> {
-    Task<RequestValuesType, ResponseValueType> create(final RequestValuesType requestValues, final Task.Callback<ResponseValueType> callback);
+public interface TaskFactory<RequestValuesType, ResponseValuesType> {
+    Task<RequestValuesType, ResponseValuesType> create(final RequestValuesType requestValues, final Task.Callback<ResponseValuesType> callback);
 }

@@ -2,11 +2,11 @@ package com.davidcryer.trumpquotes.android.model.threadscheduling;
 
 import java.lang.ref.WeakReference;
 
-public abstract class Task<RequestValuesType, ResponseValueType> {
+public abstract class Task<RequestValuesType, ResponseValuesType> {
     private final RequestValuesType requestValues;
-    private final WeakReference<Callback<ResponseValueType>> callback;
+    private final WeakReference<Callback<ResponseValuesType>> callback;
 
-    public Task(RequestValuesType requestValues, Callback<ResponseValueType> callback) {
+    public Task(RequestValuesType requestValues, Callback<ResponseValuesType> callback) {
         this.requestValues = requestValues;
         this.callback = new WeakReference<>(callback);
     }
@@ -17,7 +17,7 @@ public abstract class Task<RequestValuesType, ResponseValueType> {
 
     protected abstract void doTask(final RequestValuesType requestValues);
 
-    protected void onSuccess(final ResponseValueType responseValue) {
+    protected void onSuccess(final ResponseValuesType responseValue) {
         if (callback.get() != null) {
             callback.get().onSuccess(responseValue);
         }
@@ -29,8 +29,8 @@ public abstract class Task<RequestValuesType, ResponseValueType> {
         }
     }
 
-    public interface Callback<ResponseValueType> {
-        void onSuccess(ResponseValueType response);
+    public interface Callback<ResponseValuesType> {
+        void onSuccess(ResponseValuesType response);
         void onError();
     }
 }

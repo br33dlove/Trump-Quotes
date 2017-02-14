@@ -10,12 +10,12 @@ public class TaskHandlerImpl implements TaskHandler {
     }
 
     @Override
-    public <RequestValuesType, ResponseValueType> void executeTask(
-            TaskFactory<RequestValuesType, ResponseValueType> taskFactory,
+    public <RequestValuesType, ResponseValuesType> void executeTask(
+            TaskFactory<RequestValuesType, ResponseValuesType> taskFactory,
             RequestValuesType requestValuesType,
-            Task.Callback<ResponseValueType> callback
+            Task.Callback<ResponseValuesType> callback
     ) {
-        final Task<RequestValuesType, ResponseValueType> task = taskFactory.create(requestValuesType, taskCallbackWrapper(callback));
+        final Task<RequestValuesType, ResponseValuesType> task = taskFactory.create(requestValuesType, taskCallbackWrapper(callback));
         taskScheduler.schedule(new Runnable() {
             @Override
             public void run() {
@@ -24,10 +24,10 @@ public class TaskHandlerImpl implements TaskHandler {
         });
     }
 
-    private <ResponseValueType> TaskCallbackWrapper<ResponseValueType> taskCallbackWrapper(final Task.Callback<ResponseValueType> callback) {
-        return new TaskCallbackWrapper<>(callback, new TaskCallbackHandler<ResponseValueType>() {
+    private <ResponseValuesType> TaskCallbackWrapper<ResponseValuesType> taskCallbackWrapper(final Task.Callback<ResponseValuesType> callback) {
+        return new TaskCallbackWrapper<>(callback, new TaskCallbackHandler<ResponseValuesType>() {
             @Override
-            public void executeOnSuccessCallback(ResponseValueType responseValue, Task.Callback<ResponseValueType> callback) {
+            public void executeOnSuccessCallback(ResponseValuesType responseValue, Task.Callback<ResponseValuesType> callback) {
                 taskScheduler.scheduleOnSuccessCallback(responseValue, callback);
             }
 
@@ -38,22 +38,22 @@ public class TaskHandlerImpl implements TaskHandler {
         });
     }
 
-    interface TaskCallbackHandler<ResponseValueType> {
-        void executeOnSuccessCallback(final ResponseValueType responseValue, final Task.Callback<ResponseValueType> callback);
+    interface TaskCallbackHandler<ResponseValuesType> {
+        void executeOnSuccessCallback(final ResponseValuesType responseValue, final Task.Callback<ResponseValuesType> callback);
         void executeOfErrorCallback(final Task.Callback callback);
     }
 
-    private static class TaskCallbackWrapper<ResponseValueType> implements Task.Callback<ResponseValueType> {
-        private final WeakReference<Task.Callback<ResponseValueType>> callback;
-        private final TaskCallbackHandler taskCallbackHandler;
+    private static class TaskCallbackWrapper<ResponseValuesType> implements Task.Callback<ResponseValuesType> {
+        private final WeakReference<Task.Callback<ResponseValuesType>> callback;
+        private final TaskCallbackHandler<ResponseValuesType> taskCallbackHandler;
 
-        private TaskCallbackWrapper(final Task.Callback<ResponseValueType> callback, final TaskCallbackHandler taskCallbackHandler) {
+        private TaskCallbackWrapper(final Task.Callback<ResponseValuesType> callback, final TaskCallbackHandler<ResponseValuesType> taskCallbackHandler) {
             this.callback = new WeakReference<>(callback);
             this.taskCallbackHandler = taskCallbackHandler;
         }
 
         @Override
-        public void onSuccess(ResponseValueType response) {
+        public void onSuccess(ResponseValuesType response) {
             if (callback.get() != null) {
                 taskCallbackHandler.executeOnSuccessCallback(response, callback.get());
             }
