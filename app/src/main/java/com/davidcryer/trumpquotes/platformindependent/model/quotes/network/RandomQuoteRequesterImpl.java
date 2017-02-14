@@ -17,7 +17,7 @@ public class RandomQuoteRequesterImpl implements RandomQuoteRequester {
 
     @Override
     public void requestRandomQuote(QuoteRequestCallback requestCallback, boolean preferLastReceivedQuote) {
-        if (preferLastReceivedQuote) {
+        if (preferLastReceivedQuote && lastReceivedQuote != null) {
             requestCallback.success(lastReceivedQuote);
         } else if (request == null) {
             executeNewRequest(requestCallback);

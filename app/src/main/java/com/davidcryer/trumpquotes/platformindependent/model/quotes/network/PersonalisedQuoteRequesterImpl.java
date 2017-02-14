@@ -17,7 +17,7 @@ public class PersonalisedQuoteRequesterImpl implements PersonalisedQuoteRequeste
 
     @Override
     public void requestPersonalisedQuote(String name, QuoteRequestCallback requestCallback, boolean preferLastReceivedQuote) {
-        if (preferLastReceivedQuote) {
+        if (preferLastReceivedQuote && lastReceivedQuote != null) {
             requestCallback.success(lastReceivedQuote);
         } else if (request == null) {
             executeNewRequest(name, requestCallback);
