@@ -21,7 +21,7 @@ public class StoreQuotesTask extends Task<StoreQuotesTask.RequestValues, Void> {
         }
     }
 
-    public class RequestValues {
+    public static class RequestValues {
         private final Quote[] quotes;
 
         public RequestValues(Quote[] quotes) {
