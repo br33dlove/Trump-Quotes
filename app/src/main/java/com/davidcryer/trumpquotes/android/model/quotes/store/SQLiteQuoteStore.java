@@ -2,6 +2,7 @@ package com.davidcryer.trumpquotes.android.model.quotes.store;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
@@ -25,24 +26,30 @@ public class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {
     }
 
     @Override
-    public void store(Quote... quotes) {
+    public boolean store(Quote... quotes) {
         final SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         try {
 //            db.upsert()//TODO try update, else insert
             db.setTransactionSuccessful();
+            return true;
+        } catch (SQLiteException sqle) {
+            return false;
         } finally {
             db.endTransaction();
         }
     }
 
     @Override
-    public void clear(String... quoteIds) {
+    public boolean clear(String... quoteIds) {
         final SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         try {
 //            db.delete()//TODO
             db.setTransactionSuccessful();
+            return true;
+        } catch (SQLiteException sqle) {
+            return false;
         } finally {
             db.endTransaction();
         }
@@ -59,7 +66,8 @@ public class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {
     }
 
     @Override
-    public void updateQuoteAsJudged(String quoteId) {
+    public boolean updateQuoteAsJudged(String quoteId) {
         //TODO
+        return false;
     }
 }
