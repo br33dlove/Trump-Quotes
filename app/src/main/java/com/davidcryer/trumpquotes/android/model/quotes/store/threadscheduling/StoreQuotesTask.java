@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.quotes.store;
+package com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling;
 
 import com.davidcryer.trumpquotes.android.model.threadscheduling.Task;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
