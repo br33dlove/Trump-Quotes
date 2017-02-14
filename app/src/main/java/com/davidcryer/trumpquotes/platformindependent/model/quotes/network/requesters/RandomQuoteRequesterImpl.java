@@ -18,8 +18,8 @@ public class RandomQuoteRequesterImpl extends QuoteRequester implements RandomQu
     public void requestRandomQuote(QuoteRequestCallback requestCallback, boolean preferLastReceivedQuote) {
         requestQuote(requestCallback, preferLastReceivedQuote, new RequestProvider() {
             @Override
-            public QuoteRequest request() {
-                return requestFactory.randomQuoteRequest(requestCallback());
+            public QuoteRequest request(final QuoteRequestCallback callback) {
+                return requestFactory.randomQuoteRequest(callback);
             }
         });
     }

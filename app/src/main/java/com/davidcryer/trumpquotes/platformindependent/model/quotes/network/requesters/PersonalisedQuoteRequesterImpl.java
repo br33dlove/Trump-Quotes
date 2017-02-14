@@ -18,8 +18,8 @@ public class PersonalisedQuoteRequesterImpl extends QuoteRequester implements Pe
     public void requestPersonalisedQuote(final String name, QuoteRequestCallback requestCallback, boolean preferLastReceivedQuote) {
         requestQuote(requestCallback, preferLastReceivedQuote, new RequestProvider() {
             @Override
-            public QuoteRequest request() {
-                return requestFactory.personalisedQuoteRequest(name, requestCallback());
+            public QuoteRequest request(final QuoteRequestCallback callback) {
+                return requestFactory.personalisedQuoteRequest(name, callback);
             }
         });
     }

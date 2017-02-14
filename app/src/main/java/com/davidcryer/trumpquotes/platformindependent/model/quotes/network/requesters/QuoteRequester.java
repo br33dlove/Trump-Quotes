@@ -19,22 +19,18 @@ abstract class QuoteRequester {//TODO separate from Quote and make generic
         if (preferLastReceivedQuote && lastReceivedQuote != null) {
             requestCallback.success(lastReceivedQuote);
         } else if (request == null) {
-            executeNewRequest(requestProvider.request(), requestCallback);
+            executeNewRequest(requestProvider.request(new QuoteRequestCallback() {
+                @Override
+                public void success(Quote quote) {
+                    onSuccess(quote);
+                }
+
+                @Override
+                public void failure() {
+                    onFailure();
+                }
+            }), requestCallback);
         }
-    }
-
-    QuoteRequestCallback requestCallback() {
-        return new QuoteRequestCallback() {
-            @Override
-            public void success(Quote quote) {
-                onSuccess(quote);
-            }
-
-            @Override
-            public void failure() {
-                onFailure();
-            }
-        };
     }
 
     private void executeNewRequest(final QuoteRequest request, final QuoteRequestCallback requestCallback) {
@@ -90,6 +86,6 @@ abstract class QuoteRequester {//TODO separate from Quote and make generic
     }
 
     interface RequestProvider {
-        QuoteRequest request();
+        QuoteRequest request(final QuoteRequestCallback callback);
     }
 }
