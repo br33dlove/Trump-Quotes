@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">mvpandroid</string>
 
+    <string name="quotes.base_url">https://api.whatdoestrumpthink.com/api/</string>
+
     <string name="template.hello_world">Hello World!</string>
 </resources>
