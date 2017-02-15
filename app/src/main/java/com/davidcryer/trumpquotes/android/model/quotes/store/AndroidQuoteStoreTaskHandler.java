@@ -14,12 +14,12 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteSt
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class AndroidHandlerQuoteStoreHandler implements QuoteStoreHandler {
+public class AndroidQuoteStoreTaskHandler implements QuoteStoreHandler {
     private final QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory;
     private final TaskHandler readTaskHandler;
     private final TaskHandler writeTaskHandler;
 
-    public AndroidHandlerQuoteStoreHandler(QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory, TaskHandler readTaskHandler, TaskHandler writeTaskHandler) {
+    public AndroidQuoteStoreTaskHandler(QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory, TaskHandler readTaskHandler, TaskHandler writeTaskHandler) {
         this.quoteStoreTasksFactoryFactory = quoteStoreTasksFactoryFactory;
         this.readTaskHandler = readTaskHandler;
         this.writeTaskHandler = writeTaskHandler;
