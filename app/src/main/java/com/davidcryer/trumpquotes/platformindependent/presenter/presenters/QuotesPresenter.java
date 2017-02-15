@@ -16,20 +16,20 @@ import java.util.List;
 public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<QuotesView.EventsListener> {
     private final QuotesView<ViewQuoteType> viewWrapper;
     private final RandomQuoteRequester randomQuoteRequester;
-    private final PersonalisedQuoteRequester personalisedQuoteRequester;
+    private final PersonalisedQuoteRequester personalisedQuoteRequester;//TODO
     private final QuoteStoreHandler quoteStoreHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
     public QuotesPresenter(
             final QuotesView<ViewQuoteType> viewWrapper,
-            final PersonalisedQuoteRequester personalisedQuoteRequester,
             final RandomQuoteRequester randomQuoteRequester,
+            final PersonalisedQuoteRequester personalisedQuoteRequester,
             final QuoteStoreHandler quoteStoreHandler,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
     ) {
         this.viewWrapper = viewWrapper;
-        this.personalisedQuoteRequester = personalisedQuoteRequester;
         this.randomQuoteRequester = randomQuoteRequester;
+        this.personalisedQuoteRequester = personalisedQuoteRequester;
         this.quoteStoreHandler = quoteStoreHandler;
         this.viewQuoteFactory = viewQuoteFactory;
     }
