@@ -16,7 +16,7 @@ public class TaskHandlerImpl implements TaskHandler {
             Task.Callback<ResponseValuesType> callback
     ) {
         final Task<RequestValuesType, ResponseValuesType> task = taskFactory.create(requestValuesType, taskCallbackWrapper(callback));
-        taskScheduler.schedule(new Runnable() {
+        taskScheduler.scheduleOnWorkerThread(new Runnable() {
             @Override
             public void run() {
                 task.execute();
@@ -28,12 +28,12 @@ public class TaskHandlerImpl implements TaskHandler {
         return new TaskCallbackWrapper<>(callback, new TaskCallbackHandler<ResponseValuesType>() {
             @Override
             public void executeOnSuccessCallback(ResponseValuesType responseValue, Task.Callback<ResponseValuesType> callback) {
-                taskScheduler.scheduleOnSuccessCallback(responseValue, callback);
+                taskScheduler.scheduleOnSuccessCallbackOnUiThread(responseValue, callback);
             }
 
             @Override
             public void executeOfErrorCallback(Task.Callback callback) {
-                taskScheduler.scheduleOnErrorCallback(callback);
+                taskScheduler.scheduleOnErrorCallbackOnUiThread(callback);
             }
         });
     }

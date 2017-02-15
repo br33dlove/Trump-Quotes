@@ -14,12 +14,12 @@ public class ThreadPoolExecutorTaskScheduler implements TaskScheduler {
     }
 
     @Override
-    public void schedule(Runnable runnable) {
+    public void scheduleOnWorkerThread(Runnable runnable) {
         threadPoolExecutor.execute(runnable);
     }
 
     @Override
-    public <ResponseValuesType> void scheduleOnSuccessCallback(final ResponseValuesType responseValue, final Task.Callback<ResponseValuesType> callback) {
+    public <ResponseValuesType> void scheduleOnSuccessCallbackOnUiThread(final ResponseValuesType responseValue, final Task.Callback<ResponseValuesType> callback) {
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -29,7 +29,7 @@ public class ThreadPoolExecutorTaskScheduler implements TaskScheduler {
     }
 
     @Override
-    public void scheduleOnErrorCallback(final Task.Callback callback) {
+    public void scheduleOnErrorCallbackOnUiThread(final Task.Callback callback) {
         handler.post(new Runnable() {
             @Override
             public void run() {
