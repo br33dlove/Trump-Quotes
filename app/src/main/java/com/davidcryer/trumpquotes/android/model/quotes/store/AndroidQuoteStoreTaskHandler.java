@@ -6,8 +6,8 @@ import com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling.Re
 import com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling.RetrieveUnJudgedQuotesTask;
 import com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling.StoreQuotesTask;
 import com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling.UpdateQuoteAsJudgedTask;
-import com.davidcryer.trumpquotes.android.model.threadscheduling.Task;
-import com.davidcryer.trumpquotes.android.model.threadscheduling.TaskHandler;
+import com.davidcryer.trumpquotes.android.framework.threadscheduling.Task;
+import com.davidcryer.trumpquotes.android.framework.threadscheduling.TaskHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 

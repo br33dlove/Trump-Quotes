@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.threadscheduling;
+package com.davidcryer.trumpquotes.android.framework.threadscheduling;
 
 public interface TaskHandler {
     <RequestValuesType, ResponseValuesType> void executeTask(
