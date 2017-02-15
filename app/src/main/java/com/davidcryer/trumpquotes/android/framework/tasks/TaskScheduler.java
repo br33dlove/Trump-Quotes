@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.framework.threadscheduling;
+package com.davidcryer.trumpquotes.android.framework.tasks;
 
 public interface TaskScheduler {
     void scheduleOnWorkerThread(Runnable runnable);

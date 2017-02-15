@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling;
+package com.davidcryer.trumpquotes.android.model.quotes.store.tasks;
 
 public interface QuoteStoreTasksFactoryFactory {
     ClearQuotesTask.Factory createClearQuotesTask();

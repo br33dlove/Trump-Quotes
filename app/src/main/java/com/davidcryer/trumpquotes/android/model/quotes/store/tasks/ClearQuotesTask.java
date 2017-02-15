@@ -1,7 +1,7 @@
-package com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling;
+package com.davidcryer.trumpquotes.android.model.quotes.store.tasks;
 
-import com.davidcryer.trumpquotes.android.framework.threadscheduling.Task;
-import com.davidcryer.trumpquotes.android.framework.threadscheduling.TaskFactory;
+import com.davidcryer.trumpquotes.android.framework.tasks.Task;
+import com.davidcryer.trumpquotes.android.framework.tasks.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 
 public class ClearQuotesTask extends Task<ClearQuotesTask.RequestValues, Void> {

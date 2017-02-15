@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.android.model.quotes.store.factories;
 
 import com.davidcryer.trumpquotes.android.model.quotes.store.AndroidQuoteStoreTaskHandler;
-import com.davidcryer.trumpquotes.android.model.quotes.store.threadscheduling.QuoteStoreTasksFactoryFactory;
-import com.davidcryer.trumpquotes.android.framework.threadscheduling.TaskHandler;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.QuoteStoreTasksFactoryFactory;
+import com.davidcryer.trumpquotes.android.framework.tasks.TaskHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreHandlerFactory;
 
