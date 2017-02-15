@@ -1,7 +1,7 @@
 package com.davidcryer.trumpquotes.android.model.quotes.store.tasks;
 
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
-import com.davidcryer.trumpquotes.android.framework.tasks.TaskFactory;
+import com.davidcryer.trumpquotes.android.framework.tasks.factories.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 
@@ -30,10 +30,10 @@ public class RetrieveJudgedQuotesTask extends Task<Void, RetrieveJudgedQuotesTas
         }
     }
 
-    static class Factory implements TaskFactory<Void, RetrieveJudgedQuotesTask.ResponseValues> {
+    public static class Factory implements TaskFactory<Void, RetrieveJudgedQuotesTask.ResponseValues> {
         private final QuoteStore quoteStore;
 
-        Factory(QuoteStore quoteStore) {
+        public Factory(QuoteStore quoteStore) {
             this.quoteStore = quoteStore;
         }
 

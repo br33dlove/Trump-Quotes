@@ -1,5 +1,10 @@
-package com.davidcryer.trumpquotes.android.model.quotes.store.tasks;
+package com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories;
 
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.ClearQuotesTask;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.RetrieveJudgedQuotesTask;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.RetrieveUnJudgedQuotesTask;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.StoreQuotesTask;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.UpdateQuoteAsJudgedTask;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 
 public class QuoteStoreTasksFactoryFactoryImpl implements QuoteStoreTasksFactoryFactory {

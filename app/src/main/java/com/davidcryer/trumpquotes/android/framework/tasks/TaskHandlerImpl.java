@@ -1,5 +1,7 @@
 package com.davidcryer.trumpquotes.android.framework.tasks;
 
+import com.davidcryer.trumpquotes.android.framework.tasks.factories.TaskFactory;
+
 import java.lang.ref.WeakReference;
 
 public class TaskHandlerImpl implements TaskHandler {

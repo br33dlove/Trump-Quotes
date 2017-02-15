@@ -1,24 +1,23 @@
 package com.davidcryer.trumpquotes.android.model.quotes.store.factories;
 
 import com.davidcryer.trumpquotes.android.model.quotes.store.AndroidQuoteStoreTaskHandler;
-import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.QuoteStoreTasksFactoryFactory;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories.QuoteStoreTaskHandlerFactory;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories.QuoteStoreTasksFactoryFactory;
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreHandlerFactory;
 
 public class AndroidQuoteStoreHandlerFactory implements QuoteStoreHandlerFactory {
     private final QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory;
-    private final TaskHandler readTaskHandler;
-    private final TaskHandler writeTaskHandler;
+    private final QuoteStoreTaskHandlerFactory quoteStoreTaskHandlerFactory;
 
-    public AndroidQuoteStoreHandlerFactory(QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory, TaskHandler readTaskHandler, TaskHandler writeTaskHandler) {
+    public AndroidQuoteStoreHandlerFactory(QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory, QuoteStoreTaskHandlerFactory quoteStoreTaskHandlerFactory) {
         this.quoteStoreTasksFactoryFactory = quoteStoreTasksFactoryFactory;
-        this.readTaskHandler = readTaskHandler;
-        this.writeTaskHandler = writeTaskHandler;
+        this.quoteStoreTaskHandlerFactory = quoteStoreTaskHandlerFactory;
     }
 
     @Override
     public QuoteStoreHandler create() {
-        return new AndroidQuoteStoreTaskHandler(quoteStoreTasksFactoryFactory, readTaskHandler, writeTaskHandler);
+        return new AndroidQuoteStoreTaskHandler(quoteStoreTasksFactoryFactory, quoteStoreTaskHandlerFactory.createReadTaskHandler(), quoteStoreTaskHandlerFactory.createWriteTaskHandler());
     }
 }

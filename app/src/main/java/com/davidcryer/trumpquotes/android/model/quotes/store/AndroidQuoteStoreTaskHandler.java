@@ -1,7 +1,7 @@
 package com.davidcryer.trumpquotes.android.model.quotes.store;
 
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.ClearQuotesTask;
-import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.QuoteStoreTasksFactoryFactory;
+import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories.QuoteStoreTasksFactoryFactory;
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.RetrieveJudgedQuotesTask;
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.RetrieveUnJudgedQuotesTask;
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.StoreQuotesTask;
