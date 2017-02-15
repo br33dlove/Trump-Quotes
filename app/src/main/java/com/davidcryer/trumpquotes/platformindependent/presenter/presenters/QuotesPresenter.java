@@ -16,7 +16,7 @@ import java.util.List;
 public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<QuotesView.EventsListener> {
     private final QuotesView<ViewQuoteType> viewWrapper;
     private final RandomQuoteRequester randomQuoteRequester;
-    private final PersonalisedQuoteRequester personalisedQuoteRequester;//TODO
+    private final PersonalisedQuoteRequester personalisedQuoteRequester;//TODO add method to use
     private final QuoteStoreHandler quoteStoreHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
