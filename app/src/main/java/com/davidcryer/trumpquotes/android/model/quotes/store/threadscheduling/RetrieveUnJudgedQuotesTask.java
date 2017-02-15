@@ -5,17 +5,17 @@ import com.davidcryer.trumpquotes.android.model.threadscheduling.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 
-public class RetrieveJudgedQuotesTask extends Task<Void, RetrieveJudgedQuotesTask.ResponseValues> {
+public class RetrieveUnJudgedQuotesTask extends Task<Void, RetrieveUnJudgedQuotesTask.ResponseValues> {
     private final QuoteStore quoteStore;
 
-    public RetrieveJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteStore quoteStore) {
+    public RetrieveUnJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteStore quoteStore) {
         super(requestValues, callback);
         this.quoteStore = quoteStore;
     }
 
     @Override
     protected void doTask(Void requestValues) {
-        onSuccess(new ResponseValues(quoteStore.judgedQuotes()));
+        onSuccess(new ResponseValues(quoteStore.unJudgedQuotes()));
     }
 
     public static class ResponseValues {
@@ -30,7 +30,7 @@ public class RetrieveJudgedQuotesTask extends Task<Void, RetrieveJudgedQuotesTas
         }
     }
 
-    public static class Factory implements TaskFactory<Void, RetrieveJudgedQuotesTask.ResponseValues> {
+    public static class Factory implements TaskFactory<Void, RetrieveUnJudgedQuotesTask.ResponseValues> {
         private final QuoteStore quoteStore;
 
         public Factory(QuoteStore quoteStore) {
@@ -38,8 +38,8 @@ public class RetrieveJudgedQuotesTask extends Task<Void, RetrieveJudgedQuotesTas
         }
 
         @Override
-        public Task<Void, RetrieveJudgedQuotesTask.ResponseValues> create(Void requestValues, Task.Callback<RetrieveJudgedQuotesTask.ResponseValues> callback) {
-            return new RetrieveJudgedQuotesTask(requestValues, callback, quoteStore);
+        public Task<Void, RetrieveUnJudgedQuotesTask.ResponseValues> create(Void requestValues, Task.Callback<RetrieveUnJudgedQuotesTask.ResponseValues> callback) {
+            return new RetrieveUnJudgedQuotesTask(requestValues, callback, quoteStore);
         }
     }
 }

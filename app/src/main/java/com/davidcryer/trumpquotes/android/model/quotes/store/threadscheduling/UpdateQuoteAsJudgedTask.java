@@ -4,32 +4,32 @@ import com.davidcryer.trumpquotes.android.model.threadscheduling.Task;
 import com.davidcryer.trumpquotes.android.model.threadscheduling.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 
-public class ClearQuotesTask extends Task<ClearQuotesTask.RequestValues, Void> {
+public class UpdateQuoteAsJudgedTask extends Task<UpdateQuoteAsJudgedTask.RequestValues, Void> {
     private final QuoteStore quoteStore;
 
-    public ClearQuotesTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
+    public UpdateQuoteAsJudgedTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
         super(requestValues, callback);
         this.quoteStore = quoteStore;
     }
 
     @Override
     protected void doTask(RequestValues requestValues) {
-        if (quoteStore.clear(requestValues.quoteIds)) {
+        if (quoteStore.updateQuoteAsJudged(requestValues.quoteId)) {
             onSuccess(null);
         } else {
             onError();
         }
     }
 
-    public final static class RequestValues {
-        private final String[] quoteIds;
+    public static class RequestValues {
+        private final String quoteId;
 
-        public RequestValues(String[] quoteIds) {
-            this.quoteIds = quoteIds;
+        public RequestValues(String quoteId) {
+            this.quoteId = quoteId;
         }
     }
 
-    public static class Factory implements TaskFactory<ClearQuotesTask.RequestValues, Void> {
+    public static class Factory implements TaskFactory<UpdateQuoteAsJudgedTask.RequestValues, Void> {
         private final QuoteStore quoteStore;
 
         public Factory(QuoteStore quoteStore) {
@@ -37,8 +37,8 @@ public class ClearQuotesTask extends Task<ClearQuotesTask.RequestValues, Void> {
         }
 
         @Override
-        public Task<ClearQuotesTask.RequestValues, Void> create(ClearQuotesTask.RequestValues requestValues, Task.Callback<Void> callback) {
-            return new ClearQuotesTask(requestValues, callback, quoteStore);
+        public Task<UpdateQuoteAsJudgedTask.RequestValues, Void> create(UpdateQuoteAsJudgedTask.RequestValues requestValues, Task.Callback<Void> callback) {
+            return new UpdateQuoteAsJudgedTask(requestValues, callback, quoteStore);
         }
     }
 }
