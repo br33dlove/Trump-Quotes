@@ -7,7 +7,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteSt
 public class UpdateQuoteAsJudgedTask extends Task<UpdateQuoteAsJudgedTask.RequestValues, Void> {
     private final QuoteStore quoteStore;
 
-    UpdateQuoteAsJudgedTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
+    private UpdateQuoteAsJudgedTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
         super(requestValues, callback);
         this.quoteStore = quoteStore;
     }

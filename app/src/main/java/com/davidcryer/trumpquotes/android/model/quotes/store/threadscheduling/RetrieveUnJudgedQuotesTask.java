@@ -8,7 +8,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteSt
 public class RetrieveUnJudgedQuotesTask extends Task<Void, RetrieveUnJudgedQuotesTask.ResponseValues> {
     private final QuoteStore quoteStore;
 
-    RetrieveUnJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteStore quoteStore) {
+    private RetrieveUnJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteStore quoteStore) {
         super(requestValues, callback);
         this.quoteStore = quoteStore;
     }

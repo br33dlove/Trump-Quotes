@@ -8,7 +8,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteSt
 public class StoreQuotesTask extends Task<StoreQuotesTask.RequestValues, Void> {
     private final QuoteStore quoteStore;
 
-    StoreQuotesTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
+    private StoreQuotesTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
         super(requestValues, callback);
         this.quoteStore = quoteStore;
     }
