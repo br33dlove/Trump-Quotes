@@ -8,7 +8,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteSt
 public class StoreQuotesTask extends Task<StoreQuotesTask.RequestValues, Void> {
     private final QuoteStore quoteStore;
 
-    public StoreQuotesTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
+    StoreQuotesTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
         super(requestValues, callback);
         this.quoteStore = quoteStore;
     }
@@ -30,10 +30,10 @@ public class StoreQuotesTask extends Task<StoreQuotesTask.RequestValues, Void> {
         }
     }
 
-    public static class Factory implements TaskFactory<StoreQuotesTask.RequestValues, Void> {
+    static class Factory implements TaskFactory<StoreQuotesTask.RequestValues, Void> {
         private final QuoteStore quoteStore;
 
-        public Factory(QuoteStore quoteStore) {
+        Factory(QuoteStore quoteStore) {
             this.quoteStore = quoteStore;
         }
 
