@@ -58,17 +58,4 @@ class RetrofitQuoteRequestImpl implements QuoteRequest {
     public boolean isCancelled() {
         return call.isCanceled();
     }
-
-    @Override
-    public void add(QuoteRequestCallback requestCallback) {
-        callbacks.add(requestCallback);
-    }
-
-    @Override
-    public void remove(QuoteRequestCallback requestCallback) {
-        callbacks.remove(requestCallback);
-        if (callbacks.isEmpty()) {
-            cancel();
-        }
-    }
 }

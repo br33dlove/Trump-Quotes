@@ -7,23 +7,19 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.Quote
 import java.util.Arrays;
 
 public class RetrofitQuoteRequestFactory implements QuoteRequestFactory {
-    private final RetrofitQuoteCalls quoteCaller;
+    private final RetrofitQuoteService quoteService;
 
-    public RetrofitQuoteRequestFactory(RetrofitQuoteCalls quoteCaller) {
-        this.quoteCaller = quoteCaller;
+    public RetrofitQuoteRequestFactory(RetrofitQuoteService quoteService) {
+        this.quoteService = quoteService;
     }
 
     @Override
     public QuoteRequest randomQuoteRequest(final QuoteRequestCallback... requestCallbacks) {
-        final QuoteRequest request = new RetrofitQuoteRequestImpl(quoteCaller.randomQuote(), Arrays.asList(requestCallbacks));
-        request.executeAsync();
-        return request;
+        return new RetrofitQuoteRequestImpl(quoteService.randomQuote(), Arrays.asList(requestCallbacks));
     }
 
     @Override
     public QuoteRequest personalisedQuoteRequest(String name, final QuoteRequestCallback... requestCallbacks) {
-        final QuoteRequest request = new RetrofitQuoteRequestImpl(quoteCaller.personalisedQuote(name), Arrays.asList(requestCallbacks));
-        request.executeAsync();
-        return request;
+        return new RetrofitQuoteRequestImpl(quoteService.personalisedQuote(name), Arrays.asList(requestCallbacks));
     }
 }
