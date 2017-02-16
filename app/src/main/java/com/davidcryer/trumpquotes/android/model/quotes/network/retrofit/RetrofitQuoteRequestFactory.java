@@ -15,11 +15,11 @@ public class RetrofitQuoteRequestFactory implements QuoteRequestFactory {
 
     @Override
     public QuoteRequest randomQuoteRequest(final QuoteRequestCallback... requestCallbacks) {
-        return new RetrofitQuoteRequestImpl(quoteService.randomQuote(), Arrays.asList(requestCallbacks));
+        return new RetrofitQuoteRequest(quoteService.randomQuote(), Arrays.asList(requestCallbacks));
     }
 
     @Override
     public QuoteRequest personalisedQuoteRequest(String name, final QuoteRequestCallback... requestCallbacks) {
-        return new RetrofitQuoteRequestImpl(quoteService.personalisedQuote(name), Arrays.asList(requestCallbacks));
+        return new RetrofitQuoteRequest(quoteService.personalisedQuote(name), Arrays.asList(requestCallbacks));
     }
 }

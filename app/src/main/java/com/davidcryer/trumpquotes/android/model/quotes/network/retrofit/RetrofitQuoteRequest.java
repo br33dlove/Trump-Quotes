@@ -11,11 +11,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-class RetrofitQuoteRequestImpl implements QuoteRequest {
+class RetrofitQuoteRequest implements QuoteRequest {
     private final Call<Quote> call;
     private final List<QuoteRequestCallback> callbacks;
 
-    RetrofitQuoteRequestImpl(Call<Quote> call, final List<QuoteRequestCallback> callbacks) {
+    RetrofitQuoteRequest(Call<Quote> call, final List<QuoteRequestCallback> callbacks) {
         this.call = call;
         this.callbacks = callbacks;
     }
