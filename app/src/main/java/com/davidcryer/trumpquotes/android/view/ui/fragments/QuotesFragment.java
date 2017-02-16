@@ -14,6 +14,9 @@ import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
+import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
+
+import java.util.List;
 
 public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.EventsListener> implements QuotesAndroidView {
 
@@ -51,13 +54,49 @@ public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.Events
     }
 
     @Override
-    public void someScreenChange() {
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         eventsListener.onSaveInstance(outState);
+    }
+
+    @Override
+    public void showFailureToGetNewQuote() {
+
+    }
+
+    @Override
+    public void showLoadingNewQuote() {
+
+    }
+
+    @Override
+    public void hideLoadingNewQuote() {
+
+    }
+
+    @Override
+    public void showNewQuote(AndroidViewQuote quote) {
+
+    }
+
+    @Override
+    public void showQuoteHistory(List<AndroidViewQuote> quotes) {
+
+    }
+
+    @Override
+    public void updateQuoteHistoryForInsert(int index) {
+
+    }
+
+    @Override
+    public void updateQuoteHistoryForRemoval(int index) {
+
+    }
+
+    @Override
+    public void removeAllQuotesInHistory() {
+
     }
 
     @Override
