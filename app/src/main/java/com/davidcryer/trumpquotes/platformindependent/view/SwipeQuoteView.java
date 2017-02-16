@@ -6,22 +6,15 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.Vie
 import java.util.List;
 
 public interface SwipeQuoteView<ViewQuoteType extends ViewQuote> extends MvpView<SwipeQuoteMvpViewModel<ViewQuoteType>> {
-    void showLoadingNewQuote();
-    void hideLoadingNewQuote();
+    void showLoadingQuote();
+    void hideLoadingQuote();
     void showNewQuote(final ViewQuoteType quote);
-    void addNewQuoteToHistory(final ViewQuoteType quote);
-    void showQuoteHistory(final List<ViewQuoteType> quotes);
-    void removeQuoteInHistory(final ViewQuoteType quote);
-    void removeAllQuotesInHistory();
-    void showFailureToGetNewQuote();
+    void showFailureToGetQuote();
 
     interface EventsListener extends MvpView.EventsListener {
-        void onRequestFirstNewQuote();
-        void onRetryNewQuoteRequestClicked();
-        void onRequestQuoteHistory();
-        void onNewQuoteSwipedLeft();
-        void onNewQuoteSwipedRight();
-        void onDeleteQuoteInHistoryClicked(final int index);
-        void onDeleteAllQuotesClicked();
+        void onRequestFirstQuote();
+        void onRetryQuoteRequest();
+        void onQuoteSwipedLeft();
+        void onQuoteSwipedRight();
     }
 }

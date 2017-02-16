@@ -41,17 +41,17 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
     private final SwipeQuoteView<AndroidViewQuote> viewWrapper = new SwipeQuoteView<AndroidViewQuote>() {
 
         @Override
-        public void showFailureToGetNewQuote() {
+        public void showFailureToGetQuote() {
             viewModel.showFailureToGetNewQuote(view());
         }
 
         @Override
-        public void showLoadingNewQuote() {
+        public void showLoadingQuote() {
             viewModel.showLoadingNewQuote(view());
         }
 
         @Override
-        public void hideLoadingNewQuote() {
+        public void hideLoadingQuote() {
             viewModel.hideLoadingNewQuote(view());
         }
 
@@ -95,23 +95,23 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
 
         @Override
         public void onViewCreated() {
-            wrapperEventsListener.onRequestFirstNewQuote();
+            wrapperEventsListener.onRequestFirstQuote();
             wrapperEventsListener.onRequestQuoteHistory();
         }
 
         @Override
         public void onRetryNewQuoteRequestClicked() {
-            wrapperEventsListener.onRetryNewQuoteRequestClicked();
+            wrapperEventsListener.onRetryQuoteRequest();
         }
 
         @Override
         public void onNewQuoteSwipedLeft() {
-            wrapperEventsListener.onNewQuoteSwipedLeft();
+            wrapperEventsListener.onQuoteSwipedLeft();
         }
 
         @Override
         public void onNewQuoteSwipedRight() {
-            wrapperEventsListener.onNewQuoteSwipedRight();
+            wrapperEventsListener.onQuoteSwipedRight();
         }
 
         @Override
