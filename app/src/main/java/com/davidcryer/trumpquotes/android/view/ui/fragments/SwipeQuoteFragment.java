@@ -75,42 +75,22 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showFailureToGetNewQuote() {
+    public void showFailureToGetQuote() {
 
     }
 
     @Override
-    public void showLoadingNewQuote() {
+    public void showLoadingQuote() {
 
     }
 
     @Override
-    public void hideLoadingNewQuote() {
+    public void hideLoadingQuote() {
 
     }
 
     @Override
-    public void showNewQuote(AndroidViewQuote quote) {
-
-    }
-
-    @Override
-    public void showQuoteHistory(List<AndroidViewQuote> quotes) {
-
-    }
-
-    @Override
-    public void updateQuoteHistoryForInsert(int index) {
-
-    }
-
-    @Override
-    public void updateQuoteHistoryForRemoval(int index) {
-
-    }
-
-    @Override
-    public void removeAllQuotesInHistory() {
+    public void showQuote(AndroidViewQuote quote) {
 
     }
 

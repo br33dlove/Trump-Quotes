@@ -5,21 +5,15 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 import java.util.List;
 
 public interface SwipeQuoteAndroidView extends AndroidMvpView {
-    void showFailureToGetNewQuote();
-    void showLoadingNewQuote();
-    void hideLoadingNewQuote();
-    void showNewQuote(final AndroidViewQuote quote);
-    void showQuoteHistory(final List<AndroidViewQuote> quotes);
-    void updateQuoteHistoryForInsert(final int index);
-    void updateQuoteHistoryForRemoval(final int index);
-    void removeAllQuotesInHistory();
+    void showFailureToGetQuote();
+    void showLoadingQuote();
+    void hideLoadingQuote();
+    void showQuote(final AndroidViewQuote quote);
 
     interface EventsListener extends AndroidMvpView.EventsListener {
         void onViewCreated();
-        void onRetryNewQuoteRequestClicked();
-        void onNewQuoteSwipedLeft();
-        void onNewQuoteSwipedRight();
-        void onDeleteQuoteInHistoryClicked(final AndroidViewQuote quote);
-        void onDeleteAllQuotesClicked();
+        void onRetryQuoteRequestClicked();
+        void onQuoteSwipedLeft();
+        void onQuoteSwipedRight();
     }
 }

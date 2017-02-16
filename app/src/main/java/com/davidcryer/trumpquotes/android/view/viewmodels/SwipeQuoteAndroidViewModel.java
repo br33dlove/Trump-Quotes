@@ -11,9 +11,4 @@ public interface SwipeQuoteAndroidViewModel extends SwipeQuoteMvpViewModel<Andro
     void showLoadingNewQuote(final SwipeQuoteAndroidView view);
     void hideLoadingNewQuote(final SwipeQuoteAndroidView view);
     void showNewQuote(final SwipeQuoteAndroidView view, final AndroidViewQuote quote);
-    void addNewQuoteToHistory(final SwipeQuoteAndroidView view, final AndroidViewQuote quote);
-    void showQuoteHistory(final SwipeQuoteAndroidView view, final List<AndroidViewQuote> quotes);
-    void removeQuoteInHistory(final SwipeQuoteAndroidView view, final AndroidViewQuote quote);
-    void removeAllQuotesInHistory(final SwipeQuoteAndroidView view);
-    int indexOfQuoteInHistory(final AndroidViewQuote viewQuote);
 }

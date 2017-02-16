@@ -8,12 +8,12 @@ import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
-public class QuotePresenterFactoryImpl<ViewQuoteType extends ViewQuote> implements QuotePresenterFactory<ViewQuoteType> {
+public class SwipeQuotePresenterFactoryImpl<ViewQuoteType extends ViewQuote> implements SwipeQuotePresenterFactory<ViewQuoteType> {
     private final QuoteRequesterFactory quoteRequesterFactory;
     private final QuoteStoreHandler quoteStoreHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
-    public QuotePresenterFactoryImpl(
+    public SwipeQuotePresenterFactoryImpl(
             final QuoteRequesterFactory quoteRequesterFactory,
             final QuoteStoreHandler quoteStoreHandler,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
@@ -25,6 +25,6 @@ public class QuotePresenterFactoryImpl<ViewQuoteType extends ViewQuote> implemen
 
     @Override
     public Presenter<SwipeQuoteView.EventsListener> create(final SwipeQuoteView<ViewQuoteType> viewWrapper) {
-        return new SwipeQuotePresenter<>(viewWrapper, quoteRequesterFactory.createRandomQuoteRequester(), quoteRequesterFactory.createPersonalisedQuoteRequester(), quoteStoreHandler, viewQuoteFactory);
+        return new SwipeQuotePresenter<>(viewWrapper, quoteRequesterFactory.createRandomQuoteRequester(), quoteStoreHandler, viewQuoteFactory);
     }
 }

@@ -3,8 +3,8 @@ package com.davidcryer.trumpquotes.android.presenter.presenters.factories;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters.factories.QuoteRequesterFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreHandlerFactory;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.QuotePresenterFactory;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.QuotePresenterFactoryImpl;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.SwipeQuotePresenterFactory;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.SwipeQuotePresenterFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
 public class PresenterFactoryFactoryImpl implements PresenterFactoryFactory {
@@ -23,7 +23,7 @@ public class PresenterFactoryFactoryImpl implements PresenterFactoryFactory {
     }
 
     @Override
-    public QuotePresenterFactory<AndroidViewQuote> createSwipeQuotePresenterFactory() {
-        return new QuotePresenterFactoryImpl<>(quoteRequesterFactory, quoteStoreHandlerFactory.create(), viewQuoteFactory);
+    public SwipeQuotePresenterFactory<AndroidViewQuote> createSwipeQuotePresenterFactory() {
+        return new SwipeQuotePresenterFactoryImpl<>(quoteRequesterFactory, quoteStoreHandlerFactory.create(), viewQuoteFactory);
     }
 }
