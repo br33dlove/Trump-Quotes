@@ -3,6 +3,7 @@ package com.davidcryer.trumpquotes.android.view.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,11 +15,25 @@ import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
 import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.EventsListener> implements QuotesAndroidView {
+    private Unbinder unbinder;
+    @BindView(R.id.quote_card)
+    QuoteCard card;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.loading_progress_bar)
+    View loadingView;
+    @BindView(R.id.loading_failed)
+    View loadingFailedTextView;
 
     public static QuotesFragment newInstance() {
         return new QuotesFragment();
@@ -39,7 +54,7 @@ public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.Events
     }
 
     private void initialiseViewReferences(final View root) {
-
+        unbinder = ButterKnife.bind(this, root);
     }
 
     @Override
@@ -97,6 +112,12 @@ public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.Events
     @Override
     public void removeAllQuotesInHistory() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
