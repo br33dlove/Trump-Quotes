@@ -8,12 +8,12 @@ import android.support.v7.widget.Toolbar;
 
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper;
-import com.davidcryer.trumpquotes.android.view.ui.fragments.QuotesFragment;
+import com.davidcryer.trumpquotes.android.view.ui.fragments.SwipeQuoteFragment;
 
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.addFragment;
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.noFragmentBoundToView;
 
-public class QuotesActivity extends ViewWrapperRepositoryActivity {
+public class SwipeQuoteActivity extends ViewWrapperRepositoryActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class QuotesActivity extends ViewWrapperRepositoryActivity {
     private void addQuotesFragment() {
         final FragmentManager fragmentManager = getSupportFragmentManager();
         if (noFragmentBoundToView(fragmentManager, getQuotesFragmentViewContainer())) {
-            addFragment(fragmentManager, QuotesFragment.newInstance(), getQuotesFragmentViewContainer());
+            addFragment(fragmentManager, SwipeQuoteFragment.newInstance(), getQuotesFragmentViewContainer());
         }
     }
 

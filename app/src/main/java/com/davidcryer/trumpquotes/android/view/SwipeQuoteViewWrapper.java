@@ -2,43 +2,43 @@ package com.davidcryer.trumpquotes.android.view;
 
 import android.os.Bundle;
 
-import com.davidcryer.trumpquotes.android.view.viewmodels.QuotesAndroidViewModel;
+import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModel;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.QuotePresenterFactory;
-import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuotesMvpViewModel;
+import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
 
 import java.util.List;
 
-public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> {
-    private final static String ARG_VIEW_MODEL = QuotesViewWrapper.class.getSimpleName();
-    private final QuotesAndroidViewModel viewModel;
-    private final QuotesView.EventsListener wrapperEventsListener;
+public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> {
+    private final static String ARG_VIEW_MODEL = SwipeQuoteViewWrapper.class.getSimpleName();
+    private final SwipeQuoteAndroidViewModel viewModel;
+    private final SwipeQuoteView.EventsListener wrapperEventsListener;
 
-    private QuotesViewWrapper(final QuotePresenterFactory<AndroidViewQuote> presenterFactory, final QuotesAndroidViewModel viewModel) {
+    private SwipeQuoteViewWrapper(final QuotePresenterFactory<AndroidViewQuote> presenterFactory, final SwipeQuoteAndroidViewModel viewModel) {
         wrapperEventsListener = presenterFactory.create(viewWrapper).eventsListener();
         this.viewModel = viewModel;
     }
 
-    public static ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> newInstance(
+    public static ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> newInstance(
             final QuotePresenterFactory<AndroidViewQuote> presenterFactory,
             final QuotesAndroidViewModelFactory viewModelFactory
     ) {
-        return new QuotesViewWrapper(presenterFactory, viewModelFactory.create());
+        return new SwipeQuoteViewWrapper(presenterFactory, viewModelFactory.create());
     }
 
-    public static ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> retrieveInstanceOrGetNew(
+    public static ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> retrieveInstanceOrGetNew(
             final Bundle savedState,
             final QuotePresenterFactory<AndroidViewQuote> presenterFactory,
             final QuotesAndroidViewModelFactory viewModelFactory
     ) {
-        final QuotesAndroidViewModel viewModel = savedState.getParcelable(ARG_VIEW_MODEL);
-        return new QuotesViewWrapper(presenterFactory, viewModel == null ? viewModelFactory.create() : viewModel);
+        final SwipeQuoteAndroidViewModel viewModel = savedState.getParcelable(ARG_VIEW_MODEL);
+        return new SwipeQuoteViewWrapper(presenterFactory, viewModel == null ? viewModelFactory.create() : viewModel);
     }
 
-    private final QuotesView<AndroidViewQuote> viewWrapper = new QuotesView<AndroidViewQuote>() {
+    private final SwipeQuoteView<AndroidViewQuote> viewWrapper = new SwipeQuoteView<AndroidViewQuote>() {
 
         @Override
         public void showFailureToGetNewQuote() {
@@ -81,17 +81,17 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
         }
 
         @Override
-        public QuotesMvpViewModel<AndroidViewQuote> viewModel() {
+        public SwipeQuoteMvpViewModel<AndroidViewQuote> viewModel() {
             return viewModel;
         }
     };
 
     @Override
-    public QuotesAndroidView.EventsListener viewEventsListener() {
+    public SwipeQuoteAndroidView.EventsListener viewEventsListener() {
         return viewEventsListener;
     }
 
-    private final QuotesAndroidView.EventsListener viewEventsListener = new QuotesAndroidView.EventsListener() {
+    private final SwipeQuoteAndroidView.EventsListener viewEventsListener = new SwipeQuoteAndroidView.EventsListener() {
 
         @Override
         public void onViewCreated() {
@@ -132,7 +132,7 @@ public class QuotesViewWrapper extends ViewWrapper<QuotesAndroidView, QuotesAndr
     };
 
     @Override
-    protected void showCurrentState(final QuotesAndroidView view, boolean setAllData) {
+    protected void showCurrentState(final SwipeQuoteAndroidView view, boolean setAllData) {
         viewModel.onto(view, setAllData);
     }
 

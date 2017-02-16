@@ -3,10 +3,10 @@ package com.davidcryer.trumpquotes.android.view.viewwrapperfactories;
 import android.os.Bundle;
 
 import com.davidcryer.trumpquotes.android.presenter.presenters.factories.PresenterFactoryFactory;
-import com.davidcryer.trumpquotes.android.view.QuotesViewWrapper;
+import com.davidcryer.trumpquotes.android.view.SwipeQuoteViewWrapper;
 import com.davidcryer.trumpquotes.android.view.ViewWrapper;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 
 public class ViewWrapperFactoryImpl implements ViewWrapperFactory {
     private final PresenterFactoryFactory presenterFactoryFactory;
@@ -18,12 +18,12 @@ public class ViewWrapperFactoryImpl implements ViewWrapperFactory {
     }
 
     @Override
-    public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createQuotesViewWrapper() {
-        return QuotesViewWrapper.newInstance(presenterFactoryFactory.createQuotesPresenterFactory(), templateViewModelFactory);
+    public ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> createSwipeQuoteViewWrapper() {
+        return SwipeQuoteViewWrapper.newInstance(presenterFactoryFactory.createSwipeQuotePresenterFactory(), templateViewModelFactory);
     }
 
     @Override
-    public ViewWrapper<QuotesAndroidView, QuotesAndroidView.EventsListener> createQuotesViewWrapper(Bundle savedState) {
-        return QuotesViewWrapper.retrieveInstanceOrGetNew(savedState, presenterFactoryFactory.createQuotesPresenterFactory(), templateViewModelFactory);
+    public ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> createSwipeQuoteViewWrapper(Bundle savedState) {
+        return SwipeQuoteViewWrapper.retrieveInstanceOrGetNew(savedState, presenterFactoryFactory.createSwipeQuotePresenterFactory(), templateViewModelFactory);
     }
 }

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
-import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 
@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.EventsListener> implements QuotesAndroidView {
+public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidView.EventsListener> implements SwipeQuoteAndroidView {
     private Unbinder unbinder;
     @BindView(R.id.quote_card)
     QuoteCard card;
@@ -35,8 +35,8 @@ public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.Events
     @BindView(R.id.loading_failed)
     View loadingFailedTextView;
 
-    public static QuotesFragment newInstance() {
-        return new QuotesFragment();
+    public static SwipeQuoteFragment newInstance() {
+        return new SwipeQuoteFragment();
     }
 
     @Override
@@ -121,7 +121,7 @@ public class QuotesFragment extends ViewBindingFragment<QuotesAndroidView.Events
     }
 
     @Override
-    protected QuotesAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
+    protected SwipeQuoteAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
         return viewWrapperRepository.bind(this, savedState);
     }
 

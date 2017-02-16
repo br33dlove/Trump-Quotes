@@ -7,21 +7,21 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.Quote
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters.PersonalisedQuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteHelper;
-import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
+import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
 import java.util.List;
 
-public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<QuotesView.EventsListener> {
-    private final QuotesView<ViewQuoteType> viewWrapper;
+public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presenter<SwipeQuoteView.EventsListener> {
+    private final SwipeQuoteView<ViewQuoteType> viewWrapper;
     private final RandomQuoteRequester randomQuoteRequester;
     private final PersonalisedQuoteRequester personalisedQuoteRequester;//TODO add method to use
     private final QuoteStoreHandler quoteStoreHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
-    public QuotesPresenter(
-            final QuotesView<ViewQuoteType> viewWrapper,
+    public SwipeQuotePresenter(
+            final SwipeQuoteView<ViewQuoteType> viewWrapper,
             final RandomQuoteRequester randomQuoteRequester,
             final PersonalisedQuoteRequester personalisedQuoteRequester,
             final QuoteStoreHandler quoteStoreHandler,
@@ -35,8 +35,8 @@ public class QuotesPresenter<ViewQuoteType extends ViewQuote> extends Presenter<
     }
 
     @Override
-    public QuotesView.EventsListener eventsListener() {
-        return new QuotesView.EventsListener() {
+    public SwipeQuoteView.EventsListener eventsListener() {
+        return new SwipeQuoteView.EventsListener() {
 
             @Override
             public void onRequestFirstNewQuote() {

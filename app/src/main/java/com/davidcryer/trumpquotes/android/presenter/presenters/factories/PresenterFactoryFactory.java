@@ -4,5 +4,5 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.QuotePresenterFactory;
 
 public interface PresenterFactoryFactory {
-    QuotePresenterFactory<AndroidViewQuote> createQuotesPresenterFactory();
+    QuotePresenterFactory<AndroidViewQuote> createSwipeQuotePresenterFactory();
 }

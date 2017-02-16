@@ -4,7 +4,7 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 
 import java.util.List;
 
-public interface QuotesAndroidView extends AndroidMvpView {
+public interface SwipeQuoteAndroidView extends AndroidMvpView {
     void showFailureToGetNewQuote();
     void showLoadingNewQuote();
     void hideLoadingNewQuote();

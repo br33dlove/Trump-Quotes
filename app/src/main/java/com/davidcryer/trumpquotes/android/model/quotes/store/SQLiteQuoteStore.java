@@ -16,7 +16,7 @@ public class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //TODO createQuotesPresenterFactory database
+        //TODO quote database
         db.enableWriteAheadLogging();
     }
 

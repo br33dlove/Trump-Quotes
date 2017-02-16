@@ -23,7 +23,7 @@ public class PresenterFactoryFactoryImpl implements PresenterFactoryFactory {
     }
 
     @Override
-    public QuotePresenterFactory<AndroidViewQuote> createQuotesPresenterFactory() {
+    public QuotePresenterFactory<AndroidViewQuote> createSwipeQuotePresenterFactory() {
         return new QuotePresenterFactoryImpl<>(quoteRequesterFactory, quoteStoreHandlerFactory.create(), viewQuoteFactory);
     }
 }

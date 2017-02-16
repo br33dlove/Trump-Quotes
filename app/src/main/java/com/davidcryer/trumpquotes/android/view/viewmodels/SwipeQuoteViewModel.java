@@ -2,13 +2,13 @@ package com.davidcryer.trumpquotes.android.view.viewmodels;
 
 import android.os.Parcel;
 
-import com.davidcryer.trumpquotes.android.view.ui.QuotesAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class QuotesViewModel implements QuotesAndroidViewModel {
+public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     private AndroidViewQuote newQuote;
     private List<AndroidViewQuote> quoteHistory;
     private boolean showFailureToGetNewQuote;
@@ -16,7 +16,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     private boolean newQuoteUpdated;
     private boolean quoteHistoryUpdated;
 
-    public QuotesViewModel(
+    public SwipeQuoteViewModel(
             AndroidViewQuote newQuote,
             List<AndroidViewQuote> quoteHistory,
             boolean showFailureToGetNewQuote,
@@ -32,7 +32,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
         this.newQuoteUpdated = newQuoteUpdated;
     }
 
-    private QuotesViewModel(final Parcel parcel) {
+    private SwipeQuoteViewModel(final Parcel parcel) {
         newQuote = parcel.readParcelable(AndroidViewQuote.class.getClassLoader());
         quoteHistory = Arrays.asList((AndroidViewQuote[]) parcel.readParcelableArray(AndroidViewQuote.class.getClassLoader()));
         showFailureToGetNewQuote = parcel.readByte() != 0;
@@ -56,20 +56,20 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
         dest.writeByte((byte) (newQuoteUpdated ? 1 : 0));
     }
 
-    static final Creator<QuotesAndroidViewModel> CREATOR = new Creator<QuotesAndroidViewModel>() {
+    static final Creator<SwipeQuoteAndroidViewModel> CREATOR = new Creator<SwipeQuoteAndroidViewModel>() {
         @Override
-        public QuotesAndroidViewModel createFromParcel(Parcel source) {
-            return new QuotesViewModel(source);
+        public SwipeQuoteAndroidViewModel createFromParcel(Parcel source) {
+            return new SwipeQuoteViewModel(source);
         }
 
         @Override
-        public QuotesAndroidViewModel[] newArray(int size) {
-            return new QuotesAndroidViewModel[size];
+        public SwipeQuoteAndroidViewModel[] newArray(int size) {
+            return new SwipeQuoteAndroidViewModel[size];
         }
     };
 
     @Override
-    public void showFailureToGetNewQuote(QuotesAndroidView view) {
+    public void showFailureToGetNewQuote(SwipeQuoteAndroidView view) {
         showFailureToGetNewQuote = true;
         if (view != null) {
             view.showFailureToGetNewQuote();
@@ -77,7 +77,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void showLoadingNewQuote(QuotesAndroidView view) {
+    public void showLoadingNewQuote(SwipeQuoteAndroidView view) {
         showLoadingNewQuote = true;
         if (view != null) {
             view.showLoadingNewQuote();
@@ -85,7 +85,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void hideLoadingNewQuote(QuotesAndroidView view) {
+    public void hideLoadingNewQuote(SwipeQuoteAndroidView view) {
         showLoadingNewQuote = false;
         if (view != null) {
             view.hideLoadingNewQuote();
@@ -93,7 +93,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void showNewQuote(QuotesAndroidView view, AndroidViewQuote quote) {
+    public void showNewQuote(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
         newQuote = quote;
         if (view != null) {
             view.showNewQuote(quote);
@@ -103,7 +103,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void addNewQuoteToHistory(QuotesAndroidView view, AndroidViewQuote quote) {
+    public void addNewQuoteToHistory(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
         quoteHistory.add(0, quote);
         if (view != null) {
             view.updateQuoteHistoryForInsert(0);
@@ -113,7 +113,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void showQuoteHistory(QuotesAndroidView view, List<AndroidViewQuote> quotes) {
+    public void showQuoteHistory(SwipeQuoteAndroidView view, List<AndroidViewQuote> quotes) {
         quoteHistory = quotes;
         if (view != null) {
             view.showQuoteHistory(quotes);
@@ -121,7 +121,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void removeQuoteInHistory(QuotesAndroidView view, AndroidViewQuote quote) {
+    public void removeQuoteInHistory(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
         if (view != null) {
             final int indexOfRemovedQuote = quoteHistory.indexOf(quote);
             quoteHistory.remove(quote);
@@ -130,7 +130,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void removeAllQuotesInHistory(QuotesAndroidView view) {
+    public void removeAllQuotesInHistory(SwipeQuoteAndroidView view) {
         if (view != null) {
             quoteHistory.clear();
             view.removeAllQuotesInHistory();
@@ -138,7 +138,7 @@ public class QuotesViewModel implements QuotesAndroidViewModel {
     }
 
     @Override
-    public void onto(QuotesAndroidView view, final boolean setAllData) {
+    public void onto(SwipeQuoteAndroidView view, final boolean setAllData) {
         if (showLoadingNewQuote) {
             view.showLoadingNewQuote();
         } else {

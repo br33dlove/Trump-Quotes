@@ -23,7 +23,7 @@ import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories.Quo
 import com.davidcryer.trumpquotes.android.presenter.presenters.factories.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.factories.PresenterFactoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.viewmodels.factories.QuotesAndroidViewModelFactoryImpl;
+import com.davidcryer.trumpquotes.android.view.viewmodels.factories.SwipeQuoteAndroidViewModelFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.factories.AndroidViewQuoteFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
@@ -98,6 +98,6 @@ class ApplicationDependencyProvider {
     }
 
     private static QuotesAndroidViewModelFactory createQuotesAndroidViewModelFactory() {
-        return QuotesAndroidViewModelFactoryImpl.newInstance();
+        return SwipeQuoteAndroidViewModelFactoryImpl.newInstance();
     }
 }

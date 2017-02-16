@@ -3,8 +3,8 @@ package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.fact
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters.factories.QuoteRequesterFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuotesPresenter;
-import com.davidcryer.trumpquotes.platformindependent.view.QuotesView;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenter;
+import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
@@ -24,7 +24,7 @@ public class QuotePresenterFactoryImpl<ViewQuoteType extends ViewQuote> implemen
     }
 
     @Override
-    public Presenter<QuotesView.EventsListener> create(final QuotesView<ViewQuoteType> viewWrapper) {
-        return new QuotesPresenter<>(viewWrapper, quoteRequesterFactory.createRandomQuoteRequester(), quoteRequesterFactory.createPersonalisedQuoteRequester(), quoteStoreHandler, viewQuoteFactory);
+    public Presenter<SwipeQuoteView.EventsListener> create(final SwipeQuoteView<ViewQuoteType> viewWrapper) {
+        return new SwipeQuotePresenter<>(viewWrapper, quoteRequesterFactory.createRandomQuoteRequester(), quoteRequesterFactory.createPersonalisedQuoteRequester(), quoteStoreHandler, viewQuoteFactory);
     }
 }

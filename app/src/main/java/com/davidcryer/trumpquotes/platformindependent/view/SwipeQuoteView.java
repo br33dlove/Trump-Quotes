@@ -1,11 +1,11 @@
 package com.davidcryer.trumpquotes.platformindependent.view;
 
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuotesMvpViewModel;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 
 import java.util.List;
 
-public interface QuotesView<ViewQuoteType extends ViewQuote> extends MvpView<QuotesMvpViewModel<ViewQuoteType>> {
+public interface SwipeQuoteView<ViewQuoteType extends ViewQuote> extends MvpView<SwipeQuoteMvpViewModel<ViewQuoteType>> {
     void showLoadingNewQuote();
     void hideLoadingNewQuote();
     void showNewQuote(final ViewQuoteType quote);
