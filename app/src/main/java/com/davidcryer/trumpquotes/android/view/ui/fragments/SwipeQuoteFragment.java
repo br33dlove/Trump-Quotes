@@ -10,12 +10,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
+import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 
 import java.util.List;
@@ -25,6 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidView.EventsListener> implements SwipeQuoteAndroidView {
+    private final static long ANIMATION_DURATION_MAX_FADE = 300;
     private Unbinder unbinder;
     @BindView(R.id.quote_card)
     QuoteCard card;
@@ -75,23 +78,30 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showFailureToGetQuote() {
-
+    public void showQuote(AndroidViewQuote quote) {
+        card.quote(quote.text());
+        //TODO setup card (slide into view?)
+        //TODO set swipe listener and pass back quote
     }
 
     @Override
     public void showLoadingQuote() {
-
+        AlphaAnimationHelper.fadeIn(loadingView, ANIMATION_DURATION_MAX_FADE);
     }
 
     @Override
     public void hideLoadingQuote() {
-
+        AlphaAnimationHelper.fadeOut(loadingView, ANIMATION_DURATION_MAX_FADE);
     }
 
     @Override
-    public void showQuote(AndroidViewQuote quote) {
+    public void showFailureToGetQuote() {
+        AlphaAnimationHelper.fadeIn(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
+    }
 
+    @Override
+    public void hideFailureToGetQuote() {
+        AlphaAnimationHelper.fadeOut(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
     }
 
     @Override

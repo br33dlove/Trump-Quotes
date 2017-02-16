@@ -56,15 +56,17 @@ public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     };
 
     @Override
-    public void showFailureToGetNewQuote(SwipeQuoteAndroidView view) {
-        showFailureToGetQuote = true;
+    public void showQuote(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
+        this.quote = quote;
         if (view != null) {
-            view.showFailureToGetQuote();
+            view.showQuote(quote);
+        } else {
+            quoteUpdated = true;
         }
     }
 
     @Override
-    public void showLoadingNewQuote(SwipeQuoteAndroidView view) {
+    public void showLoadingQuote(SwipeQuoteAndroidView view) {
         showLoadingQuote = true;
         if (view != null) {
             view.showLoadingQuote();
@@ -72,7 +74,7 @@ public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     }
 
     @Override
-    public void hideLoadingNewQuote(SwipeQuoteAndroidView view) {
+    public void hideLoadingQuote(SwipeQuoteAndroidView view) {
         showLoadingQuote = false;
         if (view != null) {
             view.hideLoadingQuote();
@@ -80,12 +82,18 @@ public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     }
 
     @Override
-    public void showNewQuote(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
-        this.quote = quote;
+    public void showFailureToGetQuote(SwipeQuoteAndroidView view) {
+        showFailureToGetQuote = true;
         if (view != null) {
-            view.showQuote(quote);
-        } else {
-            quoteUpdated = true;
+            view.showFailureToGetQuote();
+        }
+    }
+
+    @Override
+    public void hideFailureToGetQuote(SwipeQuoteAndroidView view) {
+        showFailureToGetQuote = false;
+        if (view != null) {
+            view.hideFailureToGetQuote();
         }
     }
 
@@ -98,6 +106,8 @@ public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
         }
         if (showFailureToGetQuote) {
             view.showFailureToGetQuote();
+        } else {
+            view.hideFailureToGetQuote();
         }
         if (setAllData || quoteUpdated) {
             quoteUpdated = false;

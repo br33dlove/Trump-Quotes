@@ -8,7 +8,8 @@ import java.util.List;
 public interface SwipeQuoteView<ViewQuoteType extends ViewQuote> extends MvpView<SwipeQuoteMvpViewModel<ViewQuoteType>> {
     void showLoadingQuote();
     void hideLoadingQuote();
-    void showNewQuote(final ViewQuoteType quote);
+    void showQuote(final ViewQuoteType quote);
+    void hideFailureToGetQuote();
     void showFailureToGetQuote();
 
     interface EventsListener extends MvpView.EventsListener {

@@ -5,10 +5,11 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 import java.util.List;
 
 public interface SwipeQuoteAndroidView extends AndroidMvpView {
-    void showFailureToGetQuote();
+    void showQuote(final AndroidViewQuote quote);
     void showLoadingQuote();
     void hideLoadingQuote();
-    void showQuote(final AndroidViewQuote quote);
+    void showFailureToGetQuote();
+    void hideFailureToGetQuote();
 
     interface EventsListener extends AndroidMvpView.EventsListener {
         void onViewCreated();

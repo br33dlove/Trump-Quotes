@@ -42,6 +42,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
             @Override
             public void onRetryQuoteRequest() {
                 showLoadingQuote();
+                hideFailureToGetQuote();
                 requestQuoteAndDisplay(false);
             }
 
@@ -55,7 +56,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
             @Override
             public void onQuoteSwipedRight() {
                 showLoadingQuote();
-                removewQuoteFromStore();
+                removeQuoteFromStore();
                 requestQuoteAndDisplay(false);
             }
 
@@ -75,7 +76,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
                     requestQuoteAndDisplay(true);
                 } else {
                     viewWrapper.hideLoadingQuote();
-                    viewWrapper.showNewQuote(viewQuoteFactory.create(mostRecentQuote));
+                    viewWrapper.showQuote(viewQuoteFactory.create(mostRecentQuote));
                     quoteStoreHandler.clear(QuoteHelper.ids(quotes));
                 }
             }
@@ -84,6 +85,10 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
 
     private void showLoadingQuote() {
         viewWrapper.showLoadingQuote();
+    }
+
+    private void hideFailureToGetQuote() {
+        viewWrapper.hideFailureToGetQuote();
     }
 
     private void requestQuoteAndDisplay(final boolean preferLastReceivedQuote) {
@@ -95,7 +100,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
         quoteStoreHandler.updateQuoteAsJudged(viewQuote.id());
     }
 
-    private void removewQuoteFromStore() {
+    private void removeQuoteFromStore() {
         final ViewQuote viewQuote = viewWrapper.viewModel().newQuote();
         quoteStoreHandler.clear(viewQuote.id());
     }
@@ -109,7 +114,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
         @Override
         public void success(Quote quote) {
             viewWrapper.hideLoadingQuote();
-            viewWrapper.showNewQuote(viewQuoteFactory.create(quote));
+            viewWrapper.showQuote(viewQuoteFactory.create(quote));
             quoteStoreHandler.store(quote);
         }
 
