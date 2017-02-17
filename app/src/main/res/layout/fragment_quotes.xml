@@ -8,11 +8,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard
-            android:id="@+id/quote_card"
+        <com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="32dp" />
+            android:layout_height="match_parent">
+
+            <com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard
+                android:id="@+id/quote_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="32dp" />
+
+        </com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout>
 
         <ProgressBar
             android:id="@+id/loading_progress_bar"
