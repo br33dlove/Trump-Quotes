@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class SwipeLayout extends FrameLayout {
     private final Set<SwipeDelegate> swipeDelegates = new HashSet<>();
+    private SwipeDelegate.Listener swipeListener;
 
     public SwipeLayout(Context context) {
         super(context);
@@ -21,9 +22,27 @@ public class SwipeLayout extends FrameLayout {
         super(context, attrs);
     }
 
+    public void swipeListener(final SwipeDelegate.Listener swipeListener) {
+        this.swipeListener = swipeListener;
+    }
+
     @Override
     public void onViewAdded(View child) {
         super.onViewAdded(child);
-        swipeDelegates.add(new SwipeDelegate(child, new SwipeDelegate.Listener() {}));
+        swipeDelegates.add(new SwipeDelegate(child, this, new SwipeDelegate.Listener() {
+            @Override
+            public void onViewEscapedLeft(View child) {
+                if (swipeListener != null) {
+                    swipeListener.onViewEscapedLeft(child);
+                }
+            }
+
+            @Override
+            public void onViewEscapedRight(View child) {
+                if (swipeListener != null) {
+                    swipeListener.onViewEscapedRight(child);
+                }
+            }
+        }));
     }
 }

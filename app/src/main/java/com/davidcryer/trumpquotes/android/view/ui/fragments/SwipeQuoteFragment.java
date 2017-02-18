@@ -10,17 +10,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
 
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
+import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
+import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +32,8 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     QuoteCard card;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.swipe_layout)
+    SwipeLayout swipeLayout;
     @BindView(R.id.loading_progress_bar)
     View loadingView;
     @BindView(R.id.loading_failed)
@@ -53,11 +54,26 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_quotes, container, false);
         initialiseViewReferences(view);
+        setupViews();
         return view;
     }
 
     private void initialiseViewReferences(final View root) {
         unbinder = ButterKnife.bind(this, root);
+    }
+
+    private void setupViews() {
+        swipeLayout.swipeListener(new SwipeDelegate.Listener() {
+            @Override
+            public void onViewEscapedLeft(View child) {
+                eventsListener.onQuoteSwipedLeft();
+            }
+
+            @Override
+            public void onViewEscapedRight(View child) {
+                eventsListener.onQuoteSwipedRight();
+            }
+        });
     }
 
     @Override
