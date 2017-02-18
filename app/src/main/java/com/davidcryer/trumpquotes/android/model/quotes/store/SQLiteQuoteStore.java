@@ -2,22 +2,22 @@ package com.davidcryer.trumpquotes.android.model.quotes.store;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
 
 public class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {
+    private final QuoteContract quoteContract;
 
-    public SQLiteQuoteStore(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public SQLiteQuoteStore(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, final QuoteContract quoteContract) {
         super(context, name, factory, version);
+        this.quoteContract = quoteContract;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //TODO quote database
-        db.enableWriteAheadLogging();
+        quoteContract.createTable(db);
     }
 
     @Override
@@ -26,48 +26,33 @@ public class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {
     }
 
     @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.enableWriteAheadLogging();
+    }
+
+    @Override
     public boolean store(Quote... quotes) {
-        final SQLiteDatabase db = getWritableDatabase();
-        db.beginTransaction();
-        try {
-//            db.upsert()//TODO try update, else insert
-            db.setTransactionSuccessful();
-            return true;
-        } catch (SQLiteException sqle) {
-            return false;
-        } finally {
-            db.endTransaction();
-        }
+        return quoteContract.store(getWritableDatabase(), quotes);
     }
 
     @Override
     public boolean clear(String... quoteIds) {
-        final SQLiteDatabase db = getWritableDatabase();
-        db.beginTransaction();
-        try {
-//            db.delete()//TODO
-            db.setTransactionSuccessful();
-            return true;
-        } catch (SQLiteException sqle) {
-            return false;
-        } finally {
-            db.endTransaction();
-        }
+        return quoteContract.clear(getWritableDatabase(), quoteIds);
     }
 
     @Override
     public Quote[] judgedQuotes() {
-        return new Quote[0];//TODO
+        return quoteContract.judgedQuotes(getReadableDatabase());
     }
 
     @Override
     public Quote[] unJudgedQuotes() {
-        return new Quote[0];//TODO
+        return quoteContract.unJudgedQuotes(getReadableDatabase());
     }
 
     @Override
     public boolean updateQuoteAsJudged(String quoteId) {
-        //TODO
-        return false;
+        return quoteContract.updateQuoteAsJudged(getWritableDatabase(), quoteId);
     }
 }

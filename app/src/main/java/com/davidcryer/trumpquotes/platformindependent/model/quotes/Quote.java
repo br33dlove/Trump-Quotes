@@ -25,6 +25,10 @@ public class Quote {
         return judged;
     }
 
+    public long createdTimestamp() {
+        return createdTimestamp;
+    }
+
     public boolean newerThan(final Quote quote) {
         return createdTimestamp > quote.createdTimestamp;
     }
