@@ -5,10 +5,16 @@ import android.app.Application;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 
 public class TrumpQuotesApplication extends Application implements ViewWrapperRepositoryFactoryProvider {
-    private final ViewWrapperRepositoryFactory viewWrapperRepositoryFactory;
+    private ViewWrapperRepositoryFactory viewWrapperRepositoryFactory;
 
     public TrumpQuotesApplication() {
         super();
+
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
         viewWrapperRepositoryFactory = ApplicationDependencyProvider.viewWrapperRepositoryFactory(this);
     }
 

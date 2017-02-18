@@ -76,6 +76,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
                 //TODO clean up view
             }
         });
+        card.setVisibility(View.GONE);
     }
 
     @Override

@@ -5,6 +5,10 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class AndroidViewQuoteFactory implements ViewQuoteFactory<AndroidViewQuote> {
 
     @Override
@@ -13,10 +17,10 @@ public class AndroidViewQuoteFactory implements ViewQuoteFactory<AndroidViewQuot
     }
 
     @Override
-    public AndroidViewQuote[] createArray(Quote[] quotes) {
-        final AndroidViewQuote[] viewQuotes = new AndroidViewQuote[quotes.length];
-        for (int i = 0; i < quotes.length; i++) {
-            viewQuotes[i] = create(quotes[i]);
+    public List<AndroidViewQuote> create(List<Quote> quotes) {
+        final List<AndroidViewQuote> viewQuotes = new LinkedList<>();
+        for (final Quote quote : quotes) {
+            viewQuotes.add(create(quote));
         }
         return viewQuotes;
     }
