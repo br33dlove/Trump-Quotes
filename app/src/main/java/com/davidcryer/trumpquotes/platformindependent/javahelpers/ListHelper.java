@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.view.ui.helpers;
+package com.davidcryer.trumpquotes.platformindependent.javahelpers;
 
 import java.util.ArrayList;
 import java.util.Collections;
