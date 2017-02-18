@@ -13,7 +13,7 @@ public interface SwipeQuoteAndroidView extends AndroidMvpView {
 
     interface EventsListener extends AndroidMvpView.EventsListener {
         void onViewCreated();
-        void onRetryQuoteRequestClicked();
+        void onRetryQuoteRequest();
         void onQuoteSwipedLeft();
         void onQuoteSwipedRight();
     }

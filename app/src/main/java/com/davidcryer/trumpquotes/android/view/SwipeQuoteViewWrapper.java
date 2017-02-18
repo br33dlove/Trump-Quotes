@@ -82,7 +82,7 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
         }
 
         @Override
-        public void onRetryQuoteRequestClicked() {
+        public void onRetryQuoteRequest() {
             wrapperEventsListener.onRetryQuoteRequest();
         }
 

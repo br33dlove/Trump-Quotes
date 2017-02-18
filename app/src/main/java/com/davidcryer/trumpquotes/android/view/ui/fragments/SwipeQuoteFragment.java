@@ -34,8 +34,6 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout)
     SwipeLayout swipeLayout;
-    @BindView(R.id.loading_progress_bar)
-    View loadingView;
     @BindView(R.id.loading_failed)
     View loadingFailedTextView;
 
@@ -76,6 +74,12 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
                 //TODO clean up view
             }
         });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                eventsListener.onRetryQuoteRequest();
+            }
+        });
         card.setVisibility(View.GONE);
     }
 
@@ -114,12 +118,12 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
 
     @Override
     public void showLoadingQuote() {
-        AlphaAnimationHelper.fadeIn(loadingView, ANIMATION_DURATION_MAX_FADE);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideLoadingQuote() {
-        AlphaAnimationHelper.fadeOut(loadingView, ANIMATION_DURATION_MAX_FADE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
