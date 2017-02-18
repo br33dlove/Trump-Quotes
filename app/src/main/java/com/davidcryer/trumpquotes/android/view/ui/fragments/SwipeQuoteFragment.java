@@ -67,11 +67,13 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
             @Override
             public void onViewEscapedLeft(View child) {
                 eventsListener.onQuoteSwipedLeft();
+                //TODO clean up view
             }
 
             @Override
             public void onViewEscapedRight(View child) {
                 eventsListener.onQuoteSwipedRight();
+                //TODO clean up view
             }
         });
     }
