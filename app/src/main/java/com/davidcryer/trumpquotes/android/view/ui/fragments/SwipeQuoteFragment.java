@@ -105,6 +105,10 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     @Override
     public void showQuote(AndroidViewQuote quote) {
         card.quote(quote.text());
+        card.setVisibility(View.VISIBLE);
+        card.setX(0);
+        card.setY(0);
+        card.invalidate();
         //TODO setup card (slide into view?)
     }
 

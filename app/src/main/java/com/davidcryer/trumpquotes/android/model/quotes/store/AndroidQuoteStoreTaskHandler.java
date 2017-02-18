@@ -8,11 +8,11 @@ import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.StoreQuotesTa
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.UpdateQuoteAsJudgedTask;
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskHandler;
+import com.davidcryer.trumpquotes.android.view.ui.helpers.ListHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AndroidQuoteStoreTaskHandler implements QuoteStoreHandler {
     private final QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory;
@@ -40,7 +40,7 @@ public class AndroidQuoteStoreTaskHandler implements QuoteStoreHandler {
         readTaskHandler.executeTask(quoteStoreTasksFactoryFactory.createRetrieveJudgedQuotesTask(), null, new Task.Callback<RetrieveJudgedQuotesTask.ResponseValues>() {
             @Override
             public void onSuccess(RetrieveJudgedQuotesTask.ResponseValues response) {
-                callback.onReturn(Arrays.asList(response.quotes()));
+                callback.onReturn(ListHelper.asArrayList(response.quotes()));
             }
 
             @Override
@@ -55,7 +55,7 @@ public class AndroidQuoteStoreTaskHandler implements QuoteStoreHandler {
         readTaskHandler.executeTask(quoteStoreTasksFactoryFactory.createRetrieveUnJudgedQuotesTask(), null, new Task.Callback<RetrieveUnJudgedQuotesTask.ResponseValues>() {
             @Override
             public void onSuccess(RetrieveUnJudgedQuotesTask.ResponseValues response) {
-                callback.onReturn(Arrays.asList(response.quotes()));
+                callback.onReturn(ListHelper.asArrayList(response.quotes()));
             }
 
             @Override
