@@ -1,39 +1,41 @@
 package com.davidcryer.trumpquotes.android.model.quotes.network.retrofit;
 
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequest;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.trumpapi.TrumpQuote;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.trumpapi.TrumpQuoteToQuoteAdapter;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 class RetrofitQuoteRequest implements QuoteRequest {
-    private final Call<Quote> call;
-    private final List<QuoteRequestCallback> callbacks;
+    private final TrumpQuoteToQuoteAdapter trumpQuoteToQuoteAdapter;
+    private final Call<TrumpQuote> call;
+    private final Collection<QuoteRequestCallback> callbacks;
 
-    RetrofitQuoteRequest(Call<Quote> call, final List<QuoteRequestCallback> callbacks) {
+    public RetrofitQuoteRequest(TrumpQuoteToQuoteAdapter trumpQuoteToQuoteAdapter, Call<TrumpQuote> call, Collection<QuoteRequestCallback> callbacks) {
+        this.trumpQuoteToQuoteAdapter = trumpQuoteToQuoteAdapter;
         this.call = call;
         this.callbacks = callbacks;
     }
 
     @Override
     public void executeAsync() {
-        call.enqueue(new Callback<Quote>() {
+        call.enqueue(new Callback<TrumpQuote>() {
             @Override
-            public void onResponse(Call<Quote> call, Response<Quote> response) {
+            public void onResponse(Call<TrumpQuote> call, Response<TrumpQuote> response) {
                 for (final QuoteRequestCallback callback : callbacks) {
                     if (callback != null) {
-                        callback.success(response.body());
+                        callback.success(trumpQuoteToQuoteAdapter.quote(response.body()));
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<Quote> call, Throwable t) {
+            public void onFailure(Call<TrumpQuote> call, Throwable t) {
                 for (final QuoteRequestCallback callback : callbacks) {
                     if (callback != null) {
                         callback.failure();
