@@ -108,6 +108,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
 
     @Override
     public void showQuote(AndroidViewQuote quote) {
+        swipeRefreshLayout.setEnabled(false);
         card.quote(quote.text());
         card.setVisibility(View.VISIBLE);
         card.setX(0);
@@ -128,6 +129,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
 
     @Override
     public void showFailureToGetQuote() {
+        swipeRefreshLayout.setEnabled(true);
         AlphaAnimationHelper.fadeIn(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
     }
 
