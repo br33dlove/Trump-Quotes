@@ -111,8 +111,11 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         swipeRefreshLayout.setEnabled(false);
         card.quote(quote.text());
         card.setVisibility(View.VISIBLE);
-        card.setX(0);
-        card.setY(0);
+        final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
+        final int xOrigin = cardLp.leftMargin;
+        final int yOrigin = cardLp.topMargin;
+        card.setX(xOrigin);
+        card.setY(yOrigin);
         card.invalidate();
         //TODO setup card (slide into view?)
     }

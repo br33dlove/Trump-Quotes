@@ -2,10 +2,14 @@ package com.davidcryer.trumpquotes.android.view.ui.swipe;
 
 import android.animation.ValueAnimator;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MarginLayoutParamsCompat;
 import android.support.v4.view.ViewCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Scroller;
 
 public class SwipeDelegate implements GestureDetector.OnGestureListener {
@@ -55,12 +59,16 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         if (scroller.isFinished() || scroller.getCurrVelocity() < TAP_UP_ESCAPE_VELOCITY) {
             animateViewBackToOrigin();
         }
+        ViewCompat.postInvalidateOnAnimation(view);
         return true;
     }
 
     private void animateViewBackToOrigin() {
         stopScrollAndFling();
-        view.animate().x(0).y(0).setDuration(durationBackToOrigin()).start();
+        final ViewGroup.MarginLayoutParams viewLp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        final int xOrigin = viewLp.leftMargin;
+        final int yOrigin = viewLp.topMargin;
+        view.animate().x(xOrigin).y(yOrigin).setDuration(durationBackToOrigin()).start();
     }
 
     private long durationBackToOrigin() {
@@ -70,7 +78,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         stopScrollAndFling();
-        view.animate().xBy(distanceX).yBy(distanceY).start();
+        view.animate().xBy(-distanceX).yBy(-distanceY).start();
         return true;
     }
 
@@ -81,7 +89,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        fling((int) -velocityX, (int) -velocityY);
+        fling((int) velocityX, (int) velocityY);
         return true;
     }
 
