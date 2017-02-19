@@ -29,10 +29,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     }
 
     public boolean onTouch(final MotionEvent event) {
-        if (gestureDetector.onTouchEvent(event) || onMotionUp(event)) {
-            return true;
-        }
-        return false;
+        return gestureDetector.onTouchEvent(event) || onMotionUp(event);
     }
 
     private boolean onMotionUp(final MotionEvent event) {
