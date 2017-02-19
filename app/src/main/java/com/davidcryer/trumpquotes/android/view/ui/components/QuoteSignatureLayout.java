@@ -28,7 +28,7 @@ public class QuoteSignatureLayout extends FrameLayout {
     }
 
     private void init() {
-        inflate(getContext(), R.layout.container_quote_signature, this);
+        inflate(getContext(), R.layout.container_quote_signature_switcher, this);
         ButterKnife.bind(this);
     }
 

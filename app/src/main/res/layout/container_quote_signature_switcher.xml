@@ -5,14 +5,18 @@
 
     <TextView
         android:id="@+id/quote_signature.is_trump"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end" />
+        android:layout_gravity="end"
+        android:textSize="32sp"
+        android:text="@string/quote.signature.trump" />
 
     <TextView
         android:id="@+id/quote_signature.not_trump"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start" />
+        android:layout_gravity="start"
+        android:textSize="32sp"
+        android:text="@string/quote.signature.not_trump" />
 
 </FrameLayout>

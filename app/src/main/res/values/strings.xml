@@ -4,4 +4,6 @@
     <string name="quote.base_url.trump_quotes_api">https://api.whatdoestrumpthink.com/api/</string>
 
     <string name="quote.loading_failed">I\'m sorry, we couldn\'t load the next quote</string>
+    <string name="quote.signature.trump">Trump</string>
+    <string name="quote.signature.not_trump">Not Trump</string>
 </resources>
