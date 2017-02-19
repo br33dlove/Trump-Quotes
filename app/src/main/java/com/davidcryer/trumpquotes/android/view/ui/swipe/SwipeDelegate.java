@@ -2,16 +2,15 @@ package com.davidcryer.trumpquotes.android.view.ui.swipe;
 
 import android.animation.ValueAnimator;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
 
-import com.davidcryer.trumpquotes.android.view.ui.helpers.ViewHelper;
-
 public class SwipeDelegate implements GestureDetector.OnGestureListener {
-    private final static float TAP_UP_ESCAPE_VELOCITY = 0f;//TODO find appropriate value
     private final static float RETURN_TO_ORIGIN_PIXEL_PER_MS = 0.5f;
     private final View view;
     private final View parent;
@@ -85,19 +84,15 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-//        fling((int) velocityX, (int) velocityY);
-        animateViewBackToOrigin();//TODO debug
+        fling((int) velocityX, (int) velocityY);
         return true;
     }
 
     private void fling(final int velocityX, final int velocityY) {
         stopScrollAndFling();
-        view.clearAnimation();
-        final int minX = -view.getWidth();
-        final int maxX = parent.getWidth();
-        final int minY = -view.getHeight();
-        final int maxY = parent.getHeight();
-        scroller.fling((int) view.getX(), (int) view.getY(), velocityX, velocityY, minX, maxX, minY, maxY);
+        final int minX = -view.getWidth() - 100;
+        final int maxX = parent.getWidth() + 100;
+        scroller.fling((int) view.getX(), (int) view.getY(), velocityX, velocityY, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE);
         final int finalX = scroller.getFinalX();
         if (finalX <= minX || finalX >= maxX) {
             animateFling(minX, maxX);
@@ -107,7 +102,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     }
 
     private void animateFling(final int minX, final int maxX) {
-        flingAnimator = ValueAnimator.ofFloat(0, 1);
+        flingAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
         assert flingAnimator != null;
         flingAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -116,20 +111,27 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
                     scroller.computeScrollOffset();
                     final int currentX = scroller.getCurrX();
                     final int currentY = scroller.getCurrY();
+                    view.setX(currentX);
+                    view.setY(currentY);
                     final boolean viewEscapedLeft = currentX <= minX;
                     final boolean viewEscapedRight = currentX >= maxX;
                     if (viewEscapedLeft || viewEscapedRight) {
                         viewEscapedBounds(viewEscapedLeft);
-                    } else {
-                        view.animate().x(currentX).y(currentY).start();
                     }
                 } else {
                     stopScrollAndFling();
+                    final boolean viewNotEscapedLeft = view.getX() > minX;
+                    final boolean viewNotEscapedRight = view.getX() < maxX;
+                    if (viewNotEscapedLeft && viewNotEscapedRight) {
+                        animateViewBackToOrigin();
+                    }
                 }
             }
         });
         flingAnimator.setDuration(scroller.getDuration());
+        flingAnimator.setInterpolator(new LinearInterpolator());
         flingAnimator.start();
+        ViewCompat.postInvalidateOnAnimation(view);
     }
 
     private void viewEscapedBounds(final boolean escapedLeft) {
