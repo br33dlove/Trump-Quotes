@@ -13,9 +13,9 @@ import butterknife.ButterKnife;
 public class SignatureSwitcherLayout extends FrameLayout {
     private final static float PERCENTAGE_OFFSET_FOR_MAX_ALPHA = 50.0f;
     @BindView(R.id.quote_signature_is_trump)
-    View isTrumpTextView;
+    View isTrumpSignatureView;
     @BindView(R.id.quote_signature_not_trump)
-    View notTrumpTextView;
+    View notTrumpSignatureView;
 
     public SignatureSwitcherLayout(Context context) {
         super(context);
@@ -33,8 +33,8 @@ public class SignatureSwitcherLayout extends FrameLayout {
     }
 
     public void update(final float percentageOffsetFromCentre) {
-        isTrumpTextView.setAlpha(isTrumpAlpha(percentageOffsetFromCentre));
-        notTrumpTextView.setAlpha(notTrumpAlpha(percentageOffsetFromCentre));
+        isTrumpSignatureView.setAlpha(isTrumpAlpha(percentageOffsetFromCentre));
+        notTrumpSignatureView.setAlpha(notTrumpAlpha(percentageOffsetFromCentre));
     }
 
     private float isTrumpAlpha(final float percentageOffsetFromCentre) {
