@@ -55,7 +55,6 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-
         return false;
     }
 
