@@ -2,18 +2,16 @@ package com.davidcryer.trumpquotes.android.view.ui.swipe;
 
 import android.animation.ValueAnimator;
 import android.support.annotation.Nullable;
-import android.support.v4.view.MarginLayoutParamsCompat;
-import android.support.v4.view.ViewCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Scroller;
 
+import com.davidcryer.trumpquotes.android.view.ui.helpers.ViewHelper;
+
 public class SwipeDelegate implements GestureDetector.OnGestureListener {
-    private final static float TAP_UP_ESCAPE_VELOCITY = 20f;//TODO find appropriate value
+    private final static float TAP_UP_ESCAPE_VELOCITY = 0f;//TODO find appropriate value
     private final static float RETURN_TO_ORIGIN_PIXEL_PER_MS = 0.5f;
     private final View view;
     private final View parent;
@@ -28,23 +26,28 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         this.listener = listener;
         gestureDetector = new GestureDetector(view.getContext(), this);
         scroller = new Scroller(view.getContext());
-        init();
     }
 
-    private void init() {
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
-            }
-        });
+    public boolean onTouch(final MotionEvent event) {
+        if (gestureDetector.onTouchEvent(event) || onMotionUp(event)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean onMotionUp(final MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            stopScrollAndFling();
+            animateViewBackToOrigin();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean onDown(MotionEvent e) {
         stopScrollAndFling();
         view.clearAnimation();
-        ViewCompat.postInvalidateOnAnimation(view);
         return true;
     }
 
@@ -55,12 +58,8 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        scroller.computeScrollOffset();
-        if (scroller.isFinished() || scroller.getCurrVelocity() < TAP_UP_ESCAPE_VELOCITY) {
-            animateViewBackToOrigin();
-        }
-        ViewCompat.postInvalidateOnAnimation(view);
-        return true;
+
+        return false;
     }
 
     private void animateViewBackToOrigin() {
@@ -78,7 +77,8 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         stopScrollAndFling();
-        view.animate().xBy(-distanceX).yBy(-distanceY).start();
+        view.setX(view.getX() - distanceX);
+        view.setY(view.getY() - distanceY);
         return true;
     }
 
@@ -89,7 +89,8 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        fling((int) velocityX, (int) velocityY);
+//        fling((int) velocityX, (int) velocityY);
+        animateViewBackToOrigin();//TODO debug
         return true;
     }
 
@@ -133,7 +134,6 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         });
         flingAnimator.setDuration(scroller.getDuration());
         flingAnimator.start();
-        ViewCompat.postInvalidateOnAnimation(view);
     }
 
     private void viewEscapedBounds(final boolean escapedLeft) {
