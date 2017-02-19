@@ -14,7 +14,7 @@ public class QuoteCard extends CardView {
     @BindView(R.id.quote)
     TextView quoteView;
     @BindView(R.id.signature)
-    QuoteSignatureLayout signatureLayout;
+    SignatureSwitcherLayout signatureSwitcherLayout;
 
     public QuoteCard(Context context) {
         super(context);
@@ -36,6 +36,6 @@ public class QuoteCard extends CardView {
     }
 
     public void update(final float percentageOffsetFromCentre) {
-        signatureLayout.update(percentageOffsetFromCentre);
+        signatureSwitcherLayout.update(percentageOffsetFromCentre);
     }
 }

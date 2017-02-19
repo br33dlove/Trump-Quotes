@@ -10,19 +10,19 @@ import com.davidcryer.trumpquotes.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class QuoteSignatureLayout extends FrameLayout {
+public class SignatureSwitcherLayout extends FrameLayout {
     private final static float PERCENTAGE_OFFSET_FOR_MAX_ALPHA = 50.0f;
     @BindView(R.id.quote_signature_is_trump)
     View isTrumpTextView;
     @BindView(R.id.quote_signature_not_trump)
     View notTrumpTextView;
 
-    public QuoteSignatureLayout(Context context) {
+    public SignatureSwitcherLayout(Context context) {
         super(context);
         init();
     }
 
-    public QuoteSignatureLayout(Context context, AttributeSet attrs) {
+    public SignatureSwitcherLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }

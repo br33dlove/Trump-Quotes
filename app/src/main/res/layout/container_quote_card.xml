@@ -16,7 +16,7 @@
             android:layout_weight="1"
             android:textSize="24sp" />
 
-        <com.davidcryer.trumpquotes.android.view.ui.components.QuoteSignatureLayout
+        <com.davidcryer.trumpquotes.android.view.ui.components.SignatureSwitcherLayout
             android:id="@+id/signature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
