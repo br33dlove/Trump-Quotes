@@ -73,6 +73,11 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
                 eventsListener.onQuoteSwipedRight();
                 //TODO clean up view
             }
+
+            @Override
+            public void onCardMoved(float percentageOffsetFromCentreX) {
+                card.update(percentageOffsetFromCentreX);
+            }
         });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

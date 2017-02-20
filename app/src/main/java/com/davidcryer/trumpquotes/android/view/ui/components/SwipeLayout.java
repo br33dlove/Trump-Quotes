@@ -84,12 +84,19 @@ public class SwipeLayout extends FrameLayout {
                     swipeListener.onViewEscapedRight(child);
                 }
             }
+
+            @Override
+            public void onCardMoved(float percentageOffsetFromCentreX) {
+                if (swipeListener != null) {
+                    swipeListener.onCardMoved(percentageOffsetFromCentreX);
+                }
+            }
         }));
     }
 
     @Override
     public void onViewRemoved(View child) {
         super.onViewRemoved(child);
-
+        swipeDelegates.remove(child);
     }
 }

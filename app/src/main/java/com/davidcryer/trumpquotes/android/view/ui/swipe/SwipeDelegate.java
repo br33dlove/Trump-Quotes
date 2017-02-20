@@ -7,6 +7,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
 
@@ -62,7 +63,18 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         final ViewGroup.MarginLayoutParams viewLp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         final int xOrigin = viewLp.leftMargin;
         final int yOrigin = viewLp.topMargin;
-        view.animate().x(xOrigin).y(yOrigin).setDuration(durationBackToOrigin()).start();
+        view.animate()
+                .x(xOrigin)
+                .y(yOrigin)
+                .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        sendOnCardMovedCallback(view.getX());
+                    }
+                })
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .setDuration(durationBackToOrigin())
+                .start();
     }
 
     private long durationBackToOrigin() {
@@ -72,8 +84,10 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         stopScrollAndFling();
-        view.setX(view.getX() - distanceX);
+        final float newX = view.getX() - distanceX;
+        view.setX(newX);
         view.setY(view.getY() - distanceY);
+        sendOnCardMovedCallback(newX);
         return true;
     }
 
@@ -113,6 +127,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
                     final int currentY = scroller.getCurrY();
                     view.setX(currentX);
                     view.setY(currentY);
+                    sendOnCardMovedCallback(currentX);
                     final boolean viewEscapedLeft = currentX <= minX;
                     final boolean viewEscapedRight = currentX >= maxX;
                     if (viewEscapedLeft || viewEscapedRight) {
@@ -152,8 +167,17 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         }
     }
 
+    private void sendOnCardMovedCallback(final float currentX) {
+        final float parentWidth = parent.getWidth();
+        final float viewCentreX = currentX + view.getWidth() / 2.0f;
+        final float parentCentreX = parentWidth / 2.0f;
+        final float percentageOffsetFromCentreX = (parentCentreX - viewCentreX) / parentWidth;
+        listener.onCardMoved(percentageOffsetFromCentreX);
+    }
+
     public interface Listener {
         void onViewEscapedLeft(final View child);
         void onViewEscapedRight(final View child);
+        void onCardMoved(final float percentageOffsetFromCentreX);
     }
 }
