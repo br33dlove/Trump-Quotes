@@ -5,12 +5,16 @@ public class Quote {
     private final String text;
     private final long createdTimestamp;
     private final boolean judged;
+    private final boolean isTrumpQuote;
+    private final String source;
 
-    Quote(String id, String text, long createdTimestamp, boolean judged) {
+    Quote(String id, String text, long createdTimestamp, boolean judged, boolean isTrumpQuote, String source) {
         this.id = id;
         this.text = text;
         this.createdTimestamp = createdTimestamp;
         this.judged = judged;
+        this.isTrumpQuote = isTrumpQuote;
+        this.source = source;
     }
 
     public String id() {
@@ -29,7 +33,15 @@ public class Quote {
         return createdTimestamp;
     }
 
-    public boolean newerThan(final Quote quote) {
+    public boolean isTrumpQuote() {
+        return isTrumpQuote;
+    }
+
+    public String source() {
+        return source;
+    }
+
+    boolean newerThan(final Quote quote) {
         return createdTimestamp > quote.createdTimestamp;
     }
 }

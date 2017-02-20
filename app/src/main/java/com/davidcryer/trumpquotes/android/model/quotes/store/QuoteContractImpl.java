@@ -14,16 +14,17 @@ import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.C
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.COMMA;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.CREATE_TABLE;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INTEGER_TYPE;
+import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INT_VALUE_FALSE;
+import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INT_VALUE_TRUE;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.OPEN_BRACKET;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.PRIMARY_KEY_TYPE;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.SPACE;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.TEXT_TYPE;
 
 public class QuoteContractImpl implements QuoteContract {
-    private final static int VALUE_IS_JUDGED = 1;
-    private final static int VALUE_NOT_JUDGED = 0;
-    private final static String ARG_IS_JUDGED = String.valueOf(VALUE_IS_JUDGED);
-    private final static String ARG_NOT_JUDGED = String.valueOf(VALUE_NOT_JUDGED);
+
+    private final static String ARG_IS_JUDGED = String.valueOf(INT_VALUE_TRUE);
+    private final static String ARG_NOT_JUDGED = String.valueOf(INT_VALUE_FALSE);
     private final QuoteFactory quoteFactory;
 
 
@@ -56,8 +57,10 @@ public class QuoteContractImpl implements QuoteContract {
         final ContentValues values =  new ContentValues();
         values.put(Table._ID, quote.id());
         values.put(Table.COLUMN_ITEM_TEXT, quote.text());
-        values.put(Table.COLUMN_ITEM_IS_JUDGED, quote.judged() ? VALUE_IS_JUDGED : VALUE_NOT_JUDGED);
         values.put(Table.COLUMN_ITEM_CREATED_TIMESTAMP, quote.createdTimestamp());
+        values.put(Table.COLUMN_ITEM_IS_JUDGED, quote.judged() ? INT_VALUE_TRUE : INT_VALUE_FALSE);
+        values.put(Table.COLUMN_ITEM_IS_TRUMP_QUOTE, quote.isTrumpQuote() ? INT_VALUE_TRUE : INT_VALUE_FALSE);
+        values.put(Table.COLUMN_ITEM_SOURCE, quote.source());
         return values;
     }
 
@@ -110,7 +113,9 @@ public class QuoteContractImpl implements QuoteContract {
                 cursor.getString(cursor.getColumnIndex(Table._ID)),
                 cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_TEXT)),
                 cursor.getLong(cursor.getColumnIndex(Table.COLUMN_ITEM_CREATED_TIMESTAMP)),
-                cursor.getInt(cursor.getColumnIndex(Table.COLUMN_ITEM_IS_JUDGED)) == VALUE_IS_JUDGED
+                cursor.getInt(cursor.getColumnIndex(Table.COLUMN_ITEM_IS_JUDGED)) == INT_VALUE_TRUE,
+                cursor.getInt(cursor.getColumnIndex(Table.COLUMN_ITEM_IS_TRUMP_QUOTE)) == INT_VALUE_TRUE,
+                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_SOURCE))
         );
     }
 
@@ -135,7 +140,7 @@ public class QuoteContractImpl implements QuoteContract {
 
     private static ContentValues updateForJudgedContentValues() {
         final ContentValues values = new ContentValues();
-        values.put(Table.COLUMN_ITEM_IS_JUDGED, VALUE_IS_JUDGED);
+        values.put(Table.COLUMN_ITEM_IS_JUDGED, INT_VALUE_TRUE);
         return values;
     }
 
@@ -144,13 +149,17 @@ public class QuoteContractImpl implements QuoteContract {
         private final static String COLUMN_ITEM_TEXT = "text";
         private final static String COLUMN_ITEM_CREATED_TIMESTAMP = "createdTimestamp";
         private final static String COLUMN_ITEM_IS_JUDGED = "judged";
+        private final static String COLUMN_ITEM_IS_TRUMP_QUOTE = "isTrumpQuote";
+        private final static String COLUMN_ITEM_SOURCE = "source";
         private static final String SQL_CREATE_ENTRIES =
                 CREATE_TABLE + Table.TABLE_NAME + SPACE
                         + OPEN_BRACKET
                         + Table._ID + TEXT_TYPE + PRIMARY_KEY_TYPE + COMMA
                         + Table.COLUMN_ITEM_TEXT + TEXT_TYPE + COMMA
                         + Table.COLUMN_ITEM_CREATED_TIMESTAMP + INTEGER_TYPE + COMMA
-                        + Table.COLUMN_ITEM_IS_JUDGED + INTEGER_TYPE
+                        + Table.COLUMN_ITEM_IS_JUDGED + INTEGER_TYPE + COMMA
+                        + Table.COLUMN_ITEM_IS_TRUMP_QUOTE + INTEGER_TYPE + COMMA
+                        + Table.COLUMN_ITEM_SOURCE + TEXT_TYPE
                         + CLOSE_BRACKET;
     }
 }
