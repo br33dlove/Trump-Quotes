@@ -16,7 +16,7 @@ class RetrofitQuoteRequest implements QuoteRequest {
     private final Call<TrumpQuote> call;
     private final Collection<QuoteRequestCallback> callbacks;
 
-    public RetrofitQuoteRequest(TrumpQuoteToQuoteAdapter trumpQuoteToQuoteAdapter, Call<TrumpQuote> call, Collection<QuoteRequestCallback> callbacks) {
+    RetrofitQuoteRequest(TrumpQuoteToQuoteAdapter trumpQuoteToQuoteAdapter, Call<TrumpQuote> call, Collection<QuoteRequestCallback> callbacks) {
         this.trumpQuoteToQuoteAdapter = trumpQuoteToQuoteAdapter;
         this.call = call;
         this.callbacks = callbacks;
