@@ -67,6 +67,13 @@ public class SwipeLayout extends FrameLayout {
         this.swipeListener = swipeListener;
     }
 
+    public void listenToChildGestures(final View child, final boolean listenForGestures) {
+        final SwipeDelegate swipeDelegate = swipeDelegates.get(child);
+        if (swipeDelegate != null) {
+            swipeDelegate.listenForGestures(listenForGestures);
+        }
+    }
+
     @Override
     public void onViewAdded(View child) {
         super.onViewAdded(child);

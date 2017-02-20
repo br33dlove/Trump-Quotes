@@ -65,12 +65,14 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
             @Override
             public void onViewEscapedLeft(View child) {
                 eventsListener.onQuoteSwipedLeft();
+                swipeLayout.listenToChildGestures(child, false);
                 //TODO clean up view
             }
 
             @Override
             public void onViewEscapedRight(View child) {
                 eventsListener.onQuoteSwipedRight();
+                swipeLayout.listenToChildGestures(child, false);
                 //TODO clean up view
             }
 
@@ -116,12 +118,14 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         swipeRefreshLayout.setEnabled(false);
         card.quote(quote.text());
         card.setVisibility(View.VISIBLE);
+        swipeLayout.listenToChildGestures(card, true);
         final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
         final int xOrigin = cardLp.leftMargin;
         final int yOrigin = cardLp.topMargin;
         card.setX(xOrigin);
         card.setY(yOrigin);
         card.invalidate();
+        card.update(0);
         //TODO setup card (slide into view?)
     }
 

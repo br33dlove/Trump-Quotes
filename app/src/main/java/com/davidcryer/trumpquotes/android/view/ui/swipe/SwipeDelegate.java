@@ -2,7 +2,6 @@ package com.davidcryer.trumpquotes.android.view.ui.swipe;
 
 import android.animation.ValueAnimator;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +18,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     private final GestureDetector gestureDetector;
     private final Scroller scroller;
     @Nullable private ValueAnimator flingAnimator;
+    private boolean listenForGestures;
 
     public SwipeDelegate(View view, View parent, Listener listener) {
         this.view = view;
@@ -26,10 +26,15 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         this.listener = listener;
         gestureDetector = new GestureDetector(view.getContext(), this);
         scroller = new Scroller(view.getContext());
+        listenForGestures = true;
+    }
+
+    public void listenForGestures(final boolean listenForGestures) {
+        this.listenForGestures = listenForGestures;
     }
 
     public boolean onTouch(final MotionEvent event) {
-        return gestureDetector.onTouchEvent(event) || onMotionUp(event);
+        return listenForGestures && (gestureDetector.onTouchEvent(event) || onMotionUp(event));
     }
 
     private boolean onMotionUp(final MotionEvent event) {
@@ -146,7 +151,6 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         flingAnimator.setDuration(scroller.getDuration());
         flingAnimator.setInterpolator(new LinearInterpolator());
         flingAnimator.start();
-        ViewCompat.postInvalidateOnAnimation(view);
     }
 
     private void viewEscapedBounds(final boolean escapedLeft) {
@@ -171,7 +175,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         final float parentWidth = parent.getWidth();
         final float viewCentreX = currentX + view.getWidth() / 2.0f;
         final float parentCentreX = parentWidth / 2.0f;
-        final float percentageOffsetFromCentreX = (parentCentreX - viewCentreX) / parentWidth;
+        final float percentageOffsetFromCentreX = (viewCentreX - parentCentreX) / parentWidth;
         listener.onCardMoved(percentageOffsetFromCentreX);
     }
 

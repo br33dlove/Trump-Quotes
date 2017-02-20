@@ -2,6 +2,7 @@ package com.davidcryer.trumpquotes.android.view.ui.components;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -11,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignatureSwitcherLayout extends FrameLayout {
-    private final static float PERCENTAGE_OFFSET_FOR_MAX_ALPHA = 50.0f;
+    private final static float PERCENTAGE_OFFSET_FOR_MAX_ALPHA = 0.25f;
     @BindView(R.id.quote_signature_is_trump)
     View isTrumpSignatureView;
     @BindView(R.id.quote_signature_not_trump)
@@ -33,6 +34,7 @@ public class SignatureSwitcherLayout extends FrameLayout {
     }
 
     public void update(final float percentageOffsetFromCentre) {
+        Log.d(SignatureSwitcherLayout.class.getSimpleName(), "offset: " + percentageOffsetFromCentre);
         isTrumpSignatureView.setAlpha(isTrumpAlpha(percentageOffsetFromCentre));
         notTrumpSignatureView.setAlpha(notTrumpAlpha(percentageOffsetFromCentre));
     }
