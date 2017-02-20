@@ -36,7 +36,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
             @Override
             public void onRequestFirstQuote() {
                 showLoadingQuote();
-                getUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay();
+                fetchUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay();
             }
 
             @Override
@@ -55,7 +55,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
             @Override
             public void onQuoteSwipedRight() {
                 showLoadingQuote();
-                removeQuoteFromStore();
+                updateQuoteAsJudgedInStore();
                 requestQuoteAndDisplay(false);
             }
 
@@ -66,7 +66,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
         };
     }
 
-    private void getUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay() {
+    private void fetchUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay() {
         quoteStoreHandler.retrieveUnJudgedQuotes(new QuoteStoreHandler.RetrieveCallback() {
             @Override
             public void onReturn(List<Quote> quotes) {
@@ -92,11 +92,6 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
     private void updateQuoteAsJudgedInStore() {
         final ViewQuoteType viewQuote = viewWrapper.viewModel().newQuote();
         quoteStoreHandler.updateQuoteAsJudged(viewQuote.id());
-    }
-
-    private void removeQuoteFromStore() {
-        final ViewQuote viewQuote = viewWrapper.viewModel().newQuote();
-        quoteStoreHandler.clear(viewQuote.id());
     }
 
     private void deregisterFromOngoingQuoteRequests(final boolean shouldCancelRequests) {
