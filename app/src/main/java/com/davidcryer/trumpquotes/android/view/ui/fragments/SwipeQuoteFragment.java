@@ -118,6 +118,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         showQuoteCard();
         hideLoadingQuote();
         hideFailureToGetQuote();
+        swipeRefreshLayout.setEnabled(false);
         card.quote(quote.text());
         swipeLayout.listenToChildGestures(card, true);
         final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
@@ -136,6 +137,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         hideQuoteCard();
         showLoadingQuote();
         hideFailureToGetQuote();
+        swipeRefreshLayout.setEnabled(false);
     }
 
     @Override
@@ -143,6 +145,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         hideQuoteCard();
         hideLoadingQuote();
         showFailureToGetQuote();
+        swipeRefreshLayout.setEnabled(true);
     }
 
     public void showQuoteCard() {
