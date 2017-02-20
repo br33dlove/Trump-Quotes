@@ -9,6 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:drawableStart="@drawable/ic_remove_black_24dp"
+        android:textSize="32sp"
         app:quote_source="@string/quote.signature.trump" />
 
     <com.davidcryer.trumpquotes.android.view.ui.components.SignatureView
@@ -16,6 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:drawableStart="@drawable/ic_remove_black_24dp"
+        android:textSize="32sp"
         app:quote_source="@string/quote.signature.not_trump" />
 
 </FrameLayout>
