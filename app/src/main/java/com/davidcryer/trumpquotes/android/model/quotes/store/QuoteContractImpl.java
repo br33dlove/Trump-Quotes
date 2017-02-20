@@ -52,7 +52,7 @@ public class QuoteContractImpl implements QuoteContract {
         }
     }
 
-    private ContentValues insertContentValues(final Quote quote) {
+    private static ContentValues insertContentValues(final Quote quote) {
         final ContentValues values =  new ContentValues();
         values.put(Table._ID, quote.id());
         values.put(Table.COLUMN_ITEM_TEXT, quote.text());
@@ -133,7 +133,7 @@ public class QuoteContractImpl implements QuoteContract {
         }
     }
 
-    private ContentValues updateForJudgedContentValues() {
+    private static ContentValues updateForJudgedContentValues() {
         final ContentValues values = new ContentValues();
         values.put(Table.COLUMN_ITEM_IS_JUDGED, VALUE_IS_JUDGED);
         return values;
