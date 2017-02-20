@@ -6,6 +6,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
@@ -18,6 +19,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     private final GestureDetector gestureDetector;
     private final Scroller scroller;
     @Nullable private ValueAnimator flingAnimator;
+    @Nullable private ViewPropertyAnimator toOriginAnimator;
     private boolean listenForGestures;
 
     public SwipeDelegate(View view, View parent, Listener listener) {
@@ -39,7 +41,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     private boolean onMotionUp(final MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            stopScrollAndFling();
+            stopCardMovement();
             animateViewBackToOrigin();
             return true;
         }
@@ -48,8 +50,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onDown(MotionEvent e) {
-        stopScrollAndFling();
-        view.clearAnimation();
+        stopCardMovement();
         return true;
     }
 
@@ -64,11 +65,11 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     }
 
     private void animateViewBackToOrigin() {
-        stopScrollAndFling();
+        stopCardMovement();
         final ViewGroup.MarginLayoutParams viewLp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         final int xOrigin = viewLp.leftMargin;
         final int yOrigin = viewLp.topMargin;
-        view.animate()
+        toOriginAnimator = view.animate()
                 .x(xOrigin)
                 .y(yOrigin)
                 .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -78,8 +79,8 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
                     }
                 })
                 .setInterpolator(new AccelerateDecelerateInterpolator())
-                .setDuration(durationBackToOrigin())
-                .start();
+                .setDuration(durationBackToOrigin());
+        toOriginAnimator.start();
     }
 
     private long durationBackToOrigin() {
@@ -88,7 +89,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        stopScrollAndFling();
+        stopCardMovement();
         final float newX = view.getX() - distanceX;
         view.setX(newX);
         view.setY(view.getY() - distanceY);
@@ -108,7 +109,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     }
 
     private void fling(final int velocityX, final int velocityY) {
-        stopScrollAndFling();
+        stopCardMovement();
         final int minX = -view.getWidth() - 100;
         final int maxX = parent.getWidth() + 100;
         scroller.fling((int) view.getX(), (int) view.getY(), velocityX, velocityY, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE);
@@ -139,7 +140,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
                         viewEscapedBounds(viewEscapedLeft);
                     }
                 } else {
-                    stopScrollAndFling();
+                    stopCardMovement();
                     final boolean viewNotEscapedLeft = view.getX() > minX;
                     final boolean viewNotEscapedRight = view.getX() < maxX;
                     if (viewNotEscapedLeft && viewNotEscapedRight) {
@@ -154,7 +155,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
     }
 
     private void viewEscapedBounds(final boolean escapedLeft) {
-        stopScrollAndFling();
+        stopCardMovement();
         view.clearAnimation();
         if (escapedLeft) {
             listener.onViewEscapedLeft(view);
@@ -163,8 +164,12 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         }
     }
 
-    private void stopScrollAndFling() {
+    private void stopCardMovement() {
         scroller.forceFinished(true);
+        if (toOriginAnimator != null) {
+            toOriginAnimator.cancel();
+            toOriginAnimator = null;
+        }
         if (flingAnimator != null) {
             flingAnimator.cancel();
             flingAnimator = null;
