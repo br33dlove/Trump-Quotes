@@ -39,28 +39,18 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
     private final SwipeQuoteView<AndroidViewQuote> viewWrapper = new SwipeQuoteView<AndroidViewQuote>() {
 
         @Override
-        public void showQuote(AndroidViewQuote quote) {
-            viewModel.showQuote(view(), quote);
+        public void showQuoteState(AndroidViewQuote quote) {
+            viewModel.showQuoteState(view(), quote);
         }
 
         @Override
-        public void showLoadingQuote() {
-            viewModel.showLoadingQuote(view());
+        public void showLoadingQuoteState() {
+            viewModel.showLoadingQuoteState(view());
         }
 
         @Override
-        public void hideLoadingQuote() {
-            viewModel.hideLoadingQuote(view());
-        }
-
-        @Override
-        public void showFailureToGetQuote() {
-            viewModel.showFailureToGetQuote(view());
-        }
-
-        @Override
-        public void hideFailureToGetQuote() {
-
+        public void showFailureToGetQuoteState() {
+            viewModel.showFailureToGetQuoteState(view());
         }
 
         @Override

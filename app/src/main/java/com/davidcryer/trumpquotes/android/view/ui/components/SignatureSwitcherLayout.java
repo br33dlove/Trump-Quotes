@@ -33,10 +33,9 @@ public class SignatureSwitcherLayout extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    public void update(final float percentageOffsetFromCentre) {
-        Log.d(SignatureSwitcherLayout.class.getSimpleName(), "offset: " + percentageOffsetFromCentre);
-        isTrumpSignatureView.setAlpha(isTrumpAlpha(percentageOffsetFromCentre));
-        notTrumpSignatureView.setAlpha(notTrumpAlpha(percentageOffsetFromCentre));
+    public void update(final float percentageOffsetFromCentreX) {
+        isTrumpSignatureView.setAlpha(isTrumpAlpha(percentageOffsetFromCentreX));
+        notTrumpSignatureView.setAlpha(notTrumpAlpha(percentageOffsetFromCentreX));
     }
 
     private float isTrumpAlpha(final float percentageOffsetFromCentre) {

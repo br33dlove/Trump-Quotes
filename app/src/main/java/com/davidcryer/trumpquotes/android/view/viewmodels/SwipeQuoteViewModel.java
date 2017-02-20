@@ -5,28 +5,25 @@ import android.os.Parcel;
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 
-public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
+public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
+    public enum State {QUOTE, LOADING, LOADING_FAILED}
     private AndroidViewQuote quote;
-    private boolean showFailureToGetQuote;
-    private boolean showLoadingQuote;
+    private State state;
     private boolean quoteUpdated;
 
     public SwipeQuoteViewModel(
             AndroidViewQuote quote,
-            boolean showFailureToGetQuote,
-            boolean showLoadingQuote,
+            State state,
             boolean quoteUpdated
     ) {
         this.quote = quote;
-        this.showFailureToGetQuote = showFailureToGetQuote;
-        this.showLoadingQuote = showLoadingQuote;
+        this.state = state;
         this.quoteUpdated = quoteUpdated;
     }
 
     private SwipeQuoteViewModel(final Parcel parcel) {
         quote = parcel.readParcelable(AndroidViewQuote.class.getClassLoader());
-        showFailureToGetQuote = parcel.readByte() != 0;
-        showLoadingQuote = parcel.readByte() != 0;
+        state = (State) parcel.readSerializable();
         quoteUpdated = parcel.readByte() != 0;
     }
 
@@ -38,8 +35,7 @@ public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(quote, PARCELABLE_WRITE_RETURN_VALUE);
-        dest.writeByte((byte) (showFailureToGetQuote ? 1 : 0));
-        dest.writeByte((byte) (showLoadingQuote ? 1 : 0));
+        dest.writeSerializable(state);
         dest.writeByte((byte) (quoteUpdated ? 1 : 0));
     }
 
@@ -56,62 +52,50 @@ public class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     };
 
     @Override
-    public void showQuote(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
+    public void showQuoteState(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
         this.quote = quote;
+        state = State.QUOTE;
         if (view != null) {
-            view.showQuote(quote);
+            view.showQuoteState(quote);
         } else {
             quoteUpdated = true;
         }
     }
 
     @Override
-    public void showLoadingQuote(SwipeQuoteAndroidView view) {
-        showLoadingQuote = true;
+    public void showLoadingQuoteState(SwipeQuoteAndroidView view) {
+        state = State.LOADING;
         if (view != null) {
-            view.showLoadingQuote();
+            view.showLoadingQuoteState();
         }
     }
 
     @Override
-    public void hideLoadingQuote(SwipeQuoteAndroidView view) {
-        showLoadingQuote = false;
+    public void showFailureToGetQuoteState(SwipeQuoteAndroidView view) {
+        state = State.LOADING_FAILED;
         if (view != null) {
-            view.hideLoadingQuote();
-        }
-    }
-
-    @Override
-    public void showFailureToGetQuote(SwipeQuoteAndroidView view) {
-        showFailureToGetQuote = true;
-        if (view != null) {
-            view.showFailureToGetQuote();
-        }
-    }
-
-    @Override
-    public void hideFailureToGetQuote(SwipeQuoteAndroidView view) {
-        showFailureToGetQuote = false;
-        if (view != null) {
-            view.hideFailureToGetQuote();
+            view.showFailureToGetQuoteState();
         }
     }
 
     @Override
     public void onto(SwipeQuoteAndroidView view, final boolean setAllData) {
-        if (showLoadingQuote) {
-            view.showLoadingQuote();
-        } else {
-            view.hideLoadingQuote();
-        }
-        if (showFailureToGetQuote) {
-            view.showFailureToGetQuote();
-        } else {
-            view.hideFailureToGetQuote();
-        }
-        if (setAllData || quoteUpdated) {
-            quoteUpdated = false;
-            view.showQuote(quote);
+        switch (state) {
+            case QUOTE: {
+                if (setAllData || quoteUpdated) {
+                    quoteUpdated = false;
+                    view.showQuoteState(quote);
+                }
+                break;
+            }
+            case LOADING: {
+                view.showLoadingQuoteState();
+                break;
+            }
+            case LOADING_FAILED: {
+                view.showLoadingQuoteState();
+                break;
+            }
         }
     }
 

@@ -42,7 +42,6 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
             @Override
             public void onRetryQuoteRequest() {
                 showLoadingQuote();
-                hideFailureToGetQuote();
                 requestQuoteAndDisplay(false);
             }
 
@@ -75,8 +74,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
                 if (mostRecentQuote == null) {
                     requestQuoteAndDisplay(true);
                 } else {
-                    viewWrapper.hideLoadingQuote();
-                    viewWrapper.showQuote(viewQuoteFactory.create(mostRecentQuote));
+                    viewWrapper.showQuoteState(viewQuoteFactory.create(mostRecentQuote));
                     quoteStoreHandler.clear(QuoteHelper.ids(quotes));
                 }
             }
@@ -84,11 +82,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
     }
 
     private void showLoadingQuote() {
-        viewWrapper.showLoadingQuote();
-    }
-
-    private void hideFailureToGetQuote() {
-        viewWrapper.hideFailureToGetQuote();
+        viewWrapper.showLoadingQuoteState();
     }
 
     private void requestQuoteAndDisplay(final boolean preferLastReceivedQuote) {
@@ -113,15 +107,13 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
 
         @Override
         public void success(Quote quote) {
-            viewWrapper.hideLoadingQuote();
-            viewWrapper.showQuote(viewQuoteFactory.create(quote));
+            viewWrapper.showQuoteState(viewQuoteFactory.create(quote));
             quoteStoreHandler.store(quote);
         }
 
         @Override
         public void failure() {
-            viewWrapper.hideLoadingQuote();
-            viewWrapper.showFailureToGetQuote();
+            viewWrapper.showFailureToGetQuoteState();
         }
     };
 }

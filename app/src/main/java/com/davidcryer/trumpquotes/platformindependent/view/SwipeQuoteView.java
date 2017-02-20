@@ -6,11 +6,9 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.Vie
 import java.util.List;
 
 public interface SwipeQuoteView<ViewQuoteType extends ViewQuote> extends MvpView<SwipeQuoteMvpViewModel<ViewQuoteType>> {
-    void showLoadingQuote();
-    void hideLoadingQuote();
-    void showQuote(final ViewQuoteType quote);
-    void hideFailureToGetQuote();
-    void showFailureToGetQuote();
+    void showQuoteState(final ViewQuoteType quote);
+    void showLoadingQuoteState();
+    void showFailureToGetQuoteState();
 
     interface EventsListener extends MvpView.EventsListener {
         void onRequestFirstQuote();

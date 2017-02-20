@@ -7,9 +7,7 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuote
 import java.util.List;
 
 public interface SwipeQuoteAndroidViewModel extends SwipeQuoteMvpViewModel<AndroidViewQuote>, AndroidViewModel<SwipeQuoteAndroidView> {
-    void showQuote(final SwipeQuoteAndroidView view, final AndroidViewQuote quote);
-    void showLoadingQuote(final SwipeQuoteAndroidView view);
-    void hideLoadingQuote(final SwipeQuoteAndroidView view);
-    void showFailureToGetQuote(final SwipeQuoteAndroidView view);
-    void hideFailureToGetQuote(final SwipeQuoteAndroidView view);
+    void showQuoteState(final SwipeQuoteAndroidView view, final AndroidViewQuote quote);
+    void showLoadingQuoteState(final SwipeQuoteAndroidView view);
+    void showFailureToGetQuoteState(final SwipeQuoteAndroidView view);
 }

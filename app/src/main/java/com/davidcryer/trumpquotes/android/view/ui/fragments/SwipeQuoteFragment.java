@@ -78,7 +78,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
 
             @Override
             public void onCardMoved(float percentageOffsetFromCentreX) {
-                card.update(percentageOffsetFromCentreX);
+                card.updateSignature(percentageOffsetFromCentreX);
             }
         });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -114,10 +114,11 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showQuote(AndroidViewQuote quote) {
-        swipeRefreshLayout.setEnabled(false);
+    public void showQuoteState(AndroidViewQuote quote) {
+        showQuoteCard();
+        hideLoadingQuote();
+        hideFailureToGetQuote();
         card.quote(quote.text());
-        card.setVisibility(View.VISIBLE);
         swipeLayout.listenToChildGestures(card, true);
         final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
         final int xOrigin = cardLp.leftMargin;
@@ -125,27 +126,45 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         card.setX(xOrigin);
         card.setY(yOrigin);
         card.invalidate();
-        card.update(0);
+        card.updateSignature(0);
         //TODO setup card (slide into view?)
+        //TODO fix setting card position on first run - setting x and y seems to double margin and display card slightly offscreen
     }
 
     @Override
+    public void showLoadingQuoteState() {
+        hideQuoteCard();
+        showLoadingQuote();
+        hideFailureToGetQuote();
+    }
+
+    @Override
+    public void showFailureToGetQuoteState() {
+        hideQuoteCard();
+        hideLoadingQuote();
+        showFailureToGetQuote();
+    }
+
+    public void showQuoteCard() {
+        card.setVisibility(View.VISIBLE);
+    }
+
+    public void hideQuoteCard() {
+        card.setVisibility(View.GONE);
+    }
+
     public void showLoadingQuote() {
         swipeRefreshLayout.setRefreshing(true);
     }
 
-    @Override
     public void hideLoadingQuote() {
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
     public void showFailureToGetQuote() {
-        swipeRefreshLayout.setEnabled(true);
         AlphaAnimationHelper.fadeIn(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
     }
 
-    @Override
     public void hideFailureToGetQuote() {
         AlphaAnimationHelper.fadeOut(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
     }

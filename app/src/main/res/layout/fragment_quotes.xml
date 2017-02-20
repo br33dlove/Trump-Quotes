@@ -17,7 +17,8 @@
                 android:id="@+id/quote_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="32dp" />
+                android:layout_margin="32dp"
+                android:visibility="gone" />
 
         </com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout>
 
@@ -26,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/quote.loading_failed" />
+            android:text="@string/quote.loading_failed"
+            android:visibility="gone" />
 
     </FrameLayout>
 
