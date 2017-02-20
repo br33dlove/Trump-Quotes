@@ -121,15 +121,16 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         swipeRefreshLayout.setEnabled(false);
         card.quote(quote.text());
         swipeLayout.listenToChildGestures(card, true);
-        final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
-        final int xOrigin = cardLp.leftMargin;
-        final int yOrigin = cardLp.topMargin;
-        card.setX(xOrigin);
-        card.setY(yOrigin);
-        card.invalidate();
+        if (card.getWidth() > 0) {
+            final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
+            final int xOrigin = cardLp.leftMargin;
+            final int yOrigin = cardLp.topMargin;
+            card.setX(xOrigin);
+            card.setY(yOrigin);
+            card.invalidate();
+        }
         card.updateSignature(0);
         //TODO setup card (slide into view?)
-        //TODO fix setting card position on first run - setting x and y seems to double margin and display card slightly offscreen
     }
 
     @Override
@@ -157,11 +158,21 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     public void showLoadingQuote() {
-        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
     }
 
     public void hideLoadingQuote() {
-        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     public void showFailureToGetQuote() {
