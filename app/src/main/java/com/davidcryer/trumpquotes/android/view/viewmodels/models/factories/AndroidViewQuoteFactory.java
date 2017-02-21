@@ -13,7 +13,7 @@ public class AndroidViewQuoteFactory implements ViewQuoteFactory<AndroidViewQuot
 
     @Override
     public AndroidViewQuote create(Quote quote) {
-        return new AndroidViewQuoteImpl(quote.text());
+        return new AndroidViewQuoteImpl(quote.id(), quote.text());
     }
 
     @Override
