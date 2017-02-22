@@ -22,15 +22,8 @@ import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.S
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.TEXT_TYPE;
 
 public class QuoteContractImpl implements QuoteContract {
-
     private final static String ARG_IS_JUDGED = String.valueOf(INT_VALUE_TRUE);
     private final static String ARG_NOT_JUDGED = String.valueOf(INT_VALUE_FALSE);
-    private final QuoteFactory quoteFactory;
-
-
-    public QuoteContractImpl(QuoteFactory quoteFactory) {
-        this.quoteFactory = quoteFactory;
-    }
 
     @Override
     public void createTable(final SQLiteDatabase database) {
@@ -109,13 +102,13 @@ public class QuoteContractImpl implements QuoteContract {
     }
 
     private Quote quote(final Cursor cursor) {
-        return quoteFactory.create(
+        return QuoteFactory.create(
                 cursor.getString(cursor.getColumnIndex(Table._ID)),
                 cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_TEXT)),
-                cursor.getLong(cursor.getColumnIndex(Table.COLUMN_ITEM_CREATED_TIMESTAMP)),
+                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_SOURCE)),
                 cursor.getInt(cursor.getColumnIndex(Table.COLUMN_ITEM_IS_JUDGED)) == INT_VALUE_TRUE,
                 cursor.getInt(cursor.getColumnIndex(Table.COLUMN_ITEM_IS_TRUMP_QUOTE)) == INT_VALUE_TRUE,
-                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_SOURCE))
+                cursor.getLong(cursor.getColumnIndex(Table.COLUMN_ITEM_CREATED_TIMESTAMP))
         );
     }
 

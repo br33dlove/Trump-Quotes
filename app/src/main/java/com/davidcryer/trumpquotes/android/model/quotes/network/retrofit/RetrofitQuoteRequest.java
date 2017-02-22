@@ -12,12 +12,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 class RetrofitQuoteRequest implements QuoteRequest {
-    private final TrumpQuoteToQuoteAdapter trumpQuoteToQuoteAdapter;
     private final Call<TrumpQuote> call;
     private final Collection<QuoteRequestCallback> callbacks;
 
-    RetrofitQuoteRequest(TrumpQuoteToQuoteAdapter trumpQuoteToQuoteAdapter, Call<TrumpQuote> call, Collection<QuoteRequestCallback> callbacks) {
-        this.trumpQuoteToQuoteAdapter = trumpQuoteToQuoteAdapter;
+    RetrofitQuoteRequest(Call<TrumpQuote> call, Collection<QuoteRequestCallback> callbacks) {
         this.call = call;
         this.callbacks = callbacks;
     }
@@ -29,7 +27,7 @@ class RetrofitQuoteRequest implements QuoteRequest {
             public void onResponse(Call<TrumpQuote> call, Response<TrumpQuote> response) {
                 for (final QuoteRequestCallback callback : callbacks) {
                     if (callback != null) {
-                        callback.success(trumpQuoteToQuoteAdapter.quote(response.body()));
+                        callback.success(TrumpQuoteToQuoteAdapter.quote(response.body()));
                     }
                 }
             }

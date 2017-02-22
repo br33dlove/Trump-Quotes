@@ -59,15 +59,7 @@ class ApplicationDependencyProvider {
     }
 
     private static QuoteRequestFactory createQuoteRequestFactory(final Resources resources) {
-        return new RetrofitQuoteRequestFactory(createTrumpQuoteToQuoteAdapter(), createRetrofitQuoteService(resources));
-    }
-
-    private static TrumpQuoteToQuoteAdapter createTrumpQuoteToQuoteAdapter() {
-        return new TrumpQuoteToQuoteAdapter(createQuoteFactory());
-    }
-
-    private static QuoteFactory createQuoteFactory() {
-        return new QuoteFactory();
+        return new RetrofitQuoteRequestFactory(createRetrofitQuoteService(resources));
     }
 
     private static RetrofitQuoteService createRetrofitQuoteService(final Resources resources) {
@@ -95,7 +87,7 @@ class ApplicationDependencyProvider {
     }
 
     private static QuoteContract createQuoteContract() {
-        return new QuoteContractImpl(createQuoteFactory());
+        return new QuoteContractImpl();
     }
 
     private static QuoteStoreTaskHandlerFactory createQuoteStoreTaskHandlerFactory() {

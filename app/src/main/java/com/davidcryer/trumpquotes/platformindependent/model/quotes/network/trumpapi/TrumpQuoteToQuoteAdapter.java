@@ -6,13 +6,12 @@ import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteFactory;
 import java.util.UUID;
 
 public class TrumpQuoteToQuoteAdapter {
-    private final QuoteFactory quoteFactory;
 
-    public TrumpQuoteToQuoteAdapter(QuoteFactory quoteFactory) {
-        this.quoteFactory = quoteFactory;
+    private TrumpQuoteToQuoteAdapter() {
+
     }
 
-    public Quote quote(final TrumpQuote trumpQuote) {
-        return quoteFactory.create(UUID.randomUUID().toString(), trumpQuote.message, System.currentTimeMillis(), false);
+    public static Quote quote(final TrumpQuote trumpQuote) {
+        return QuoteFactory.createTrumpQuote(UUID.randomUUID().toString(), trumpQuote.message, false, System.currentTimeMillis());
     }
 }
