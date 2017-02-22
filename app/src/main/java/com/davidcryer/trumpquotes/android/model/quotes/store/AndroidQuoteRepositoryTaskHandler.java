@@ -10,16 +10,16 @@ import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskHandler;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.ListHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepositoryHandler;
 
 import java.util.ArrayList;
 
-public class AndroidQuoteStoreTaskHandler implements QuoteStoreHandler {
+public class AndroidQuoteRepositoryTaskHandler implements QuoteRepositoryHandler {
     private final QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory;
     private final TaskHandler readTaskHandler;
     private final TaskHandler writeTaskHandler;
 
-    public AndroidQuoteStoreTaskHandler(QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory, TaskHandler readTaskHandler, TaskHandler writeTaskHandler) {
+    public AndroidQuoteRepositoryTaskHandler(QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory, TaskHandler readTaskHandler, TaskHandler writeTaskHandler) {
         this.quoteStoreTasksFactoryFactory = quoteStoreTasksFactoryFactory;
         this.readTaskHandler = readTaskHandler;
         this.writeTaskHandler = writeTaskHandler;

@@ -3,19 +3,19 @@ package com.davidcryer.trumpquotes.android.model.quotes.store.tasks;
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.factories.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepository;
 
 public class RetrieveUnJudgedQuotesTask extends Task<Void, RetrieveUnJudgedQuotesTask.ResponseValues> {
-    private final QuoteStore quoteStore;
+    private final QuoteRepository quoteRepository;
 
-    private RetrieveUnJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteStore quoteStore) {
+    private RetrieveUnJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteRepository quoteRepository) {
         super(requestValues, callback);
-        this.quoteStore = quoteStore;
+        this.quoteRepository = quoteRepository;
     }
 
     @Override
     protected void doTask(Void requestValues) {
-        onSuccess(new ResponseValues(quoteStore.unJudgedQuotes()));
+        onSuccess(new ResponseValues(quoteRepository.unJudgedQuotes()));
     }
 
     public static class ResponseValues {
@@ -31,15 +31,15 @@ public class RetrieveUnJudgedQuotesTask extends Task<Void, RetrieveUnJudgedQuote
     }
 
     public static class Factory implements TaskFactory<Void, RetrieveUnJudgedQuotesTask.ResponseValues> {
-        private final QuoteStore quoteStore;
+        private final QuoteRepository quoteRepository;
 
-        public Factory(QuoteStore quoteStore) {
-            this.quoteStore = quoteStore;
+        public Factory(QuoteRepository quoteRepository) {
+            this.quoteRepository = quoteRepository;
         }
 
         @Override
         public Task<Void, RetrieveUnJudgedQuotesTask.ResponseValues> create(Void requestValues, Task.Callback<RetrieveUnJudgedQuotesTask.ResponseValues> callback) {
-            return new RetrieveUnJudgedQuotesTask(requestValues, callback, quoteStore);
+            return new RetrieveUnJudgedQuotesTask(requestValues, callback, quoteRepository);
         }
     }
 }

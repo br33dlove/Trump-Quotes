@@ -2,19 +2,19 @@ package com.davidcryer.trumpquotes.android.model.quotes.store.tasks;
 
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.factories.TaskFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepository;
 
 public class UpdateQuoteAsJudgedTask extends Task<UpdateQuoteAsJudgedTask.RequestValues, Void> {
-    private final QuoteStore quoteStore;
+    private final QuoteRepository quoteRepository;
 
-    private UpdateQuoteAsJudgedTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
+    private UpdateQuoteAsJudgedTask(RequestValues requestValues, Callback<Void> callback, QuoteRepository quoteRepository) {
         super(requestValues, callback);
-        this.quoteStore = quoteStore;
+        this.quoteRepository = quoteRepository;
     }
 
     @Override
     protected void doTask(RequestValues requestValues) {
-        if (quoteStore.updateQuoteAsJudged(requestValues.quoteId)) {
+        if (quoteRepository.updateQuoteAsJudged(requestValues.quoteId)) {
             onSuccess(null);
         } else {
             onError();
@@ -30,15 +30,15 @@ public class UpdateQuoteAsJudgedTask extends Task<UpdateQuoteAsJudgedTask.Reques
     }
 
     public static class Factory implements TaskFactory<UpdateQuoteAsJudgedTask.RequestValues, Void> {
-        private final QuoteStore quoteStore;
+        private final QuoteRepository quoteRepository;
 
-        public Factory(QuoteStore quoteStore) {
-            this.quoteStore = quoteStore;
+        public Factory(QuoteRepository quoteRepository) {
+            this.quoteRepository = quoteRepository;
         }
 
         @Override
         public Task<UpdateQuoteAsJudgedTask.RequestValues, Void> create(UpdateQuoteAsJudgedTask.RequestValues requestValues, Task.Callback<Void> callback) {
-            return new UpdateQuoteAsJudgedTask(requestValues, callback, quoteStore);
+            return new UpdateQuoteAsJudgedTask(requestValues, callback, quoteRepository);
         }
     }
 }

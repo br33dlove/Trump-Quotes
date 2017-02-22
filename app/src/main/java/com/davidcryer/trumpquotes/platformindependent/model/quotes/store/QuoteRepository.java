@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.platformindependent.model.quotes.store;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 
-public interface QuoteStore {
+public interface QuoteRepository {
     boolean store(final Quote... quotes);
     boolean clear(final String... quoteIds);
     Quote[] judgedQuotes();

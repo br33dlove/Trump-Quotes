@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.platformindependent.presenter.presenters;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters.RandomQuoteRequester;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStoreHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepositoryHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
@@ -14,18 +14,18 @@ import java.util.List;
 public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presenter<SwipeQuoteView.EventsListener> {
     private final SwipeQuoteView<ViewQuoteType> viewWrapper;
     private final RandomQuoteRequester randomQuoteRequester;
-    private final QuoteStoreHandler quoteStoreHandler;
+    private final QuoteRepositoryHandler quoteRepositoryHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
 
     public SwipeQuotePresenter(
             final SwipeQuoteView<ViewQuoteType> viewWrapper,
             final RandomQuoteRequester randomQuoteRequester,
-            final QuoteStoreHandler quoteStoreHandler,
+            final QuoteRepositoryHandler quoteRepositoryHandler,
             final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
     ) {
         this.viewWrapper = viewWrapper;
         this.randomQuoteRequester = randomQuoteRequester;
-        this.quoteStoreHandler = quoteStoreHandler;
+        this.quoteRepositoryHandler = quoteRepositoryHandler;
         this.viewQuoteFactory = viewQuoteFactory;
     }
 
@@ -67,7 +67,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
     }
 
     private void fetchUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay() {
-        quoteStoreHandler.retrieveUnJudgedQuotes(new QuoteStoreHandler.RetrieveCallback() {
+        quoteRepositoryHandler.retrieveUnJudgedQuotes(new QuoteRepositoryHandler.RetrieveCallback() {
             @Override
             public void onReturn(List<Quote> quotes) {
                 final Quote mostRecentQuote = QuoteHelper.removeMostRecent(quotes);
@@ -75,7 +75,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
                     requestQuoteAndDisplay(true);
                 } else {
                     viewWrapper.showQuoteState(viewQuoteFactory.create(mostRecentQuote));
-                    quoteStoreHandler.clear(QuoteHelper.ids(quotes));
+                    quoteRepositoryHandler.clear(QuoteHelper.ids(quotes));
                 }
             }
         });
@@ -91,7 +91,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
 
     private void updateQuoteAsJudgedInStore() {
         final ViewQuoteType viewQuote = viewWrapper.viewModel().newQuote();
-        quoteStoreHandler.updateQuoteAsJudged(viewQuote.id());
+        quoteRepositoryHandler.updateQuoteAsJudged(viewQuote.id());
     }
 
     private void deregisterFromOngoingQuoteRequests(final boolean shouldCancelRequests) {
@@ -103,7 +103,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
         @Override
         public void success(Quote quote) {
             viewWrapper.showQuoteState(viewQuoteFactory.create(quote));
-            quoteStoreHandler.store(quote);
+            quoteRepositoryHandler.store(quote);
         }
 
         @Override

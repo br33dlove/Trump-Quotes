@@ -3,19 +3,19 @@ package com.davidcryer.trumpquotes.android.model.quotes.store.tasks;
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.factories.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepository;
 
 public class StoreQuotesTask extends Task<StoreQuotesTask.RequestValues, Void> {
-    private final QuoteStore quoteStore;
+    private final QuoteRepository quoteRepository;
 
-    private StoreQuotesTask(RequestValues requestValues, Callback<Void> callback, QuoteStore quoteStore) {
+    private StoreQuotesTask(RequestValues requestValues, Callback<Void> callback, QuoteRepository quoteRepository) {
         super(requestValues, callback);
-        this.quoteStore = quoteStore;
+        this.quoteRepository = quoteRepository;
     }
 
     @Override
     protected void doTask(RequestValues requestValues) {
-        if (quoteStore.store(requestValues.quotes)) {
+        if (quoteRepository.store(requestValues.quotes)) {
             onSuccess(null);
         } else {
             onError();
@@ -31,15 +31,15 @@ public class StoreQuotesTask extends Task<StoreQuotesTask.RequestValues, Void> {
     }
 
     public static class Factory implements TaskFactory<StoreQuotesTask.RequestValues, Void> {
-        private final QuoteStore quoteStore;
+        private final QuoteRepository quoteRepository;
 
-        public Factory(QuoteStore quoteStore) {
-            this.quoteStore = quoteStore;
+        public Factory(QuoteRepository quoteRepository) {
+            this.quoteRepository = quoteRepository;
         }
 
         @Override
         public Task<StoreQuotesTask.RequestValues, Void> create(StoreQuotesTask.RequestValues requestValues, Task.Callback<Void> callback) {
-            return new StoreQuotesTask(requestValues, callback, quoteStore);
+            return new StoreQuotesTask(requestValues, callback, quoteRepository);
         }
     }
 }

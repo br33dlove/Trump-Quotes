@@ -4,13 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.davidcryer.trumpquotes.android.model.quotes.store.QuoteContract;
-import com.davidcryer.trumpquotes.android.model.quotes.store.SQLiteQuoteStore;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
+import com.davidcryer.trumpquotes.android.model.quotes.store.SQLiteQuoteRepository;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepository;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreFactory;
 
 public class SQLiteQuoteStoreFactory implements QuoteStoreFactory {
     private final static int DATABASE_VERSION = 1;
-    private final static String DATABASE_NAME = "QuoteStore.sqlite";
+    private final static String DATABASE_NAME = "QuoteRepository.sqlite";
     private final Context context;
     private final SQLiteDatabase.CursorFactory cursorFactory;
     private final QuoteContract quoteContract;
@@ -22,7 +22,7 @@ public class SQLiteQuoteStoreFactory implements QuoteStoreFactory {
     }
 
     @Override
-    public QuoteStore create() {
-        return new SQLiteQuoteStore(context, DATABASE_NAME, cursorFactory, DATABASE_VERSION, quoteContract);
+    public QuoteRepository create() {
+        return new SQLiteQuoteRepository(context, DATABASE_NAME, cursorFactory, DATABASE_VERSION, quoteContract);
     }
 }

@@ -5,12 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteStore;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepository;
 
-public class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteStore {
+public class SQLiteQuoteRepository extends SQLiteOpenHelper implements QuoteRepository {
     private final QuoteContract quoteContract;
 
-    public SQLiteQuoteStore(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, final QuoteContract quoteContract) {
+    public SQLiteQuoteRepository(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, final QuoteContract quoteContract) {
         super(context, name, factory, version);
         this.quoteContract = quoteContract;
     }
