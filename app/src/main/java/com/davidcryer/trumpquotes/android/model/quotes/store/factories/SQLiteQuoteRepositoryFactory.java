@@ -6,16 +6,16 @@ import android.database.sqlite.SQLiteDatabase;
 import com.davidcryer.trumpquotes.android.model.quotes.store.QuoteContract;
 import com.davidcryer.trumpquotes.android.model.quotes.store.SQLiteQuoteRepository;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepository;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteRepositoryFactory;
 
-public class SQLiteQuoteStoreFactory implements QuoteStoreFactory {
+public class SQLiteQuoteRepositoryFactory implements QuoteRepositoryFactory {
     private final static int DATABASE_VERSION = 1;
     private final static String DATABASE_NAME = "QuoteRepository.sqlite";
     private final Context context;
     private final SQLiteDatabase.CursorFactory cursorFactory;
     private final QuoteContract quoteContract;
 
-    public SQLiteQuoteStoreFactory(Context context, SQLiteDatabase.CursorFactory cursorFactory, QuoteContract quoteContract) {
+    public SQLiteQuoteRepositoryFactory(Context context, SQLiteDatabase.CursorFactory cursorFactory, QuoteContract quoteContract) {
         this.context = context;
         this.cursorFactory = cursorFactory;
         this.quoteContract = quoteContract;

@@ -2,6 +2,6 @@ package com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factor
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.QuoteRepository;
 
-public interface QuoteStoreFactory {
+public interface QuoteRepositoryFactory {
     QuoteRepository create();
 }

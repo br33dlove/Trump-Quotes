@@ -15,7 +15,7 @@ import com.davidcryer.trumpquotes.android.model.quotes.network.retrofit.factorie
 import com.davidcryer.trumpquotes.android.model.quotes.store.QuoteContract;
 import com.davidcryer.trumpquotes.android.model.quotes.store.QuoteContractImpl;
 import com.davidcryer.trumpquotes.android.model.quotes.store.factories.AndroidQuoteStoreHandlerFactory;
-import com.davidcryer.trumpquotes.android.model.quotes.store.factories.SQLiteQuoteStoreFactory;
+import com.davidcryer.trumpquotes.android.model.quotes.store.factories.SQLiteQuoteRepositoryFactory;
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories.QuoteStoreTaskHandlerFactory;
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories.QuoteStoreTaskHandlerFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.quotes.store.tasks.factories.QuoteStoreTasksFactoryFactory;
@@ -30,13 +30,10 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.factories.AndroidViewQuoteFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.QuoteRequestFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters.factories.QuoteRequesterFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.requesters.factories.QuoteRequesterFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.trumpapi.TrumpQuote;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.network.trumpapi.TrumpQuoteToQuoteAdapter;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteRepositoryFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.store.factories.QuoteStoreHandlerFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.factories.ViewQuoteFactory;
 
@@ -78,8 +75,8 @@ class ApplicationDependencyProvider {
         return new QuoteStoreTasksFactoryFactoryImpl(createQuoteStoreFactory(context).create());
     }
 
-    private static QuoteStoreFactory createQuoteStoreFactory(final Context context) {
-        return new SQLiteQuoteStoreFactory(context, createCursorFactory(), createQuoteContract());
+    private static QuoteRepositoryFactory createQuoteStoreFactory(final Context context) {
+        return new SQLiteQuoteRepositoryFactory(context, createCursorFactory(), createQuoteContract());
     }
 
     private static SQLiteDatabase.CursorFactory createCursorFactory() {
