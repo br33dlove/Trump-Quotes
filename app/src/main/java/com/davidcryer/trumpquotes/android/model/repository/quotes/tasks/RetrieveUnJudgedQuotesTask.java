@@ -1,21 +1,21 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes.tasks;
+package com.davidcryer.trumpquotes.android.model.repository.quotes.tasks;
 
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepository;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepository;
 
-public class RetrieveJudgedQuotesTask extends Task<Void, RetrieveJudgedQuotesTask.ResponseValues> {
+public class RetrieveUnJudgedQuotesTask extends Task<Void, RetrieveUnJudgedQuotesTask.ResponseValues> {
     private final QuoteRepository quoteRepository;
 
-    private RetrieveJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteRepository quoteRepository) {
+    private RetrieveUnJudgedQuotesTask(Void requestValues, Callback<ResponseValues> callback, QuoteRepository quoteRepository) {
         super(requestValues, callback);
         this.quoteRepository = quoteRepository;
     }
 
     @Override
     protected void doTask(Void requestValues) {
-        onSuccess(new ResponseValues(quoteRepository.judgedQuotes()));
+        onSuccess(new ResponseValues(quoteRepository.unJudgedQuotes()));
     }
 
     public static class ResponseValues {
@@ -30,7 +30,7 @@ public class RetrieveJudgedQuotesTask extends Task<Void, RetrieveJudgedQuotesTas
         }
     }
 
-    public static class Factory implements TaskFactory<Void, RetrieveJudgedQuotesTask.ResponseValues> {
+    public static class Factory implements TaskFactory<Void, RetrieveUnJudgedQuotesTask.ResponseValues> {
         private final QuoteRepository quoteRepository;
 
         public Factory(QuoteRepository quoteRepository) {
@@ -38,8 +38,8 @@ public class RetrieveJudgedQuotesTask extends Task<Void, RetrieveJudgedQuotesTas
         }
 
         @Override
-        public Task<Void, RetrieveJudgedQuotesTask.ResponseValues> create(Void requestValues, Task.Callback<RetrieveJudgedQuotesTask.ResponseValues> callback) {
-            return new RetrieveJudgedQuotesTask(requestValues, callback, quoteRepository);
+        public Task<Void, RetrieveUnJudgedQuotesTask.ResponseValues> create(Void requestValues, Task.Callback<RetrieveUnJudgedQuotesTask.ResponseValues> callback) {
+            return new RetrieveUnJudgedQuotesTask(requestValues, callback, quoteRepository);
         }
     }
 }

@@ -12,16 +12,16 @@ import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.Retrofit
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteRequestFactory;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteServiceFactory;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteServiceFactoryImpl;
-import com.davidcryer.trumpquotes.android.model.store.quotes.AndroidQuoteStoreHandlerFactory;
-import com.davidcryer.trumpquotes.android.model.store.quotes.QuoteContract;
-import com.davidcryer.trumpquotes.android.model.store.quotes.QuoteContractImpl;
-import com.davidcryer.trumpquotes.android.model.store.quotes.SQLiteQuoteRepositoryFactory;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreTaskHandlerFactory;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreTaskHandlerFactoryImpl;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreTasksFactoryFactory;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreTasksFactoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreThreadPoolExecutorFactory;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreThreadPoolExecutorFactoryImpl;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.AndroidQuoteStoreHandlerFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContract;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContractImpl;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.SQLiteQuoteRepositoryFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreTaskHandlerFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreTaskHandlerFactoryImpl;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreTasksFactoryFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreTasksFactoryFactoryImpl;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreThreadPoolExecutorFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreThreadPoolExecutorFactoryImpl;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
@@ -33,8 +33,8 @@ import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperF
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepositoryFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteStoreHandlerFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepositoryFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteStoreHandlerFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;
 
 class ApplicationDependencyProvider {

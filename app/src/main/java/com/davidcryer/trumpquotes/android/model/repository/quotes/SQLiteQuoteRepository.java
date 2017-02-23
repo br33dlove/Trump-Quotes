@@ -1,11 +1,11 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes;
+package com.davidcryer.trumpquotes.android.model.repository.quotes;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepository;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepository;
 
 class SQLiteQuoteRepository extends SQLiteOpenHelper implements QuoteRepository {
     private final QuoteContract quoteContract;

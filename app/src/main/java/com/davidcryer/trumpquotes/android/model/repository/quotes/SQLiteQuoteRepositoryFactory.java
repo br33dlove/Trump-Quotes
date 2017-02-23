@@ -1,10 +1,10 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes;
+package com.davidcryer.trumpquotes.android.model.repository.quotes;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepository;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepositoryFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepository;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepositoryFactory;
 
 public class SQLiteQuoteRepositoryFactory implements QuoteRepositoryFactory {
     private final static int DATABASE_VERSION = 1;

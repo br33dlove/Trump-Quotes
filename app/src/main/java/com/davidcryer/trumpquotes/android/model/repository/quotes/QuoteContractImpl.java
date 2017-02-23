@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes;
+package com.davidcryer.trumpquotes.android.model.repository.quotes;
 
 import android.content.ContentValues;
 import android.database.Cursor;

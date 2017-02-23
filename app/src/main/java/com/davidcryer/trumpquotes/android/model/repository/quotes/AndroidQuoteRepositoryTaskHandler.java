@@ -1,16 +1,16 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes;
+package com.davidcryer.trumpquotes.android.model.repository.quotes;
 
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.ClearQuotesTask;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreTasksFactoryFactory;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.RetrieveJudgedQuotesTask;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.RetrieveUnJudgedQuotesTask;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.StoreQuotesTask;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.UpdateQuoteAsJudgedTask;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.ClearQuotesTask;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreTasksFactoryFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.RetrieveJudgedQuotesTask;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.RetrieveUnJudgedQuotesTask;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.StoreQuotesTask;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.UpdateQuoteAsJudgedTask;
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskHandler;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.ListHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepositoryHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepositoryHandler;
 
 import java.util.ArrayList;
 

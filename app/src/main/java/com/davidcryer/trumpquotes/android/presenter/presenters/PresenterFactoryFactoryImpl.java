@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.android.presenter.presenters;
 
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteStoreHandlerFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteStoreHandlerFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.swipequote.SwipeQuotePresenterFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;

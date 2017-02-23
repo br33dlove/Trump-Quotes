@@ -1,9 +1,9 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes;
+package com.davidcryer.trumpquotes.android.model.repository.quotes;
 
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreTaskHandlerFactory;
-import com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories.QuoteStoreTasksFactoryFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepositoryHandler;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteStoreHandlerFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreTaskHandlerFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories.QuoteStoreTasksFactoryFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepositoryHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteStoreHandlerFactory;
 
 public class AndroidQuoteStoreHandlerFactory implements QuoteStoreHandlerFactory {
     private final QuoteStoreTasksFactoryFactory quoteStoreTasksFactoryFactory;

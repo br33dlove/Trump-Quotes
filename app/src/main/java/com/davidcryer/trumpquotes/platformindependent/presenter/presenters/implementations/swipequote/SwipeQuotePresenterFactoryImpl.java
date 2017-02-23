@@ -1,7 +1,7 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.swipequote;
 
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepositoryHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepositoryHandler;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;

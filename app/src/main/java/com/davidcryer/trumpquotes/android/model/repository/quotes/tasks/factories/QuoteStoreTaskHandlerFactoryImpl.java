@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes.tasks.factories;
+package com.davidcryer.trumpquotes.android.model.repository.quotes.tasks.factories;
 
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskHandler;
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskHandlerImpl;

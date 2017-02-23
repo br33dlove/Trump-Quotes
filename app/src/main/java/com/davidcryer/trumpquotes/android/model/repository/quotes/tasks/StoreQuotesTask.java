@@ -1,9 +1,9 @@
-package com.davidcryer.trumpquotes.android.model.store.quotes.tasks;
+package com.davidcryer.trumpquotes.android.model.repository.quotes.tasks;
 
 import com.davidcryer.trumpquotes.android.framework.tasks.Task;
 import com.davidcryer.trumpquotes.android.framework.tasks.TaskFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepository;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepository;
 
 public class StoreQuotesTask extends Task<StoreQuotesTask.RequestValues, Void> {
     private final QuoteRepository quoteRepository;

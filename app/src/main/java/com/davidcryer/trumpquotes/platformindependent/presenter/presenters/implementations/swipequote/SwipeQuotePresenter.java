@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.impl
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.RandomQuoteRequester;
-import com.davidcryer.trumpquotes.platformindependent.model.store.quotes.QuoteRepositoryHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepositoryHandler;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;

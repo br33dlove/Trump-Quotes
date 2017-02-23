@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.platformindependent.model.store.quotes;
+package com.davidcryer.trumpquotes.platformindependent.model.repository.quotes;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 
