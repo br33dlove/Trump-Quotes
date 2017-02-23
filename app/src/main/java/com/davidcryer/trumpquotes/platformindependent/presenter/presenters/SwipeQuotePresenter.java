@@ -34,13 +34,13 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
         return new SwipeQuoteView.EventsListener() {
 
             @Override
-            public void onRequestFirstQuote() {
+            public void onRequestQuotes() {
                 showLoadingQuote();
                 fetchUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay();
             }
 
             @Override
-            public void onRetryQuoteRequest() {
+            public void onRetryQuotesRequest() {
                 showLoadingQuote();
                 requestQuoteAndDisplay(false);
             }
@@ -82,7 +82,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
     }
 
     private void showLoadingQuote() {
-        viewWrapper.showLoadingQuoteState();
+        viewWrapper.showLoadingQuotesState();
     }
 
     private void requestQuoteAndDisplay(final boolean preferLastReceivedQuote) {
@@ -90,7 +90,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
     }
 
     private void updateQuoteAsJudgedInStore() {
-        final ViewQuoteType viewQuote = viewWrapper.viewModel().newQuote();
+        final ViewQuoteType viewQuote = viewWrapper.viewModel().quote();
         quoteRepositoryHandler.updateQuoteAsJudged(viewQuote.id());
     }
 
@@ -108,7 +108,7 @@ public class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presen
 
         @Override
         public void failure() {
-            viewWrapper.showFailureToGetQuoteState();
+            viewWrapper.showFailureToGetQuotesState();
         }
     };
 }

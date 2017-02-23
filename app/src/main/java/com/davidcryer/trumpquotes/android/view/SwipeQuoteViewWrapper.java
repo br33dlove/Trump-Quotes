@@ -44,18 +44,23 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
         }
 
         @Override
-        public void showLoadingQuoteState() {
-            viewModel.showLoadingQuoteState(view());
+        public void showLoadingQuotesState() {
+            viewModel.showLoadingQuotesState(view());
         }
 
         @Override
-        public void showFailureToGetQuoteState() {
-            viewModel.showFailureToGetQuoteState(view());
+        public void showFailureToGetQuotesState() {
+            viewModel.showFailureToGetQuotesState(view());
         }
 
         @Override
         public SwipeQuoteMvpViewModel<AndroidViewQuote> viewModel() {
             return viewModel;
+        }
+
+        @Override
+        public void showScore(int correctAnswersCount, int questionsCount) {
+            viewModel.showScore(view(), correctAnswersCount, questionsCount);
         }
     };
 
@@ -68,12 +73,12 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
 
         @Override
         public void onViewCreated() {
-            wrapperEventsListener.onRequestFirstQuote();
+            wrapperEventsListener.onRequestQuotes();
         }
 
         @Override
-        public void onRetryQuoteRequest() {
-            wrapperEventsListener.onRetryQuoteRequest();
+        public void onRetryQuotesRequest() {
+            wrapperEventsListener.onRetryQuotesRequest();
         }
 
         @Override

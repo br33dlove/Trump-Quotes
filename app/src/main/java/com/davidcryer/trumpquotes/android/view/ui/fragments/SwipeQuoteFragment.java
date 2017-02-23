@@ -84,7 +84,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                eventsListener.onRetryQuoteRequest();
+                eventsListener.onRetryQuotesRequest();
             }
         });
         card.setVisibility(View.GONE);
@@ -134,7 +134,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showLoadingQuoteState() {
+    public void showLoadingQuotesState() {
         hideQuoteCard();
         showLoadingQuote();
         hideFailureToGetQuote();
@@ -142,7 +142,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showFailureToGetQuoteState() {
+    public void showFailureToGetQuotesState() {
         hideQuoteCard();
         hideLoadingQuote();
         showFailureToGetQuote();
@@ -181,6 +181,11 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
 
     public void hideFailureToGetQuote() {
         AlphaAnimationHelper.fadeOut(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
+    }
+
+    @Override
+    public void showScore(int correctAnswerCount, int questionCount) {
+        //TODO
     }
 
     @Override

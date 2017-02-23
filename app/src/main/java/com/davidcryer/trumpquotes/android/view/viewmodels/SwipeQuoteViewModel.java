@@ -10,21 +10,29 @@ public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     private AndroidViewQuote quote;
     private State state;
     private boolean quoteUpdated;
+    private int correctAnswerCount;
+    private int questionCount;
 
     public SwipeQuoteViewModel(
             AndroidViewQuote quote,
             State state,
-            boolean quoteUpdated
+            boolean quoteUpdated,
+            int correctAnswerCount,
+            int questionCount
     ) {
         this.quote = quote;
         this.state = state;
         this.quoteUpdated = quoteUpdated;
+        this.correctAnswerCount = correctAnswerCount;
+        this.questionCount = questionCount;
     }
 
     private SwipeQuoteViewModel(final Parcel parcel) {
         quote = parcel.readParcelable(AndroidViewQuote.class.getClassLoader());
         state = (State) parcel.readSerializable();
         quoteUpdated = parcel.readByte() != 0;
+        correctAnswerCount = parcel.readInt();
+        questionCount = parcel.readInt();
     }
 
     @Override
@@ -37,6 +45,8 @@ public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
         dest.writeParcelable(quote, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeSerializable(state);
         dest.writeByte((byte) (quoteUpdated ? 1 : 0));
+        dest.writeInt(correctAnswerCount);
+        dest.writeInt(questionCount);
     }
 
     static final Creator<SwipeQuoteAndroidViewModel> CREATOR = new Creator<SwipeQuoteAndroidViewModel>() {
@@ -63,18 +73,27 @@ public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     }
 
     @Override
-    public void showLoadingQuoteState(SwipeQuoteAndroidView view) {
+    public void showLoadingQuotesState(SwipeQuoteAndroidView view) {
         state = State.LOADING;
         if (view != null) {
-            view.showLoadingQuoteState();
+            view.showLoadingQuotesState();
         }
     }
 
     @Override
-    public void showFailureToGetQuoteState(SwipeQuoteAndroidView view) {
+    public void showFailureToGetQuotesState(SwipeQuoteAndroidView view) {
         state = State.LOADING_FAILED;
         if (view != null) {
-            view.showFailureToGetQuoteState();
+            view.showFailureToGetQuotesState();
+        }
+    }
+
+    @Override
+    public void showScore(SwipeQuoteAndroidView view, int correctAnswerCount, int questionCount) {
+        this.correctAnswerCount = correctAnswerCount;
+        this.questionCount = questionCount;
+        if (view != null) {
+            view.showScore(correctAnswerCount, questionCount);
         }
     }
 
@@ -85,22 +104,33 @@ public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
                 if (setAllData || quoteUpdated) {
                     quoteUpdated = false;
                     view.showQuoteState(quote);
+                    view.showScore(correctAnswerCount, questionCount);
                 }
                 break;
             }
             case LOADING: {
-                view.showLoadingQuoteState();
+                view.showLoadingQuotesState();
                 break;
             }
             case LOADING_FAILED: {
-                view.showLoadingQuoteState();
+                view.showLoadingQuotesState();
                 break;
             }
         }
     }
 
     @Override
-    public AndroidViewQuote newQuote() {
+    public AndroidViewQuote quote() {
         return quote;
+    }
+
+    @Override
+    public int correctAnswerCount() {
+        return correctAnswerCount;
+    }
+
+    @Override
+    public int questionCount() {
+        return questionCount;
     }
 }

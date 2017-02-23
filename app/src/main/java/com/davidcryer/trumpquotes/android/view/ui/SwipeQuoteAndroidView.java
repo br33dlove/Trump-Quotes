@@ -4,12 +4,13 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuot
 
 public interface SwipeQuoteAndroidView extends AndroidMvpView {
     void showQuoteState(final AndroidViewQuote quote);
-    void showLoadingQuoteState();
-    void showFailureToGetQuoteState();
+    void showLoadingQuotesState();
+    void showFailureToGetQuotesState();
+    void showScore(final int correctAnswerCount, final int questionCount);
 
     interface EventsListener extends AndroidMvpView.EventsListener {
         void onViewCreated();
-        void onRetryQuoteRequest();
+        void onRetryQuotesRequest();
         void onQuoteSwipedLeft();
         void onQuoteSwipedRight();
     }
