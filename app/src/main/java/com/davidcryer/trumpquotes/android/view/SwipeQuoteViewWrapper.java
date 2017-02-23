@@ -3,10 +3,10 @@ package com.davidcryer.trumpquotes.android.view;
 import android.os.Bundle;
 
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModel;
-import com.davidcryer.trumpquotes.android.view.viewmodels.factories.SwipeQuoteAndroidViewModelFactory;
+import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.factories.SwipeQuotePresenterFactory;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
 

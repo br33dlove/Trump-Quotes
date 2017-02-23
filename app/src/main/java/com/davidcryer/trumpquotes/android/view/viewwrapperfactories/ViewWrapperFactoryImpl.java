@@ -2,10 +2,10 @@ package com.davidcryer.trumpquotes.android.view.viewwrapperfactories;
 
 import android.os.Bundle;
 
-import com.davidcryer.trumpquotes.android.presenter.presenters.factories.PresenterFactoryFactory;
+import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.view.SwipeQuoteViewWrapper;
 import com.davidcryer.trumpquotes.android.view.ViewWrapper;
-import com.davidcryer.trumpquotes.android.view.viewmodels.factories.SwipeQuoteAndroidViewModelFactory;
+import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 
 public class ViewWrapperFactoryImpl implements ViewWrapperFactory {
