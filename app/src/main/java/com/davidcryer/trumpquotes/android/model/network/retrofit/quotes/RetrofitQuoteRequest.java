@@ -1,43 +1,38 @@
 package com.davidcryer.trumpquotes.android.model.network.retrofit.quotes;
 
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequest;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
+import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.trumpapi.TrumpQuote;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.trumpapi.TrumpQuoteToQuoteAdapter;
 
-import java.util.Collection;
+import java.lang.ref.WeakReference;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-class RetrofitQuoteRequest implements QuoteRequest {
-    private final Call<TrumpQuote> call;
-    private final Collection<QuoteRequestCallback> callbacks;
+public class RetrofitQuoteRequest<QuoteType extends Quote> implements Request {
+    private final Call<QuoteType> call;
+    private final WeakReference<QuoteRequestCallback> callback;
 
-    RetrofitQuoteRequest(Call<TrumpQuote> call, Collection<QuoteRequestCallback> callbacks) {
+    public RetrofitQuoteRequest(Call<QuoteType> call, WeakReference<QuoteRequestCallback> callback) {
         this.call = call;
-        this.callbacks = callbacks;
+        this.callback = callback;
     }
 
     @Override
-    public void executeAsync() {
-        call.enqueue(new Callback<TrumpQuote>() {
+    public void enqueue() {
+        call.enqueue(new Callback<QuoteType>() {
             @Override
-            public void onResponse(Call<TrumpQuote> call, Response<TrumpQuote> response) {
-                for (final QuoteRequestCallback callback : callbacks) {
-                    if (callback != null) {
-                        callback.success(TrumpQuoteToQuoteAdapter.quote(response.body()));
-                    }
+            public void onResponse(Call<QuoteType> call, Response<QuoteType> response) {
+                if (callback.get() != null) {
+                    callback.get().success(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<TrumpQuote> call, Throwable t) {
-                for (final QuoteRequestCallback callback : callbacks) {
-                    if (callback != null) {
-                        callback.failure();
-                    }
+            public void onFailure(Call<QuoteType> call, Throwable t) {
+                if (callback.get() != null) {
+                    callback.get().failure();
                 }
             }
         });
@@ -51,7 +46,7 @@ class RetrofitQuoteRequest implements QuoteRequest {
     @Override
     public void cancel() {
         call.cancel();
-        callbacks.clear();
+        callback.clear();
     }
 
     @Override

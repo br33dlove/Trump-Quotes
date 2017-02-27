@@ -8,13 +8,13 @@ import com.davidcryer.trumpquotes.android.framework.tasks.ThreadPoolExecutorTask
 import com.davidcryer.trumpquotes.android.framework.tasks.ThreadPoolExecutorTaskSchedulerFactoryImpl;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteService;
-import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteRequestFactory;
+import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteService;
+import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteRequestFactory;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteServiceFactory;
-import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteServiceFactoryImpl;
+import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteServiceFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContract;
 import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContractImpl;
-import com.davidcryer.trumpquotes.android.model.repository.quotes.SQLiteQuoteRepositoryFactory;
+import com.davidcryer.trumpquotes.android.model.repository.quotes.SQLiteQuoteStoreFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
@@ -47,15 +47,15 @@ class ApplicationDependencyProvider {
     }
 
     private static QuoteRequestFactory createQuoteRequestFactory(final Resources resources) {
-        return new RetrofitQuoteRequestFactory(createRetrofitQuoteService(resources));
+        return new RetrofitTrumpQuoteRequestFactory(createRetrofitQuoteService(resources));
     }
 
-    private static RetrofitQuoteService createRetrofitQuoteService(final Resources resources) {
+    private static RetrofitTrumpQuoteService createRetrofitQuoteService(final Resources resources) {
         return createRetrofitQuoteServiceFactory(resources).create();
     }
 
     private static RetrofitQuoteServiceFactory createRetrofitQuoteServiceFactory(final Resources resources) {
-        return new RetrofitQuoteServiceFactoryImpl(resources);
+        return new RetrofitTrumpQuoteServiceFactoryImpl(resources);
     }
 
     private static QuoteStoreHandlerFactory createQuoteStoreHandlerFactory(final Context context) {
@@ -67,7 +67,7 @@ class ApplicationDependencyProvider {
     }
 
     private static QuoteRepositoryFactory createQuoteStoreFactory(final Context context) {
-        return new SQLiteQuoteRepositoryFactory(context, createCursorFactory(), createQuoteContract());
+        return new SQLiteQuoteStoreFactory(context, createCursorFactory(), createQuoteContract());
     }
 
     private static SQLiteDatabase.CursorFactory createCursorFactory() {
