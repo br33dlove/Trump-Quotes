@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepository;
 
-class SQLiteQuoteRepository extends SQLiteOpenHelper implements QuoteRepository {
+class SQLiteQuoteStore extends SQLiteOpenHelper implements QuoteRepository {
     private final QuoteContract quoteContract;
 
-    SQLiteQuoteRepository(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, final QuoteContract quoteContract) {
+    SQLiteQuoteStore(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, final QuoteContract quoteContract) {
         super(context, name, factory, version);
         this.quoteContract = quoteContract;
     }
