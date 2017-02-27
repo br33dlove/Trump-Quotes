@@ -1,6 +1,9 @@
-package com.davidcryer.trumpquotes.android.framework.tasks;
+package com.davidcryer.trumpquotes.android.model.tasks;
 
 import android.os.Handler;
+
+import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
