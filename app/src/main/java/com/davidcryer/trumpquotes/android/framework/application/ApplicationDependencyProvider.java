@@ -10,7 +10,7 @@ import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.View
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteService;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteRequestFactory;
-import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteServiceFactory;
+import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteServiceFactory;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteServiceFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContract;
 import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContractImpl;
@@ -54,7 +54,7 @@ class ApplicationDependencyProvider {
         return createRetrofitQuoteServiceFactory(resources).create();
     }
 
-    private static RetrofitQuoteServiceFactory createRetrofitQuoteServiceFactory(final Resources resources) {
+    private static RetrofitTrumpQuoteServiceFactory createRetrofitQuoteServiceFactory(final Resources resources) {
         return new RetrofitTrumpQuoteServiceFactoryImpl(resources);
     }
 

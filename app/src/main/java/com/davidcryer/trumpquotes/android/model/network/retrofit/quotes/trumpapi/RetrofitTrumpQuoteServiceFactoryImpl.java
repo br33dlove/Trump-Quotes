@@ -3,12 +3,11 @@ package com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpap
 import android.content.res.Resources;
 
 import com.davidcryer.trumpquotes.R;
-import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteServiceFactory;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitTrumpQuoteServiceFactoryImpl implements RetrofitQuoteServiceFactory {
+public class RetrofitTrumpQuoteServiceFactoryImpl implements RetrofitTrumpQuoteServiceFactory {
     private final Resources resources;
 
     public RetrofitTrumpQuoteServiceFactoryImpl(Resources resources) {
