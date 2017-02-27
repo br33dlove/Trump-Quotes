@@ -1,11 +1,16 @@
 package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.trumpapi;
 
-public class TrumpQuote {
-    String message;
-    String nickname;
+import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
 
-    public TrumpQuote(String message, String nickname) {
-        this.message = message;
-        this.nickname = nickname;
+public class TrumpQuote implements Quote {
+    private String quote;
+
+    public TrumpQuote(String quote) {
+        this.quote = quote;
+    }
+
+    @Override
+    public String quote() {
+        return quote;
     }
 }

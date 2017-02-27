@@ -1,6 +1,7 @@
 package com.davidcryer.trumpquotes.platformindependent.model.network.quotes;
 
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
+
 public interface QuoteRequestFactory {
-    QuoteRequest randomQuoteRequest(final QuoteRequestCallback... requestCallbacks);
-    QuoteRequest personalisedQuoteRequest(final String name, final QuoteRequestCallback... requestCallbacks);
+    Request randomQuoteRequest(final QuoteRequestCallback... requestCallbacks);
 }

@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.framework.tasks;
+package com.davidcryer.trumpquotes.platformindependent.model.framework.tasks;
 
 import java.util.concurrent.ThreadPoolExecutor;
 

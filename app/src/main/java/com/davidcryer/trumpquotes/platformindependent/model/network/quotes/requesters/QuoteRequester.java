@@ -1,91 +1,25 @@
 package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters;
 
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequest;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.Cancelable;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
 
-import java.util.Set;
+abstract class QuoteRequester {
 
-abstract class QuoteRequester {//TODO separate from Quote and make generic
-    private final Set<QuoteRequestCallback> callbacks;
-    private Quote lastReceivedQuote;
-    private QuoteRequest request;
+    QuoteRequester() {
 
-    QuoteRequester(Set<QuoteRequestCallback> callbacks) {
-        this.callbacks = callbacks;
     }
 
-    void requestQuote(final QuoteRequestCallback requestCallback, final boolean preferLastReceivedQuote, final RequestProvider requestProvider) {
-        if (preferLastReceivedQuote && lastReceivedQuote != null) {
-            requestCallback.success(lastReceivedQuote);
-        } else if (request == null) {
-            executeNewRequest(requestProvider.request(new QuoteRequestCallback() {
-                @Override
-                public void success(Quote quote) {
-                    onSuccess(quote);
-                }
-
-                @Override
-                public void failure() {
-                    onFailure();
-                }
-            }), requestCallback);
-        }
+    Cancelable enqueuedQuoteRequest(final RequestProvider requestProvider, final QuoteRequestCallback requestCallback) {
+        return enqueuedQuoteRequest(requestProvider.request(requestCallback));
     }
 
-    private void executeNewRequest(final QuoteRequest request, final QuoteRequestCallback requestCallback) {
-        callbacks.add(requestCallback);
-        request.executeAsync();
-    }
-
-    private void onSuccess(final Quote quote) {
-        clearRequest();
-        lastReceivedQuote = quote;
-        notifyCallbacksOfSuccess(quote);
-    }
-
-    private void onFailure() {
-        clearRequest();
-        notifyCallbacksOfFailure();
-    }
-
-    void remove(QuoteRequestCallback callback, boolean cancelRequest) {
-        callbacks.remove(callback);
-        if (cancelRequest) {
-            cancelRequest();
-        }
-    }
-
-    private void notifyCallbacksOfSuccess(final Quote quote) {
-        for (final QuoteRequestCallback callback : callbacks) {
-            if (callback != null) {
-                callback.success(quote);
-            }
-        }
-        callbacks.clear();
-    }
-
-    private void notifyCallbacksOfFailure() {
-        for (final QuoteRequestCallback callback : callbacks) {
-            if (callback != null) {
-                callback.failure();
-            }
-        }
-        callbacks.clear();
-    }
-
-    private void cancelRequest() {
-        if (request != null) {
-            request.cancel();
-            clearRequest();
-        }
-    }
-
-    private void clearRequest() {
-        request = null;
+    private Cancelable enqueuedQuoteRequest(final Request request) {
+        request.enqueue();
+        return request;
     }
 
     interface RequestProvider {
-        QuoteRequest request(final QuoteRequestCallback callback);
+        Request request(final QuoteRequestCallback callback);
     }
 }

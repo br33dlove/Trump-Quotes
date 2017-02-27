@@ -1,7 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.model.network.quotes;
 
-import com.davidcryer.trumpquotes.platformindependent.model.network.RequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
 
 public interface QuoteRequestCallback extends RequestCallback<Quote> {
 }
