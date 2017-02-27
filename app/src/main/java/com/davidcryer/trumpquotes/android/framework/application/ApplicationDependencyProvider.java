@@ -12,9 +12,9 @@ import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteRequestFactory;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteServiceFactory;
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteServiceFactoryImpl;
-import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContract;
-import com.davidcryer.trumpquotes.android.model.repository.quotes.QuoteContractImpl;
-import com.davidcryer.trumpquotes.android.model.repository.quotes.SQLiteQuoteStoreFactory;
+import com.davidcryer.trumpquotes.android.model.store.quotes.QuoteContract;
+import com.davidcryer.trumpquotes.android.model.store.quotes.QuoteContractImpl;
+import com.davidcryer.trumpquotes.android.model.store.quotes.SQLiteQuoteStoreFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
