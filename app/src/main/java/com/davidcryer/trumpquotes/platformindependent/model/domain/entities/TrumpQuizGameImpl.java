@@ -24,10 +24,10 @@ public final class TrumpQuizGameImpl implements TrumpQuizGame {
             throw new IllegalArgumentException("Current question index cannot be negative");
         }
         if (currentQuestionIndex >= questions.length) {
-            throw new IllegalArgumentException("Current question index cannot be greater than the number of questions");
+            throw new IllegalArgumentException("Current question index cannot be greater than the number of game");
         }
         if (quizScore.questionsAnswered() - currentQuestionIndex > 1) {
-            throw new IllegalArgumentException("Difference between questions answered and current question index cannot be greater than one");
+            throw new IllegalArgumentException("Difference between game answered and current question index cannot be greater than one");
         }
         this.questions = questions;
         this.quizScore = quizScore;

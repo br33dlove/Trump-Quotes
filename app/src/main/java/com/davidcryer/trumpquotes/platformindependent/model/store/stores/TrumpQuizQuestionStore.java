@@ -4,6 +4,6 @@ import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQu
 
 public interface TrumpQuizQuestionStore {
     boolean store(final TrumpQuizQuestionStorageModel[] models);
-    boolean clear();
+    boolean clearAll();
     TrumpQuizQuestionStorageModel[] retrieve(final int... ids);
 }

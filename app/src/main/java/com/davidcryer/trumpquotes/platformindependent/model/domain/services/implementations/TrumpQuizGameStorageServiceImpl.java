@@ -21,7 +21,7 @@ public class TrumpQuizGameStorageServiceImpl implements TrumpQuizGameStorageServ
     @Override
     public void save(TrumpQuizGameImpl game, SaveCallback callback) {
         gameStore.clear();
-        questionStore.clear();
+        questionStore.clearAll();
         final boolean savedGame = savedGame(game);
         if (savedGame) {
             callback.onSuccess();
@@ -54,7 +54,7 @@ public class TrumpQuizGameStorageServiceImpl implements TrumpQuizGameStorageServ
     private TrumpQuizGameImpl loadedGame() {
         final TrumpQuizGameStorageModel gameStorageModel = gameStore.retrieve();
         if (gameStorageModel != null) {
-            final TrumpQuizQuestionStorageModel[] questionStorageModels = questionStore.retrieve(gameStorageModel.quoteIds);
+            final TrumpQuizQuestionStorageModel[] questionStorageModels = questionStore.retrieve(gameStorageModel.questionIds);
             if (questionStorageModels != null) {
                 return DomainModelMapper.mapStorageModels(gameStorageModel, questionStorageModels);
             }

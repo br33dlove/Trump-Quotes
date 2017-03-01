@@ -6,7 +6,7 @@ public class QuizScoreImpl implements QuizScore {
 
     public QuizScoreImpl(int questionsAnswered, int correctAnswers) {
         if (correctAnswers > questionsAnswered) {
-            throw new IllegalArgumentException("Correct answers count cannot be greater than questions answered count");
+            throw new IllegalArgumentException("Correct answers count cannot be greater than game answered count");
         }
         if (correctAnswers < 0) {
             throw new IllegalArgumentException("Correct answers count cannot be less than zero");
