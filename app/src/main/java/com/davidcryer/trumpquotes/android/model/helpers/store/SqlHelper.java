@@ -10,6 +10,7 @@ public interface SQLHelper {
     String INTEGER_TYPE = " INTEGER";
     String PRIMARY_KEY_TYPE = " PRIMARY KEY";
     String ORDER_ASCENDING = " ASC";
+    String DELIMITER_COMMA = ",";
     int INT_VALUE_TRUE = 1;
     int INT_VALUE_FALSE = 0;
 }
