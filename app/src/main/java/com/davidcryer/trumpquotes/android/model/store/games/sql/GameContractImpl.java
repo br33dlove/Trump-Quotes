@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.store.games;
+package com.davidcryer.trumpquotes.android.model.store.games.sql;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.provider.BaseColumns;
 
-import com.davidcryer.trumpquotes.android.model.helpers.store.QueryHelper;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.ArrayHelper;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.StringHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizGameStorageModel;
