@@ -3,7 +3,7 @@ package com.davidcryer.trumpquotes.platformindependent.model.domain.services;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.Cancelable;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
 
-public interface QuoteService {
+public interface QuoteNetworkService {
     Cancelable randomQuote(final Callback callback);
 
     interface Callback {
