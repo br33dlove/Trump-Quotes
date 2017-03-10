@@ -10,8 +10,7 @@ public interface SwipeQuoteView<ViewQuoteType extends ViewQuote> extends MvpView
     void showScore(final int correctAnswerCount, final int questionCount);
 
     interface EventsListener extends MvpView.EventsListener {
-        void onRequestQuotes();
-        void onRetryQuotesRequest();
+        void onStartGame();
         void onQuoteSwipedLeft();
         void onQuoteSwipedRight();
     }

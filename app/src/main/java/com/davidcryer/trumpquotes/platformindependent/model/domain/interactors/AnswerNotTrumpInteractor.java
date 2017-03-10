@@ -1,19 +1,18 @@
-package com.davidcryer.trumpquotes.platformindependent.model.domain.tasks;
+package com.davidcryer.trumpquotes.platformindependent.model.domain.interactors;
 
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.IsTrumpAnswer;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.NotTrumpAnswer;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.TrumpQuizGame;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task;
 
-public final class AnswerIsTrumpTask extends Task<Void, AnswerIsTrumpTask.ResponseValues> {
+public final class AnswerNotTrumpInteractor extends Task<Void, AnswerNotTrumpInteractor.ResponseValues> {
     private final TrumpQuizGame game;
 
-    AnswerIsTrumpTask(TrumpQuizGame game) {
+    AnswerNotTrumpInteractor(TrumpQuizGame game) {
         this.game = game;
     }
 
     @Override
     protected void doTask(Void requestValues, final Callback<ResponseValues> callback) {
-        game.onAnswerGiven(new IsTrumpAnswer(), new TrumpQuizGame.AnswerCallback() {
+        game.onAnswerGiven(new NotTrumpAnswer(), new TrumpQuizGame.AnswerCallback() {
             @Override
             public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
                 onSuccess(new ResponseValues(true, correctAnswers, questionsAnswered), callback);

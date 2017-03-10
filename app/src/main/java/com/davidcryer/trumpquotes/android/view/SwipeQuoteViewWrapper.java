@@ -73,12 +73,12 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
 
         @Override
         public void onViewCreated() {
-            wrapperEventsListener.onRequestQuotes();
+            wrapperEventsListener.onStartGame();
         }
 
         @Override
         public void onRetryQuotesRequest() {
-            wrapperEventsListener.onRetryQuotesRequest();
+            wrapperEventsListener.onRetryStartGame();
         }
 
         @Override

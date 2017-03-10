@@ -1,12 +1,11 @@
-package com.davidcryer.trumpquotes.platformindependent.model.domain.tasks;
+package com.davidcryer.trumpquotes.platformindependent.model.domain.interactors;
 
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.TrumpQuizGame;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task;
 
-public final class GetNextQuoteTask extends Task<Void, GetNextQuoteTask.ResponseValues> {
+public final class GetNextQuoteInteractor extends Task<Void, GetNextQuoteInteractor.ResponseValues> {
     private final TrumpQuizGame game;
 
-    GetNextQuoteTask(TrumpQuizGame game) {
+    GetNextQuoteInteractor(TrumpQuizGame game) {
         this.game = game;
     }
 

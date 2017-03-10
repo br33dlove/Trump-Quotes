@@ -1,33 +1,27 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.swipequote;
 
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.RandomQuoteRequester;
-import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteRepositoryHandler;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.ActiveGameInteractors;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InitialiseGameInteractor;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.QuoteHelper;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;
 
-import java.util.List;
-
 class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presenter<SwipeQuoteView.EventsListener> {
     private final SwipeQuoteView<ViewQuoteType> viewWrapper;
-    private final RandomQuoteRequester randomQuoteRequester;
-    private final QuoteRepositoryHandler quoteRepositoryHandler;
     private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
+    private final InitialiseGameInteractor initialiseGameInteractor;
+    private ActiveGameInteractors activeGameInteractors;
 
     SwipeQuotePresenter(
             final SwipeQuoteView<ViewQuoteType> viewWrapper,
-            final RandomQuoteRequester randomQuoteRequester,
-            final QuoteRepositoryHandler quoteRepositoryHandler,
-            final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory
+            final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory,
+            final InitialiseGameInteractor initialiseGameInteractor
     ) {
         this.viewWrapper = viewWrapper;
-        this.randomQuoteRequester = randomQuoteRequester;
-        this.quoteRepositoryHandler = quoteRepositoryHandler;
         this.viewQuoteFactory = viewQuoteFactory;
+        this.initialiseGameInteractor = initialiseGameInteractor;
     }
 
     @Override
@@ -35,15 +29,9 @@ class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presenter<Swi
         return new SwipeQuoteView.EventsListener() {
 
             @Override
-            public void onRequestQuotes() {
+            public void onStartGame() {
                 showLoadingQuote();
-                fetchUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay();
-            }
-
-            @Override
-            public void onRetryQuotesRequest() {
-                showLoadingQuote();
-                requestQuoteAndDisplay(false);
+                initialiseGameAndDisplay();
             }
 
             @Override
@@ -67,19 +55,8 @@ class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presenter<Swi
         };
     }
 
-    private void fetchUnJudgedQuoteFromStoreOrRequestQuoteAndDisplay() {
-        quoteRepositoryHandler.retrieveUnJudgedQuotes(new QuoteRepositoryHandler.RetrieveCallback() {
-            @Override
-            public void onReturn(List<Quote> quotes) {
-                final Quote mostRecentQuote = QuoteHelper.removeMostRecent(quotes);
-                if (mostRecentQuote == null) {
-                    requestQuoteAndDisplay(true);
-                } else {
-                    viewWrapper.showQuoteState(viewQuoteFactory.create(mostRecentQuote));
-                    quoteRepositoryHandler.clear(QuoteHelper.ids(quotes));
-                }
-            }
-        });
+    private void initialiseGameAndDisplay() {
+        initialiseGameInteractor.
     }
 
     private void showLoadingQuote() {

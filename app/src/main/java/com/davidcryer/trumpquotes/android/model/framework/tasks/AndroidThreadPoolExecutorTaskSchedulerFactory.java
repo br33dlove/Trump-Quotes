@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.tasks;
+package com.davidcryer.trumpquotes.android.model.framework.tasks;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -8,10 +8,10 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Thre
 
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class ThreadPoolExecutorTaskSchedulerFactoryImpl implements ThreadPoolExecutorTaskSchedulerFactory {
+public class AndroidThreadPoolExecutorTaskSchedulerFactory implements ThreadPoolExecutorTaskSchedulerFactory {
 
     @Override
     public TaskScheduler create(ThreadPoolExecutor threadPoolExecutor) {
-        return new ThreadPoolExecutorTaskScheduler(threadPoolExecutor, new Handler(Looper.getMainLooper()));
+        return new AndroidThreadPoolExecutorTaskScheduler(threadPoolExecutor, new Handler(Looper.getMainLooper()));
     }
 }
