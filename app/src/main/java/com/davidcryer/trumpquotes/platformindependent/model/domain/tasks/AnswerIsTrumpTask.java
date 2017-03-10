@@ -1,6 +1,5 @@
 package com.davidcryer.trumpquotes.platformindependent.model.domain.tasks;
 
-
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.IsTrumpAnswer;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.TrumpQuizGame;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task;
