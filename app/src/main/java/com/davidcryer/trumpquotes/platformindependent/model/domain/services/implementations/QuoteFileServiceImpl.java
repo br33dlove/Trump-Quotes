@@ -12,9 +12,9 @@ public class QuoteFileServiceImpl implements QuoteFileService {
     private final Random random;
     private final QuoteCache cache;
 
-    public QuoteFileServiceImpl(QuoteFile quoteFile, Random random) {
+    public QuoteFileServiceImpl(QuoteFile quoteFile) {
         this.quoteFile = quoteFile;
-        this.random = random;
+        this.random = new Random();
         cache = new QuoteCache();
     }
 
