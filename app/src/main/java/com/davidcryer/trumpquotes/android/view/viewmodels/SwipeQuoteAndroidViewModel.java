@@ -11,6 +11,6 @@ public interface SwipeQuoteAndroidViewModel extends SwipeQuoteMvpViewModel, Andr
     void showFailureToStartGameState(final SwipeQuoteAndroidView view);
     void showNewGameTutorial(final SwipeQuoteAndroidView view);
     void dismissNewGameTutorial(final SwipeQuoteAndroidView view);
-    void showQuestionState(final AndroidViewQuestion question);
+    void showQuestionState(final SwipeQuoteAndroidView view, final AndroidViewQuestion question);
     void showFinishedGameState(final SwipeQuoteAndroidView view);
 }

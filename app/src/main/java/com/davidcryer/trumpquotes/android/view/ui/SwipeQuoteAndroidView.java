@@ -3,15 +3,20 @@ package com.davidcryer.trumpquotes.android.view.ui;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
 public interface SwipeQuoteAndroidView extends AndroidMvpView {
-    void showQuoteState(final AndroidViewQuestion quote);
-    void showLoadingQuotesState();
-    void showFailureToGetQuotesState();
     void showScore(final int correctAnswerCount, final int questionCount);
+    void showStartNewGameState();
+    void showLoadingState();
+    void showFailureToStartGameState();
+    void showNewGameTutorial();
+    void dismissNewGameTutorial();
+    void showQuestionState(final AndroidViewQuestion quote);
+    void showFinishedGameState();
 
     interface EventsListener extends AndroidMvpView.EventsListener {
         void onViewCreated();
-        void onRetryQuotesRequest();
-        void onQuoteSwipedLeft();
-        void onQuoteSwipedRight();
+        void onClickStartNewGame();
+        void onDismissNewGameTutorial();
+        void onAnswerOptionA();
+        void onAnswerOptionB();
     }
 }
