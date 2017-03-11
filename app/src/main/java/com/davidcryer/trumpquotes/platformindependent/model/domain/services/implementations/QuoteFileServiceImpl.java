@@ -7,7 +7,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote
 import java.io.IOException;
 import java.util.Random;
 
-public class QuoteFileServiceImpl<QuoteType extends Quote> implements QuoteFileService {
+public class QuoteFileServiceImpl implements QuoteFileService {
     private final QuoteFile quoteFile;
     private final Random random;
     private final QuoteCache cache;
