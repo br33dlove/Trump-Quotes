@@ -64,14 +64,14 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         swipeLayout.swipeListener(new SwipeDelegate.Listener() {
             @Override
             public void onViewEscapedLeft(View child) {
-                eventsListener.onQuoteSwipedLeft();
+                eventsListener.onAnswerOptionA();
                 swipeLayout.listenForChildGestures(child, false);
                 //TODO clean up view
             }
 
             @Override
             public void onViewEscapedRight(View child) {
-                eventsListener.onQuoteSwipedRight();
+                eventsListener.onAnswerOptionB();
                 swipeLayout.listenForChildGestures(child, false);
                 //TODO clean up view
             }
@@ -79,12 +79,6 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
             @Override
             public void onCardMoved(float percentageOffsetFromCentreX) {
                 card.updateSignature(percentageOffsetFromCentreX);
-            }
-        });
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                eventsListener.onRetryQuotesRequest();
             }
         });
         card.setVisibility(View.GONE);
@@ -114,7 +108,35 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showQuoteState(AndroidViewQuestion quote) {
+    public void showScore(int correctAnswerCount, int questionCount) {
+        //TODO
+    }
+
+    @Override
+    public void showStartNewGameState() {
+        //TODO
+    }
+
+    @Override
+    public void showLoadingState() {
+        hideQuoteCard();
+        showLoadingQuote();
+        hideFailureToGetQuote();
+        swipeRefreshLayout.setEnabled(false);
+    }
+
+    @Override
+    public void showNewGameTutorial() {
+        //TODO
+    }
+
+    @Override
+    public void dismissNewGameTutorial() {
+        //TODO
+    }
+
+    @Override
+    public void showQuestionState(AndroidViewQuestion quote) {
         showQuoteCard();
         hideLoadingQuote();
         hideFailureToGetQuote();
@@ -134,15 +156,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showLoadingQuotesState() {
-        hideQuoteCard();
-        showLoadingQuote();
-        hideFailureToGetQuote();
-        swipeRefreshLayout.setEnabled(false);
-    }
-
-    @Override
-    public void showFailureToGetQuotesState() {
+    public void showFailureToStartGameState() {
         hideQuoteCard();
         hideLoadingQuote();
         showFailureToGetQuote();
@@ -184,7 +198,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showScore(int correctAnswerCount, int questionCount) {
+    public void showFinishedGameState() {
         //TODO
     }
 
