@@ -3,10 +3,10 @@ package com.davidcryer.trumpquotes.platformindependent.view;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
 
-public interface SwipeQuestionView<ViewQuestionType extends ViewQuestion> extends MvpView<SwipeQuoteMvpViewModel<ViewQuestionType>> {
+public interface SwipeQuestionView<ViewQuestionType extends ViewQuestion> extends MvpView<SwipeQuoteMvpViewModel> {
     void showScore(final int correctAnswerCount, final int questionCount);
     void showStartNewGameState();
-    void showStartingGameState();
+    void showLoadingState();
     void showFailureToStartGameState();
     void showNewGameTutorial();
     void dismissNewGameTutorial();
@@ -14,7 +14,7 @@ public interface SwipeQuestionView<ViewQuestionType extends ViewQuestion> extend
     void showFinishedGameState();
 
     interface EventsListener extends MvpView.EventsListener {
-        void onStartGame();
+        void onInitialise();
         void onClickStartNewGame();
         void onDismissNewGameTutorial();
         void onAnswerOptionA();

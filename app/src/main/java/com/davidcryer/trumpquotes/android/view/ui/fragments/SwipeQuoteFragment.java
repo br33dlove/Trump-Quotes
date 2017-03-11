@@ -119,7 +119,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
         hideLoadingQuote();
         hideFailureToGetQuote();
         swipeRefreshLayout.setEnabled(false);
-        card.quote(quote.text());
+        card.quote(quote.quote());
         swipeLayout.listenForChildGestures(card, true);
         if (card.getWidth() > 0) {
             final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();

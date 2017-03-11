@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models;
 
-public class ViewQuoteHelper {
+public class ViewQuestionHelper {
 
     public static String[] ids(final ViewQuestion[] quotes) {
         final String[] ids = new String[quotes.length];

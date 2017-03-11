@@ -16,14 +16,14 @@ import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryF
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuoteFactory;
+import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestionFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.ThreadPoolExecutorTaskSchedulerFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
 class ApplicationDependencyProvider {
 
@@ -63,8 +63,8 @@ class ApplicationDependencyProvider {
         return new AndroidThreadPoolExecutorTaskSchedulerFactory();
     }
 
-    private static ViewQuoteFactory<AndroidViewQuestion> createViewQuoteFactory() {
-        return new AndroidViewQuoteFactory();
+    private static ViewQuestionFactory<AndroidViewQuestion> createViewQuoteFactory() {
+        return new AndroidViewQuestionFactory();
     }
 
     private static SwipeQuoteAndroidViewModelFactory createQuotesAndroidViewModelFactory() {

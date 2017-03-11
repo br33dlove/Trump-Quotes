@@ -1,12 +1,12 @@
 package com.davidcryer.trumpquotes.android.view.viewmodels.models;
 
 import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class AndroidViewQuoteFactory implements ViewQuoteFactory<AndroidViewQuestion> {
+public class AndroidViewQuestionFactory implements ViewQuestionFactory<AndroidViewQuestion> {
 
     @Override
     public AndroidViewQuestion create(Quote quote) {

@@ -5,22 +5,22 @@ import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Prese
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuestionView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
 public class SwipeQuotePresenterFactoryImpl<ViewQuoteType extends ViewQuestion> implements SwipeQuotePresenterFactory<ViewQuoteType> {
-    private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
+    private final ViewQuestionFactory<ViewQuoteType> viewQuestionFactory;
     private final InteractorFactory interactorFactory;
 
     public SwipeQuotePresenterFactoryImpl(
-            final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory,
+            final ViewQuestionFactory<ViewQuoteType> viewQuestionFactory,
             final InteractorFactory interactorFactory
     ) {
-        this.viewQuoteFactory = viewQuoteFactory;
+        this.viewQuestionFactory = viewQuestionFactory;
         this.interactorFactory = interactorFactory;
     }
 
     @Override
     public Presenter<SwipeQuestionView.EventsListener> create(final SwipeQuestionView<ViewQuoteType> viewWrapper) {
-        return new SwipeQuotePresenter<>(viewWrapper, viewQuoteFactory, interactorFactory.createLoadGameInteractor(), interactorFactory.createInitialiseGameInteractor());
+        return new SwipeQuotePresenter<>(viewWrapper, viewQuestionFactory, interactorFactory.createLoadGameInteractor(), interactorFactory.createInitialiseGameInteractor());
     }
 }

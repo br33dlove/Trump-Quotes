@@ -45,7 +45,7 @@ public class AndroidViewQuestionImpl implements AndroidViewQuestion {
     }
 
     @Override
-    public String text() {
+    public String quote() {
         return text;
     }
 }

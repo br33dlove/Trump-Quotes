@@ -8,21 +8,22 @@ import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.I
 import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.LoadGameInteractor;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuestionView;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
 import java.lang.ref.WeakReference;
 
 class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Presenter<SwipeQuestionView.EventsListener> {
     private final SwipeQuestionView<ViewQuestionType> viewWrapper;
-    private final ViewQuoteFactory<ViewQuestionType> viewQuestionFactory;
+    private final ViewQuestionFactory<ViewQuestionType> viewQuestionFactory;
     private final LoadGameInteractor loadGameInteractor;
     private final InitialiseGameInteractor initialiseGameInteractor;
     private ActiveGameInteractors activeGameInteractors;
 
     SwipeQuotePresenter(
             final SwipeQuestionView<ViewQuestionType> viewWrapper,
-            final ViewQuoteFactory<ViewQuestionType> viewQuestionFactory,
+            final ViewQuestionFactory<ViewQuestionType> viewQuestionFactory,
             final LoadGameInteractor loadGameInteractor,
             final InitialiseGameInteractor initialiseGameInteractor
     ) {
@@ -36,14 +37,13 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
     public SwipeQuestionView.EventsListener eventsListener() {
         return new SwipeQuestionView.EventsListener() {
             @Override
-            public void onStartGame() {
-                showLoadingQuestion();
-                loadGameAndDisplay();
+            public void onInitialise() {
+                initialiseView();
             }
 
             @Override
             public void onClickStartNewGame() {
-                showLoadingQuestion();
+                showLoadingState();
                 initialiseGame();
             }
 
@@ -54,13 +54,13 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
 
             @Override
             public void onAnswerOptionA() {
-                showLoadingQuestion();
+                showLoadingState();
                 answerOptionA();
             }
 
             @Override
             public void onAnswerOptionB() {
-                showLoadingQuestion();
+                showLoadingState();
                 answerOptionB();
             }
 
@@ -71,7 +71,20 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
         };
     }
 
-    private void loadGameAndDisplay() {
+    private void initialiseView() {
+        if (viewWrapper.viewModel().gameState() == SwipeQuoteMvpViewModel.GameState.NOT_INITIALISED) {
+            viewWrapper.showStartNewGameState();
+        } else {
+            showLoadingState();
+            loadGame();
+        }
+    }
+
+    private void showLoadingState() {
+        viewWrapper.showLoadingState();
+    }
+
+    private void loadGame() {
         loadGameInteractor.runTask(new WeakReference<LoadGameInteractor.Callback>(new LoadGameInteractor.Callback() {
             @Override
             public void onLoadGame(ActiveGameInteractors interactors, int correctAnswers, int questionsAnswered) {
@@ -82,7 +95,7 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
 
             @Override
             public void onNoSavedGameFound() {
-                initialiseGame();
+                viewWrapper.showStartNewGameState();
             }
 
             @Override
@@ -103,6 +116,7 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
             public void onInitialiseGame(ActiveGameInteractors interactors, int correctAnswers, int questionsAnswered) {
                 activeGameInteractors = interactors;
                 viewWrapper.showScore(correctAnswers, questionsAnswered);
+                viewWrapper.showNewGameTutorial();
                 getNextQuestion();
             }
 
@@ -111,10 +125,6 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
                 viewWrapper.showFailureToStartGameState();
             }
         }));
-    }
-
-    private void showLoadingQuestion() {
-        viewWrapper.showStartingGameState();
     }
 
     private void answerOptionA() {
