@@ -35,7 +35,11 @@ public class QuoteCard extends CardView {
         quoteView.setText(quote);
     }
 
-    public void updateSignature(final float percentageOffsetFromCentreX) {
+    public void signatures(final String leftSignature, final String rightSignature) {
+        signatureSwitcherLayout.showSignatures(leftSignature, rightSignature);
+    }
+
+    public void updateSignatureAlpha(final float percentageOffsetFromCentreX) {
         signatureSwitcherLayout.update(percentageOffsetFromCentreX);
     }
 }

@@ -78,7 +78,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
             @Override
             public void onCardMoved(float percentageOffsetFromCentreX) {
-                card.updateSignature(percentageOffsetFromCentreX);
+                card.updateSignatureAlpha(percentageOffsetFromCentreX);
             }
         });
         card.setVisibility(View.GONE);
@@ -121,7 +121,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     public void showLoadingState() {
         hideQuoteCard();
         showLoadingQuote();
-        hideFailureToGetQuote();
+        hideFailureToStartGameViews();
         swipeRefreshLayout.setEnabled(false);
     }
 
@@ -136,12 +136,13 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     @Override
-    public void showQuestionState(AndroidViewQuestion quote) {
+    public void showQuestionState(AndroidViewQuestion question) {
         showQuoteCard();
-        hideLoadingQuote();
-        hideFailureToGetQuote();
+        hideLoadingViews();
+        hideFailureToStartGameViews();
         swipeRefreshLayout.setEnabled(false);
-        card.quote(quote.quote());
+        card.quote(question.quote());
+        card.signatures(question.optionA(), question.optionB());
         swipeLayout.listenForChildGestures(card, true);
         if (card.getWidth() > 0) {
             final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
@@ -151,14 +152,14 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
             card.setY(yOrigin);
             card.invalidate();
         }
-        card.updateSignature(0);
+        card.updateSignatureAlpha(0);
         //TODO setup card (slide into view?)
     }
 
     @Override
     public void showFailureToStartGameState() {
         hideQuoteCard();
-        hideLoadingQuote();
+        hideLoadingViews();
         showFailureToGetQuote();
         swipeRefreshLayout.setEnabled(true);
     }
@@ -180,7 +181,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         });
     }
 
-    public void hideLoadingQuote() {
+    public void hideLoadingViews() {
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -193,7 +194,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         AlphaAnimationHelper.fadeIn(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
     }
 
-    public void hideFailureToGetQuote() {
+    public void hideFailureToStartGameViews() {
         AlphaAnimationHelper.fadeOut(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
     }
 

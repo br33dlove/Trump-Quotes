@@ -2,9 +2,8 @@ package com.davidcryer.trumpquotes.android.view.ui.components;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.davidcryer.trumpquotes.R;
 
@@ -13,10 +12,10 @@ import butterknife.ButterKnife;
 
 public class SignatureSwitcherLayout extends FrameLayout {
     private final static float PERCENTAGE_OFFSET_FOR_MAX_ALPHA = 0.25f;
-    @BindView(R.id.quote_signature_is_trump)
-    View isTrumpSignatureView;
-    @BindView(R.id.quote_signature_not_trump)
-    View notTrumpSignatureView;
+    @BindView(R.id.quote_signature_left)
+    TextView leftSignatureView;
+    @BindView(R.id.quote_signature_right)
+    TextView rightSignatureView;
 
     public SignatureSwitcherLayout(Context context) {
         super(context);
@@ -33,16 +32,21 @@ public class SignatureSwitcherLayout extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    public void update(final float percentageOffsetFromCentreX) {
-        isTrumpSignatureView.setAlpha(isTrumpAlpha(percentageOffsetFromCentreX));
-        notTrumpSignatureView.setAlpha(notTrumpAlpha(percentageOffsetFromCentreX));
+    public void showSignatures(final String leftSignature, final String rightSignature) {
+        leftSignatureView.setText(leftSignature);
+        rightSignatureView.setText(rightSignature);
     }
 
-    private float isTrumpAlpha(final float percentageOffsetFromCentre) {
+    public void update(final float percentageOffsetFromCentreX) {
+        leftSignatureView.setAlpha(leftSignatureAlpha(percentageOffsetFromCentreX));
+        rightSignatureView.setAlpha(rightSignatureAlpha(percentageOffsetFromCentreX));
+    }
+
+    private float leftSignatureAlpha(final float percentageOffsetFromCentre) {
         return percentageOffsetFromCentre < 0 ? alpha(percentageOffsetFromCentre) : 0f;
     }
 
-    private float notTrumpAlpha(final float percentageOffsetFromCentre) {
+    private float rightSignatureAlpha(final float percentageOffsetFromCentre) {
         return percentageOffsetFromCentre > 0 ? alpha(percentageOffsetFromCentre) : 0f;
     }
 

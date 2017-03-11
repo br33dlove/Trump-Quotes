@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <com.davidcryer.trumpquotes.android.view.ui.components.SignatureView
-        android:id="@+id/quote_signature.is_trump"
+    <TextView
+        android:id="@+id/quote_signature.left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:drawableStart="@drawable/ic_remove_black_24dp"
-        android:textSize="32sp"
-        app:quote_source="@string/quizQuestion.signature.trump" />
+        android:textSize="32sp" />
 
-    <com.davidcryer.trumpquotes.android.view.ui.components.SignatureView
-        android:id="@+id/quote_signature.not_trump"
+    <TextView
+        android:id="@+id/quote_signature.right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:drawableStart="@drawable/ic_remove_black_24dp"
-        android:textSize="32sp"
-        app:quote_source="@string/quizQuestion.signature.not_trump" />
+        android:textSize="32sp" />
 
 </FrameLayout>
