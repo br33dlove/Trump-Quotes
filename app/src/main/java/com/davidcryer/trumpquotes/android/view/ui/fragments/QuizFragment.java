@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
-import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidView.EventsListener> implements SwipeQuoteAndroidView {
+public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsListener> implements QuizAndroidView {
     private final static long ANIMATION_DURATION_MAX_FADE = 300;
     private Unbinder unbinder;
     @BindView(R.id.quote_card)
@@ -37,8 +37,8 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     @BindView(R.id.loading_failed)
     View loadingFailedTextView;
 
-    public static SwipeQuoteFragment newInstance() {
-        return new SwipeQuoteFragment();
+    public static QuizFragment newInstance() {
+        return new QuizFragment();
     }
 
     @Override
@@ -209,7 +209,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    protected SwipeQuoteAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
+    protected QuizAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
         return viewWrapperRepository.bind(this, savedState);
     }
 

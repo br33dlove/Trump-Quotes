@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.swipequote;
+package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.quiz;
 
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizQuestion;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.ActiveGameInteractors;
@@ -7,22 +7,22 @@ import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.G
 import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InitialiseGameInteractor;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.LoadGameInteractor;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
-import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuestionView;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
+import com.davidcryer.trumpquotes.platformindependent.view.QuizView;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewModel;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
 import java.lang.ref.WeakReference;
 
-class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Presenter<SwipeQuestionView.EventsListener> {
-    private final SwipeQuestionView<ViewQuestionType> viewWrapper;
+class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<QuizView.EventsListener> {
+    private final QuizView<ViewQuestionType> viewWrapper;
     private final ViewQuestionFactory<ViewQuestionType> viewQuestionFactory;
     private final LoadGameInteractor loadGameInteractor;
     private final InitialiseGameInteractor initialiseGameInteractor;
     private ActiveGameInteractors activeGameInteractors;
 
-    SwipeQuotePresenter(
-            final SwipeQuestionView<ViewQuestionType> viewWrapper,
+    QuizPresenter(
+            final QuizView<ViewQuestionType> viewWrapper,
             final ViewQuestionFactory<ViewQuestionType> viewQuestionFactory,
             final LoadGameInteractor loadGameInteractor,
             final InitialiseGameInteractor initialiseGameInteractor
@@ -34,8 +34,8 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
     }
 
     @Override
-    public SwipeQuestionView.EventsListener eventsListener() {
-        return new SwipeQuestionView.EventsListener() {
+    public QuizView.EventsListener eventsListener() {
+        return new QuizView.EventsListener() {
             @Override
             public void onInitialise() {
                 initialiseView();
@@ -72,7 +72,7 @@ class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Present
     }
 
     private void initialiseView() {
-        if (viewWrapper.viewModel().gameState() == SwipeQuoteMvpViewModel.GameState.NOT_INITIALISED) {
+        if (viewWrapper.viewModel().gameState() == QuizViewModel.GameState.NOT_INITIALISED) {
             viewWrapper.showStartNewGameState();
         } else {
             showLoadingState();

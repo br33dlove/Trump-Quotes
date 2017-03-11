@@ -1,17 +1,17 @@
-package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.swipequote;
+package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.quiz;
 
 import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InteractorFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
-import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuestionView;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizPresenterFactory;
+import com.davidcryer.trumpquotes.platformindependent.view.QuizView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
-public class SwipeQuotePresenterFactoryImpl<ViewQuoteType extends ViewQuestion> implements SwipeQuotePresenterFactory<ViewQuoteType> {
+public class QuizPresenterFactoryImpl<ViewQuoteType extends ViewQuestion> implements QuizPresenterFactory<ViewQuoteType> {
     private final ViewQuestionFactory<ViewQuoteType> viewQuestionFactory;
     private final InteractorFactory interactorFactory;
 
-    public SwipeQuotePresenterFactoryImpl(
+    public QuizPresenterFactoryImpl(
             final ViewQuestionFactory<ViewQuoteType> viewQuestionFactory,
             final InteractorFactory interactorFactory
     ) {
@@ -20,7 +20,7 @@ public class SwipeQuotePresenterFactoryImpl<ViewQuoteType extends ViewQuestion> 
     }
 
     @Override
-    public Presenter<SwipeQuestionView.EventsListener> create(final SwipeQuestionView<ViewQuoteType> viewWrapper) {
-        return new SwipeQuotePresenter<>(viewWrapper, viewQuestionFactory, interactorFactory.createLoadGameInteractor(), interactorFactory.createInitialiseGameInteractor());
+    public Presenter<QuizView.EventsListener> create(final QuizView<ViewQuoteType> viewWrapper) {
+        return new QuizPresenter<>(viewWrapper, viewQuestionFactory, interactorFactory.createLoadGameInteractor(), interactorFactory.createInitialiseGameInteractor());
     }
 }

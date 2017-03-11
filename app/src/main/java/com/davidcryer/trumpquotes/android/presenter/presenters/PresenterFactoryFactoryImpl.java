@@ -1,29 +1,25 @@
 package com.davidcryer.trumpquotes.android.presenter.presenters;
 
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.repository.quotes.QuoteStoreHandlerFactory;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.swipequote.SwipeQuotePresenterFactoryImpl;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InteractorFactory;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizPresenterFactory;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.quiz.QuizPresenterFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
 public class PresenterFactoryFactoryImpl implements PresenterFactoryFactory {
-    private final QuoteRequesterFactory quoteRequesterFactory;
-    private final QuoteStoreHandlerFactory quoteStoreHandlerFactory;
     private final ViewQuestionFactory<AndroidViewQuestion> viewQuestionFactory;
+    private final InteractorFactory interactorFactory;
 
     public PresenterFactoryFactoryImpl(
-            final QuoteRequesterFactory quoteRequesterFactory,
-            final QuoteStoreHandlerFactory quoteStoreHandlerFactory,
-            final ViewQuestionFactory<AndroidViewQuestion> viewQuestionFactory
+            final ViewQuestionFactory<AndroidViewQuestion> viewQuestionFactory,
+            final InteractorFactory interactorFactory
     ) {
-        this.quoteRequesterFactory = quoteRequesterFactory;
-        this.quoteStoreHandlerFactory = quoteStoreHandlerFactory;
         this.viewQuestionFactory = viewQuestionFactory;
+        this.interactorFactory = interactorFactory;
     }
 
     @Override
-    public SwipeQuotePresenterFactory<AndroidViewQuestion> createSwipeQuotePresenterFactory() {
-        return new SwipeQuotePresenterFactoryImpl<>(quoteRequesterFactory, quoteStoreHandlerFactory.create(), viewQuestionFactory);
+    public QuizPresenterFactory<AndroidViewQuestion> createQuizPresenterFactory() {
+        return new QuizPresenterFactoryImpl<>(viewQuestionFactory, interactorFactory);
     }
 }

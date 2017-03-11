@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper;
-import com.davidcryer.trumpquotes.android.view.ui.fragments.SwipeQuoteFragment;
+import com.davidcryer.trumpquotes.android.view.ui.fragments.QuizFragment;
 
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.addFragment;
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.noFragmentBoundToView;
@@ -35,7 +35,7 @@ public class SwipeQuoteActivity extends ViewWrapperRepositoryActivity {
     private void addQuotesFragment() {
         final FragmentManager fragmentManager = getSupportFragmentManager();
         if (noFragmentBoundToView(fragmentManager, getQuotesFragmentViewContainer())) {
-            addFragment(fragmentManager, SwipeQuoteFragment.newInstance(), getQuotesFragmentViewContainer());
+            addFragment(fragmentManager, QuizFragment.newInstance(), getQuotesFragmentViewContainer());
         }
     }
 

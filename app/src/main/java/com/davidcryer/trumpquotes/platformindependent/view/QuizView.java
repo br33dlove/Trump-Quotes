@@ -1,9 +1,9 @@
 package com.davidcryer.trumpquotes.platformindependent.view;
 
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewModel;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
 
-public interface SwipeQuestionView<ViewQuestionType extends ViewQuestion> extends MvpView<SwipeQuoteMvpViewModel> {
+public interface QuizView<ViewQuestionType extends ViewQuestion> extends MvpView<QuizViewModel> {
     void showScore(final int correctAnswerCount, final int questionCount);
     void showStartNewGameState();
     void showLoadingState();

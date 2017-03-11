@@ -2,9 +2,9 @@ package com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories;
 
 import android.os.Bundle;
 
-import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 
 public interface ViewWrapperRepository {
-    SwipeQuoteAndroidView.EventsListener bind(final SwipeQuoteAndroidView view, final Bundle savedState);
-    void unbind(final SwipeQuoteAndroidView view, final ViewUnbindType unbindType);
+    QuizAndroidView.EventsListener bind(final QuizAndroidView view, final Bundle savedState);
+    void unbind(final QuizAndroidView view, final ViewUnbindType unbindType);
 }

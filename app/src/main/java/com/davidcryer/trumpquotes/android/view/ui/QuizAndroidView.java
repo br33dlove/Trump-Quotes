@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.android.view.ui;
 
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
-public interface SwipeQuoteAndroidView extends AndroidMvpView {
+public interface QuizAndroidView extends AndroidMvpView {
     void showScore(final int correctAnswerCount, final int questionCount);
     void showStartNewGameState();
     void showLoadingState();

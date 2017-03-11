@@ -2,10 +2,10 @@ package com.davidcryer.trumpquotes.android.view.viewmodels;
 
 import android.os.Parcel;
 
-import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
+import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
-final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel {
+final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     enum State {START_NEW_GAME, LOADING, FAILURE_TO_START_GAME, QUESTION, GAME_FINISHED}
     private State state;
     private AndroidViewQuestion question;
@@ -15,7 +15,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     private int correctAnswers;
     private int questionsAnswered;
 
-    SwipeQuoteAndroidViewModelImpl(
+    QuizAndroidViewModelImpl(
             State state,
             AndroidViewQuestion question,
             GameState gameState,
@@ -33,7 +33,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
         this.questionsAnswered = questionsAnswered;
     }
 
-    private SwipeQuoteAndroidViewModelImpl(final Parcel parcel) {
+    private QuizAndroidViewModelImpl(final Parcel parcel) {
         state = (State) parcel.readSerializable();
         question = parcel.readParcelable(AndroidViewQuestion.class.getClassLoader());
         gameState = (GameState) parcel.readSerializable();
@@ -59,20 +59,20 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
         dest.writeInt(questionsAnswered);
     }
 
-    static final Creator<SwipeQuoteAndroidViewModel> CREATOR = new Creator<SwipeQuoteAndroidViewModel>() {
+    static final Creator<QuizAndroidViewModel> CREATOR = new Creator<QuizAndroidViewModel>() {
         @Override
-        public SwipeQuoteAndroidViewModel createFromParcel(Parcel source) {
-            return new SwipeQuoteAndroidViewModelImpl(source);
+        public QuizAndroidViewModel createFromParcel(Parcel source) {
+            return new QuizAndroidViewModelImpl(source);
         }
 
         @Override
-        public SwipeQuoteAndroidViewModel[] newArray(int size) {
-            return new SwipeQuoteAndroidViewModel[size];
+        public QuizAndroidViewModel[] newArray(int size) {
+            return new QuizAndroidViewModel[size];
         }
     };
 
     @Override
-    public void showScore(SwipeQuoteAndroidView view, int correctAnswerCount, int questionCount) {
+    public void showScore(QuizAndroidView view, int correctAnswerCount, int questionCount) {
         this.correctAnswers = correctAnswerCount;
         this.questionsAnswered = questionCount;
         if (view != null) {
@@ -81,7 +81,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void showStartNewGameState(SwipeQuoteAndroidView view) {
+    public void showStartNewGameState(QuizAndroidView view) {
         state = State.START_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
         if (view != null) {
@@ -90,7 +90,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void showLoadingState(SwipeQuoteAndroidView view) {
+    public void showLoadingState(QuizAndroidView view) {
         state = State.LOADING;
         if (view != null) {
             view.showStartNewGameState();
@@ -98,7 +98,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void showFailureToStartGameState(SwipeQuoteAndroidView view) {
+    public void showFailureToStartGameState(QuizAndroidView view) {
         state = State.FAILURE_TO_START_GAME;
         gameState = GameState.NOT_INITIALISED;
         if (view != null) {
@@ -107,7 +107,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void showNewGameTutorial(SwipeQuoteAndroidView view) {
+    public void showNewGameTutorial(QuizAndroidView view) {
         showNewGameTutorial = true;
         if (view != null) {
             view.showStartNewGameState();
@@ -115,7 +115,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void dismissNewGameTutorial(SwipeQuoteAndroidView view) {
+    public void dismissNewGameTutorial(QuizAndroidView view) {
         showNewGameTutorial = false;
         if (view != null) {
             view.showStartNewGameState();
@@ -123,7 +123,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void showQuestionState(SwipeQuoteAndroidView view, AndroidViewQuestion question) {
+    public void showQuestionState(QuizAndroidView view, AndroidViewQuestion question) {
         state = State.QUESTION;
         gameState = GameState.RUNNING;
         this.question = question;
@@ -133,7 +133,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void showFinishedGameState(SwipeQuoteAndroidView view) {
+    public void showFinishedGameState(QuizAndroidView view) {
         state = State.GAME_FINISHED;
         gameState = GameState.FINISHED;
         question = null;
@@ -143,7 +143,7 @@ final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel
     }
 
     @Override
-    public void onto(SwipeQuoteAndroidView view, final boolean setAllData) {
+    public void onto(QuizAndroidView view, final boolean setAllData) {
         if (setAllData) {
             if (showNewGameTutorial) {
                 view.showNewGameTutorial();

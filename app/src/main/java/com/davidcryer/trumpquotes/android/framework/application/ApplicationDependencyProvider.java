@@ -13,8 +13,8 @@ import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteServiceFactoryImpl;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactoryImpl;
+import com.davidcryer.trumpquotes.android.view.viewmodels.QuizAndroidViewModelFactory;
+import com.davidcryer.trumpquotes.android.view.viewmodels.QuizAndroidViewModelFactoryImpl;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestionFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
@@ -67,7 +67,7 @@ class ApplicationDependencyProvider {
         return new AndroidViewQuestionFactory();
     }
 
-    private static SwipeQuoteAndroidViewModelFactory createQuotesAndroidViewModelFactory() {
-        return new SwipeQuoteAndroidViewModelFactoryImpl();
+    private static QuizAndroidViewModelFactory createQuotesAndroidViewModelFactory() {
+        return new QuizAndroidViewModelFactoryImpl();
     }
 }

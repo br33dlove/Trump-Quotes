@@ -2,41 +2,41 @@ package com.davidcryer.trumpquotes.android.view;
 
 import android.os.Bundle;
 
-import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModel;
-import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
+import com.davidcryer.trumpquotes.android.view.viewmodels.QuizAndroidViewModel;
+import com.davidcryer.trumpquotes.android.view.viewmodels.QuizAndroidViewModelFactory;
+import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
-import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuestionView;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
+import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizPresenterFactory;
+import com.davidcryer.trumpquotes.platformindependent.view.QuizView;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewModel;
 
-public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> {
-    private final static String ARG_VIEW_MODEL = SwipeQuoteViewWrapper.class.getSimpleName();
-    private final SwipeQuoteAndroidViewModel viewModel;
-    private final SwipeQuestionView.EventsListener wrapperEventsListener;
+public class QuizViewWrapper extends ViewWrapper<QuizAndroidView, QuizAndroidView.EventsListener> {
+    private final static String ARG_VIEW_MODEL = QuizViewWrapper.class.getSimpleName();
+    private final QuizAndroidViewModel viewModel;
+    private final QuizView.EventsListener wrapperEventsListener;
 
-    private SwipeQuoteViewWrapper(final SwipeQuotePresenterFactory<AndroidViewQuestion> presenterFactory, final SwipeQuoteAndroidViewModel viewModel) {
+    private QuizViewWrapper(final QuizPresenterFactory<AndroidViewQuestion> presenterFactory, final QuizAndroidViewModel viewModel) {
         wrapperEventsListener = presenterFactory.create(viewWrapper).eventsListener();
         this.viewModel = viewModel;
     }
 
-    public static ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> newInstance(
-            final SwipeQuotePresenterFactory<AndroidViewQuestion> presenterFactory,
-            final SwipeQuoteAndroidViewModelFactory viewModelFactory
+    public static ViewWrapper<QuizAndroidView, QuizAndroidView.EventsListener> newInstance(
+            final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
+            final QuizAndroidViewModelFactory viewModelFactory
     ) {
-        return new SwipeQuoteViewWrapper(presenterFactory, viewModelFactory.create());
+        return new QuizViewWrapper(presenterFactory, viewModelFactory.create());
     }
 
-    public static ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> retrieveInstanceOrGetNew(
+    public static ViewWrapper<QuizAndroidView, QuizAndroidView.EventsListener> retrieveInstanceOrGetNew(
             final Bundle savedState,
-            final SwipeQuotePresenterFactory<AndroidViewQuestion> presenterFactory,
-            final SwipeQuoteAndroidViewModelFactory viewModelFactory
+            final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
+            final QuizAndroidViewModelFactory viewModelFactory
     ) {
-        final SwipeQuoteAndroidViewModel viewModel = savedState.getParcelable(ARG_VIEW_MODEL);
-        return new SwipeQuoteViewWrapper(presenterFactory, viewModel == null ? viewModelFactory.create() : viewModel);
+        final QuizAndroidViewModel viewModel = savedState.getParcelable(ARG_VIEW_MODEL);
+        return new QuizViewWrapper(presenterFactory, viewModel == null ? viewModelFactory.create() : viewModel);
     }
 
-    private final SwipeQuestionView<AndroidViewQuestion> viewWrapper = new SwipeQuestionView<AndroidViewQuestion>() {
+    private final QuizView<AndroidViewQuestion> viewWrapper = new QuizView<AndroidViewQuestion>() {
         @Override
         public void showScore(int correctAnswerCount, int questionCount) {
             viewModel.showScore(view(), correctAnswerCount, questionCount);
@@ -78,18 +78,18 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
         }
 
         @Override
-        public SwipeQuoteMvpViewModel viewModel() {
+        public QuizViewModel viewModel() {
             return viewModel;
         }
 
     };
 
     @Override
-    public SwipeQuoteAndroidView.EventsListener viewEventsListener() {
+    public QuizAndroidView.EventsListener viewEventsListener() {
         return viewEventsListener;
     }
 
-    private final SwipeQuoteAndroidView.EventsListener viewEventsListener = new SwipeQuoteAndroidView.EventsListener() {
+    private final QuizAndroidView.EventsListener viewEventsListener = new QuizAndroidView.EventsListener() {
         @Override
         public void onViewCreated() {
             wrapperEventsListener.onInitialise();
@@ -122,7 +122,7 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
     };
 
     @Override
-    protected void showCurrentState(final SwipeQuoteAndroidView view, boolean setAllData) {
+    protected void showCurrentState(final QuizAndroidView view, boolean setAllData) {
         viewModel.onto(view, setAllData);
     }
 
