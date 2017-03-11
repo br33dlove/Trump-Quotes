@@ -37,31 +37,51 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
     }
 
     private final SwipeQuestionView<AndroidViewQuestion> viewWrapper = new SwipeQuestionView<AndroidViewQuestion>() {
-
         @Override
-        public void showQuestionState(AndroidViewQuestion quote) {
-            viewModel.showQuoteState(view(), quote);
+        public void showScore(int correctAnswerCount, int questionCount) {
+            viewModel.showScore(view(), correctAnswerCount, questionCount);
         }
 
         @Override
-        public void showStartingGameState() {
-            viewModel.showLoadingQuotesState(view());
+        public void showStartNewGameState() {
+            viewModel.showStartNewGameState(view());
+        }
+
+        @Override
+        public void showLoadingState() {
+            viewModel.showLoadingState(view());
         }
 
         @Override
         public void showFailureToStartGameState() {
-            viewModel.showFailureToGetQuotesState(view());
+            viewModel.showFailureToStartGameState(view());
         }
 
         @Override
-        public SwipeQuoteMvpViewModel<AndroidViewQuestion> viewModel() {
+        public void showNewGameTutorial() {
+            viewModel.showNewGameTutorial(view());
+        }
+
+        @Override
+        public void dismissNewGameTutorial() {
+            viewModel.dismissNewGameTutorial(view());
+        }
+
+        @Override
+        public void showQuestionState(AndroidViewQuestion question) {
+            viewModel.showQuestionState(view(), question);
+        }
+
+        @Override
+        public void showFinishedGameState() {
+            viewModel.showFinishedGameState(view());
+        }
+
+        @Override
+        public SwipeQuoteMvpViewModel viewModel() {
             return viewModel;
         }
 
-        @Override
-        public void showScore(int correctAnswersCount, int questionsCount) {
-            viewModel.showScore(view(), correctAnswersCount, questionsCount);
-        }
     };
 
     @Override
@@ -70,24 +90,28 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
     }
 
     private final SwipeQuoteAndroidView.EventsListener viewEventsListener = new SwipeQuoteAndroidView.EventsListener() {
-
         @Override
         public void onViewCreated() {
-            wrapperEventsListener.onClickStartGame();
+            wrapperEventsListener.onInitialise();
         }
 
         @Override
-        public void onRetryQuotesRequest() {
-            wrapperEventsListener.onRetryStartGame();
+        public void onClickStartNewGame() {
+            wrapperEventsListener.onClickStartNewGame();
         }
 
         @Override
-        public void onQuoteSwipedLeft() {
+        public void onDismissNewGameTutorial() {
+            wrapperEventsListener.onDismissNewGameTutorial();
+        }
+
+        @Override
+        public void onAnswerOptionA() {
             wrapperEventsListener.onAnswerOptionA();
         }
 
         @Override
-        public void onQuoteSwipedRight() {
+        public void onAnswerOptionB() {
             wrapperEventsListener.onAnswerOptionB();
         }
 

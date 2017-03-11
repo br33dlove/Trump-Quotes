@@ -2,18 +2,21 @@ package com.davidcryer.trumpquotes.android.view.viewmodels.models;
 
 import android.os.Parcel;
 
-public class AndroidViewQuestionImpl implements AndroidViewQuestion {
-    private final String id;
-    private final String text;
+class AndroidViewQuestionImpl implements AndroidViewQuestion {
+    private final String quote;
+    private final String optionA;
+    private final String optionB;
 
-    public AndroidViewQuestionImpl(String id, String text) {
-        this.id = id;
-        this.text = text;
+    AndroidViewQuestionImpl(String quote, String optionA, String optionB) {
+        this.quote = quote;
+        this.optionA = optionA;
+        this.optionB = optionB;
     }
 
     private AndroidViewQuestionImpl(final Parcel parcel) {
-        id = parcel.readString();
-        text = parcel.readString();
+        quote = parcel.readString();
+        optionA = parcel.readString();
+        optionB = parcel.readString();
     }
 
     @Override
@@ -23,8 +26,9 @@ public class AndroidViewQuestionImpl implements AndroidViewQuestion {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(text);
+        dest.writeString(quote);
+        dest.writeString(optionA);
+        dest.writeString(optionB);
     }
 
     static final Creator<AndroidViewQuestion> CREATOR = new Creator<AndroidViewQuestion>() {
@@ -40,12 +44,17 @@ public class AndroidViewQuestionImpl implements AndroidViewQuestion {
     };
 
     @Override
-    public String id() {
-        return id;
+    public String quote() {
+        return quote;
     }
 
     @Override
-    public String quote() {
-        return text;
+    public String optionA() {
+        return optionA;
+    }
+
+    @Override
+    public String optionB() {
+        return optionB;
     }
 }

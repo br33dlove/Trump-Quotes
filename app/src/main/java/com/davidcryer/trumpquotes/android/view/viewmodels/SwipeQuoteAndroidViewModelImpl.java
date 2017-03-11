@@ -5,7 +5,7 @@ import android.os.Parcel;
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
-public final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel {
+final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidViewModel {
     enum State {START_NEW_GAME, LOADING, FAILURE_TO_START_GAME, QUESTION, GAME_FINISHED}
     private State state;
     private AndroidViewQuestion question;
@@ -15,7 +15,7 @@ public final class SwipeQuoteAndroidViewModelImpl implements SwipeQuoteAndroidVi
     private int correctAnswers;
     private int questionsAnswered;
 
-    public SwipeQuoteAndroidViewModelImpl(
+    SwipeQuoteAndroidViewModelImpl(
             State state,
             AndroidViewQuestion question,
             GameState gameState,
