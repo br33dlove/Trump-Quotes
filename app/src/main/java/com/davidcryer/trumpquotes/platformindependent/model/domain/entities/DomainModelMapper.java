@@ -20,7 +20,7 @@ public class DomainModelMapper {
         );
     }
 
-    private static int[] questionIds(final TrumpQuizQuestionImpl[] questions) {
+    private static int[] questionIds(final QuizQuestionImpl[] questions) {
         final int[] ids = new int[questions.length];
         for (int i = 0; i < questions.length; i++) {
             ids[i] = i;
@@ -31,8 +31,14 @@ public class DomainModelMapper {
     public static TrumpQuizQuestionStorageModel[] mapQuestions(final TrumpQuizGameImpl game) {
         final TrumpQuizQuestionStorageModel[] models = new TrumpQuizQuestionStorageModel[game.questions().length];
         for (int i = 0; i < game.questions().length; i++) {
-            final TrumpQuizQuestionImpl question = game.questions()[i];
-            models[i] = new TrumpQuizQuestionStorageModel(i, question.quote(), question.isTrumpQuote());
+            final QuizQuestionImpl question = game.questions()[i];
+            models[i] = new TrumpQuizQuestionStorageModel(
+                    i,
+                    question.quote(),
+                    question.optionA(),
+                    question.optionB(),
+                    question.correctAnswer().answerType()
+            );
         }
         return models;
     }
@@ -50,13 +56,15 @@ public class DomainModelMapper {
         );
     }
 
-    private static TrumpQuizQuestionImpl[] questions(final TrumpQuizQuestionStorageModel[] questionStorageModels) {
-        final TrumpQuizQuestionImpl[] questions = new TrumpQuizQuestionImpl[questionStorageModels.length];
+    private static QuizQuestionImpl[] questions(final TrumpQuizQuestionStorageModel[] questionStorageModels) {
+        final QuizQuestionImpl[] questions = new QuizQuestionImpl[questionStorageModels.length];
         for (int i = 0; i < questionStorageModels.length; i++) {
             final TrumpQuizQuestionStorageModel questionStorageModel = questionStorageModels[i];
-            questions[i] = new TrumpQuizQuestionImpl(
-                    questionStorageModel.text,
-                    questionStorageModel.isTrumpQuote ? new IsTrumpAnswer() : new NotTrumpAnswer()
+            questions[i] = new QuizQuestionImpl(
+                    questionStorageModel.quote,
+                    questionStorageModel.optionA,
+                    questionStorageModel.optionB,
+                    QuizAnswer.newInstance(questionStorageModel.answerType)
             );
         }
         return questions;

@@ -1,14 +1,14 @@
 package com.davidcryer.trumpquotes.platformindependent.model.domain.entities;
 
-public final class TrumpQuizGameImpl implements TrumpQuizGame {
-    private final TrumpQuizQuestionImpl[] questions;
+public final class TrumpQuizGameImpl implements QuizGame {
+    private final QuizQuestionImpl[] questions;
     private final QuizScoreImpl quizScore;
     private int currentQuestionIndex;
     private boolean isFinished;
     private boolean isCurrentQuestionAnswered;
 
     public TrumpQuizGameImpl(
-            TrumpQuizQuestionImpl[] questions,
+            QuizQuestionImpl[] questions,
             QuizScoreImpl quizScore,
             int currentQuestionIndex,
             boolean isFinished,
@@ -37,12 +37,12 @@ public final class TrumpQuizGameImpl implements TrumpQuizGame {
     }
 
     public static TrumpQuizGameImpl newGame(
-            TrumpQuizQuestionImpl[] questions
+            QuizQuestionImpl[] questions
     ) {
         return new TrumpQuizGameImpl(questions, QuizScoreImpl.newInstance(), 0, false, false);
     }
 
-    private TrumpQuizQuestion currentQuestion() {
+    private QuizQuestion currentQuestion() {
         return questions[currentQuestionIndex];
     }
 
@@ -52,7 +52,7 @@ public final class TrumpQuizGameImpl implements TrumpQuizGame {
     }
 
     @Override
-    public void onAnswerGiven(TrumpQuizAnswer answer, AnswerCallback answerCallback) {
+    public void onAnswerGiven(QuizAnswer answer, AnswerCallback answerCallback) {
         if (!isFinished) {
             if (currentQuestion().isCorrect(answer)) {
                 if (!isCurrentQuestionAnswered) {
@@ -70,7 +70,7 @@ public final class TrumpQuizGameImpl implements TrumpQuizGame {
     }
 
     @Override
-    public void nextQuote(NextQuoteCallback callback) {
+    public void nextQuestion(NextQuestionCallback callback) {
         if (isFinished) {
             callback.onGameFinished();
             return;
@@ -81,10 +81,10 @@ public final class TrumpQuizGameImpl implements TrumpQuizGame {
                 isFinished = true;
             }
         }
-        callback.onNextQuote(currentQuestion().quote());
+        callback.nextQuestion(currentQuestion().quote());
     }
 
-    TrumpQuizQuestionImpl[] questions() {
+    QuizQuestionImpl[] questions() {
         return questions;
     }
 

@@ -19,7 +19,7 @@ import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
+import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,7 +114,7 @@ public class SwipeQuoteFragment extends ViewBindingFragment<SwipeQuoteAndroidVie
     }
 
     @Override
-    public void showQuoteState(AndroidViewQuote quote) {
+    public void showQuoteState(AndroidViewQuestion quote) {
         showQuoteCard();
         hideLoadingQuote();
         hideFailureToGetQuote();

@@ -1,11 +1,9 @@
 package com.davidcryer.trumpquotes.platformindependent.model.domain.services.implementations;
 
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.CoinFlipper;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.IsTrumpAnswer;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.NotTrumpAnswer;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.TrumpQuizAnswer;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizAnswer;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.TrumpQuizGameImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.TrumpQuizQuestionImpl;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizQuestionImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.services.QuoteFileService;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.services.QuoteNetworkService;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.services.TrumpQuizGameInitialisationService;
@@ -21,6 +19,10 @@ import java.util.List;
 import java.util.Set;
 
 public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGameInitialisationService {
+    private final static String OPTION_A = "D. Trump";
+    private final static String OPTION_B = "F. Gump";
+    private final static QuizAnswer ANSWER_TRUMP = QuizAnswer.newInstanceA();
+    private final static QuizAnswer ANSWER_GUMP = QuizAnswer.newInstanceB();
     private final QuoteNetworkService trumpQuoteNetworkService;
     private final QuoteFileService gumpQuoteFileService;
 
@@ -37,7 +39,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
     private void initialiseRandomQuotes(final int questionCount, final Callback callback) {
         new TrumpQuestionsInitialiser(trumpQuoteNetworkService, gumpQuoteFileService, questionCount, new TrumpQuestionsInitialiser.Callback() {
             @Override
-            public void onSuccess(TrumpQuizQuestionImpl[] questions) {
+            public void onSuccess(QuizQuestionImpl[] questions) {
                 initialiseGame(questions, callback);
             }
 
@@ -48,7 +50,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
         }).initialiseRandomQuotes();
     }
 
-    private void initialiseGame(final TrumpQuizQuestionImpl[] questions, final Callback callback) {
+    private void initialiseGame(final QuizQuestionImpl[] questions, final Callback callback) {
         callback.onSuccess(GameInitialiser.game(questions));
     }
 
@@ -58,7 +60,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
         private final QuoteFileService gumpQuoteFileService;
         private final int totalQuestionsCount;
         private final Set<Cancelable> randomQuoteFetchers = new HashSet<>();
-        private final List<TrumpQuizQuestionImpl> questions;
+        private final List<QuizQuestionImpl> questions;
         private final Callback callback;
         private boolean stopRandomQuoteTasks = false;
 
@@ -81,11 +83,11 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
                 if (!stopRandomQuoteTasks) {
                     switch (source) {
                         case GUMP: {
-                            getQuoteFromFile(gumpQuoteFileService, new NotTrumpAnswer());
+                            getQuoteFromFile(gumpQuoteFileService, ANSWER_GUMP);
                             break;
                         }
                         case TRUMP: {
-                            sendQuoteNetworkRequest(trumpQuoteNetworkService, new IsTrumpAnswer());
+                            sendQuoteNetworkRequest(trumpQuoteNetworkService, ANSWER_TRUMP);
                             break;
                         }
                     }
@@ -93,7 +95,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
             }
         }
 
-        private void getQuoteFromFile(final QuoteFileService fileService, final TrumpQuizAnswer answer) {
+        private void getQuoteFromFile(final QuoteFileService fileService, final QuizAnswer answer) {
             try {
                 onQuestionCreated(question(fileService.randomQuote(), answer));
             } catch (IOException ioe) {
@@ -101,7 +103,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
             }
         }
 
-        private void sendQuoteNetworkRequest(final QuoteNetworkService networkService, final TrumpQuizAnswer answer) {
+        private void sendQuoteNetworkRequest(final QuoteNetworkService networkService, final QuizAnswer answer) {
             randomQuoteFetchers.add(networkService.randomQuote(quoteServiceCallback(answer)));
         }
 
@@ -114,7 +116,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
             return quoteSources;
         }
 
-        private QuoteNetworkService.Callback quoteServiceCallback(final TrumpQuizAnswer answer) {
+        private QuoteNetworkService.Callback quoteServiceCallback(final QuizAnswer answer) {
             return new QuoteNetworkService.Callback() {
                 @Override
                 public void onSuccess(Quote quote) {
@@ -128,11 +130,11 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
             };
         }
 
-        private static TrumpQuizQuestionImpl question(final Quote quote, final TrumpQuizAnswer answer) {
-            return new TrumpQuizQuestionImpl(quote.quote(), answer);
+        private static QuizQuestionImpl question(final Quote quote, final QuizAnswer answer) {
+            return new QuizQuestionImpl(quote.quote(), OPTION_A, OPTION_B, answer);
         }
 
-        private void onQuestionCreated(final TrumpQuizQuestionImpl question) {
+        private void onQuestionCreated(final QuizQuestionImpl question) {
             if (!stopRandomQuoteTasks) {
                 questions.add(question);
                 if (questions.size() == totalQuestionsCount) {
@@ -151,10 +153,10 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
             callback.onFailure(new InitialisationError());//TODO get specific error
         }
 
-        private void onFinish(final List<TrumpQuizQuestionImpl> questions) {
+        private void onFinish(final List<QuizQuestionImpl> questions) {
             cleanUp();
             Collections.shuffle(questions);
-            callback.onSuccess(questions.toArray(new TrumpQuizQuestionImpl[questions.size()]));
+            callback.onSuccess(questions.toArray(new QuizQuestionImpl[questions.size()]));
         }
 
         private void cleanUp() {
@@ -162,14 +164,14 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
         }
 
         private interface Callback {
-            void onSuccess(final TrumpQuizQuestionImpl[] questions);
+            void onSuccess(final QuizQuestionImpl[] questions);
             void onFailure(final InitialisationError error);
         }
     }
 
     private final static class GameInitialiser {
 
-        private static TrumpQuizGameImpl game(TrumpQuizQuestionImpl[] questions) {
+        private static TrumpQuizGameImpl game(QuizQuestionImpl[] questions) {
             return TrumpQuizGameImpl.newGame(questions);
         }
     }

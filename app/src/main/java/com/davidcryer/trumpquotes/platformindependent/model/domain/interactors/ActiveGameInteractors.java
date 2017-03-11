@@ -1,25 +1,19 @@
 package com.davidcryer.trumpquotes.platformindependent.model.domain.interactors;
 
 public class ActiveGameInteractors {
-    private final AnswerIsTrumpInteractor answerIsTrumpInteractor;
-    private final AnswerNotTrumpInteractor answerNotTrumpInteractor;
-    private final GetNextQuoteInteractor getNextQuoteInteractor;
+    private final AnswerQuestionInteractor answerQuestionInteractor;
+    private final GetNextQuestionInteractor getNextQuestionInteractor;
 
-    public ActiveGameInteractors(AnswerIsTrumpInteractor answerIsTrumpInteractor, AnswerNotTrumpInteractor answerNotTrumpInteractor, GetNextQuoteInteractor getNextQuoteInteractor) {
-        this.answerIsTrumpInteractor = answerIsTrumpInteractor;
-        this.answerNotTrumpInteractor = answerNotTrumpInteractor;
-        this.getNextQuoteInteractor = getNextQuoteInteractor;
+    public ActiveGameInteractors(AnswerQuestionInteractor answerQuestionInteractor, GetNextQuestionInteractor getNextQuestionInteractor) {
+        this.answerQuestionInteractor = answerQuestionInteractor;
+        this.getNextQuestionInteractor = getNextQuestionInteractor;
     }
 
-    public AnswerIsTrumpInteractor answerIsTrumpTask() {
-        return answerIsTrumpInteractor;
+    public AnswerQuestionInteractor answerQuestionInteractor() {
+        return answerQuestionInteractor;
     }
 
-    public AnswerNotTrumpInteractor answerNotTrumpTask() {
-        return answerNotTrumpInteractor;
-    }
-
-    public GetNextQuoteInteractor getNextQuoteTask() {
-        return getNextQuoteInteractor;
+    public GetNextQuestionInteractor getNextQuestionInteractor() {
+        return getNextQuestionInteractor;
     }
 }

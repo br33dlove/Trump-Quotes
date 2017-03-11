@@ -1,9 +1,9 @@
 package com.davidcryer.trumpquotes.platformindependent.model.domain.entities;
 
-public interface TrumpQuizGame {
+public interface QuizGame {
     void startGame(final StartCallback callback);
-    void onAnswerGiven(final TrumpQuizAnswer answer, final AnswerCallback answerCallback);
-    void nextQuote(final NextQuoteCallback callback);
+    void onAnswerGiven(final QuizAnswer answer, final AnswerCallback answerCallback);
+    void nextQuestion(final NextQuestionCallback callback);
 
     interface StartCallback {
         void onReturn(final int correctAnswers, final int questionsAnswered);
@@ -14,8 +14,8 @@ public interface TrumpQuizGame {
         void onWrongAnswerGiven(final int correctAnswers, final int questionsAnswered);
     }
 
-    interface NextQuoteCallback {
+    interface NextQuestionCallback {
         void onGameFinished();
-        void onNextQuote(final String quote);
+        void nextQuestion(final QuizQuestion quizQuestion);
     }
 }

@@ -3,18 +3,18 @@ package com.davidcryer.trumpquotes.android.view.viewmodels;
 import android.os.Parcel;
 
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
+import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
 public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     public enum State {QUOTE, LOADING, LOADING_FAILED}
-    private AndroidViewQuote quote;
+    private AndroidViewQuestion quote;
     private State state;
     private boolean quoteUpdated;
     private int correctAnswerCount;
     private int questionCount;
 
     public SwipeQuoteViewModel(
-            AndroidViewQuote quote,
+            AndroidViewQuestion quote,
             State state,
             boolean quoteUpdated,
             int correctAnswerCount,
@@ -28,7 +28,7 @@ public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     }
 
     private SwipeQuoteViewModel(final Parcel parcel) {
-        quote = parcel.readParcelable(AndroidViewQuote.class.getClassLoader());
+        quote = parcel.readParcelable(AndroidViewQuestion.class.getClassLoader());
         state = (State) parcel.readSerializable();
         quoteUpdated = parcel.readByte() != 0;
         correctAnswerCount = parcel.readInt();
@@ -62,7 +62,7 @@ public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     };
 
     @Override
-    public void showQuoteState(SwipeQuoteAndroidView view, AndroidViewQuote quote) {
+    public void showQuoteState(SwipeQuoteAndroidView view, AndroidViewQuestion quote) {
         this.quote = quote;
         state = State.QUOTE;
         if (view != null) {
@@ -120,7 +120,7 @@ public final class SwipeQuoteViewModel implements SwipeQuoteAndroidViewModel {
     }
 
     @Override
-    public AndroidViewQuote quote() {
+    public AndroidViewQuestion quote() {
         return quote;
     }
 

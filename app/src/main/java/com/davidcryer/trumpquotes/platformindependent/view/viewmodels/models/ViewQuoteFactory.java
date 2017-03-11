@@ -1,11 +1,7 @@
 package com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models;
 
-import com.davidcryer.trumpquotes.platformindependent.model.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizQuestion;
 
-import java.util.List;
-
-public interface ViewQuoteFactory<ViewQuoteType extends ViewQuote> {
-    ViewQuoteType create(final Quote quote);
-    List<ViewQuoteType> create(final List<Quote> quotes);
+public interface ViewQuoteFactory<ViewQuestionType extends ViewQuestion> {
+    ViewQuestionType create(final QuizQuestion quizQuestion);
 }

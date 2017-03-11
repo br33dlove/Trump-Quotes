@@ -47,8 +47,10 @@ public class QuestionContractImpl implements QuestionContract {
     private static ContentValues insertContentValues(final TrumpQuizQuestionStorageModel question) {
         final ContentValues values =  new ContentValues();
         values.put(Table._ID, question.id);
-        values.put(Table.COLUMN_ITEM_TEXT, question.text);
-        values.put(Table.COLUMN_ITEM_IS_TRUMP_QUOTE, question.isTrumpQuote ? INT_VALUE_TRUE : INT_VALUE_FALSE);
+        values.put(Table.COLUMN_ITEM_QUOTE, question.quote);
+        values.put(Table.COLUMN_ITEM_OPTION_A, question.optionA);
+        values.put(Table.COLUMN_ITEM_OPTION_B, question.optionB);
+        values.put(Table.COLUMN_ITEM_ANSWER_TYPE, question.answerType);
         return values;
     }
 
@@ -94,21 +96,27 @@ public class QuestionContractImpl implements QuestionContract {
     private TrumpQuizQuestionStorageModel question(final Cursor cursor) {
         return new TrumpQuizQuestionStorageModel(
                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(Table._ID))),
-                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_TEXT)),
-                cursor.getInt(cursor.getColumnIndex(Table.COLUMN_ITEM_IS_TRUMP_QUOTE)) == INT_VALUE_TRUE
+                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_QUOTE)),
+                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_OPTION_A)),
+                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_OPTION_B)),
+                cursor.getString(cursor.getColumnIndex(Table.COLUMN_ITEM_ANSWER_TYPE))
         );
     }
 
     private static class Table implements BaseColumns {
         private final static String TABLE_NAME = "question";
-        private final static String COLUMN_ITEM_TEXT = "text";
-        private final static String COLUMN_ITEM_IS_TRUMP_QUOTE = "isTrumpQuote";
+        private final static String COLUMN_ITEM_QUOTE = "quizQuestion";
+        private final static String COLUMN_ITEM_OPTION_A = "optionA";
+        private final static String COLUMN_ITEM_OPTION_B = "optionB";
+        private final static String COLUMN_ITEM_ANSWER_TYPE = "answerType";
         private static final String SQL_CREATE_ENTRIES =
                 CREATE_TABLE + Table.TABLE_NAME + SPACE
                         + OPEN_BRACKET
                         + Table._ID + TEXT_TYPE + PRIMARY_KEY_TYPE + COMMA
-                        + Table.COLUMN_ITEM_TEXT + TEXT_TYPE + COMMA
-                        + Table.COLUMN_ITEM_IS_TRUMP_QUOTE + INTEGER_TYPE
+                        + Table.COLUMN_ITEM_QUOTE + TEXT_TYPE + COMMA
+                        + Table.COLUMN_ITEM_OPTION_A + TEXT_TYPE + COMMA
+                        + Table.COLUMN_ITEM_OPTION_B + TEXT_TYPE + COMMA
+                        + Table.COLUMN_ITEM_ANSWER_TYPE + TEXT_TYPE
                         + CLOSE_BRACKET;
     }
 }

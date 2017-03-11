@@ -1,32 +1,36 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.swipequote;
 
+import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizQuestion;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.ActiveGameInteractors;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.AnswerQuestionInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.GetNextQuestionInteractor;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InitialiseGameInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
-import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuote;
+import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuestionView;
+import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuoteFactory;
 
-class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presenter<SwipeQuoteView.EventsListener> {
-    private final SwipeQuoteView<ViewQuoteType> viewWrapper;
-    private final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory;
+import java.lang.ref.WeakReference;
+
+class SwipeQuotePresenter<ViewQuestionType extends ViewQuestion> extends Presenter<SwipeQuestionView.EventsListener> {
+    private final SwipeQuestionView<ViewQuestionType> viewWrapper;
+    private final ViewQuoteFactory<ViewQuestionType> viewQuestionFactory;
     private final InitialiseGameInteractor initialiseGameInteractor;
     private ActiveGameInteractors activeGameInteractors;
 
     SwipeQuotePresenter(
-            final SwipeQuoteView<ViewQuoteType> viewWrapper,
-            final ViewQuoteFactory<ViewQuoteType> viewQuoteFactory,
+            final SwipeQuestionView<ViewQuestionType> viewWrapper,
+            final ViewQuoteFactory<ViewQuestionType> viewQuestionFactory,
             final InitialiseGameInteractor initialiseGameInteractor
     ) {
         this.viewWrapper = viewWrapper;
-        this.viewQuoteFactory = viewQuoteFactory;
+        this.viewQuestionFactory = viewQuestionFactory;
         this.initialiseGameInteractor = initialiseGameInteractor;
     }
 
     @Override
-    public SwipeQuoteView.EventsListener eventsListener() {
-        return new SwipeQuoteView.EventsListener() {
+    public SwipeQuestionView.EventsListener eventsListener() {
+        return new SwipeQuestionView.EventsListener() {
 
             @Override
             public void onStartGame() {
@@ -35,58 +39,90 @@ class SwipeQuotePresenter<ViewQuoteType extends ViewQuote> extends Presenter<Swi
             }
 
             @Override
-            public void onQuoteSwipedLeft() {
+            public void onAnswerOptionA() {
                 showLoadingQuote();
-                updateQuoteAsJudgedInStore();
-                requestQuoteAndDisplay(false);
+                answerOptionA();
             }
 
             @Override
-            public void onQuoteSwipedRight() {
+            public void onAnswerOptionB() {
                 showLoadingQuote();
-                updateQuoteAsJudgedInStore();
-                requestQuoteAndDisplay(false);
+                answerOptionB();
             }
 
             @Override
             public void onReleaseResources(final boolean isFinishing) {
-                deregisterFromOngoingQuoteRequests(isFinishing);
+
             }
         };
     }
 
     private void initialiseGameAndDisplay() {
-        initialiseGameInteractor.
+        initialiseGameInteractor.runTask(new WeakReference<InitialiseGameInteractor.Callback>(new InitialiseGameInteractor.Callback() {
+            @Override
+            public void onInitialiseGame(InitialiseGameInteractor.Payload payload) {
+                activeGameInteractors = payload.activeGameInteractors;
+                viewWrapper.showQuestionState(viewQuestionFactory.create(payload.quizQuestion));
+                viewWrapper.showScore(payload.correctAnswers, payload.questionsAnswered);
+                //TODO use isNewGame?
+            }
+
+            @Override
+            public void onError() {
+                viewWrapper.showFailureToStartGameState();
+            }
+        }));
     }
 
     private void showLoadingQuote() {
-        viewWrapper.showLoadingQuotesState();
+        viewWrapper.showStartingGameState();
     }
 
-    private void requestQuoteAndDisplay(final boolean preferLastReceivedQuote) {
-        randomQuoteRequester.requestRandomQuote(quoteCallback, preferLastReceivedQuote);
-    }
+    private void answerOptionA() {
+        if (activeGameInteractors != null) {
+            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionA(new WeakReference<AnswerQuestionInteractor.Callback>(new AnswerQuestionInteractor.Callback() {
+                @Override
+                public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
+                    viewWrapper.showScore(correctAnswers, questionsAnswered);
+                }
 
-    private void updateQuoteAsJudgedInStore() {
-        final ViewQuoteType viewQuote = viewWrapper.viewModel().quote();
-        quoteRepositoryHandler.updateQuoteAsJudged(viewQuote.id());
-    }
-
-    private void deregisterFromOngoingQuoteRequests(final boolean shouldCancelRequests) {
-        randomQuoteRequester.remove(quoteCallback, shouldCancelRequests);
-    }
-
-    private final QuoteRequestCallback quoteCallback = new QuoteRequestCallback() {
-
-        @Override
-        public void success(Quote quote) {
-            viewWrapper.showQuoteState(viewQuoteFactory.create(quote));
-            quoteRepositoryHandler.store(quote);
+                @Override
+                public void onWrongAnswerGiven(int correctAnswers, int questionsAnswered) {
+                    viewWrapper.showScore(correctAnswers, questionsAnswered);
+                }
+            }));
         }
+    }
 
-        @Override
-        public void failure() {
-            viewWrapper.showFailureToGetQuotesState();
+    private void answerOptionB() {
+        if (activeGameInteractors != null) {
+            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionB(new WeakReference<AnswerQuestionInteractor.Callback>(new AnswerQuestionInteractor.Callback() {
+                @Override
+                public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
+                    viewWrapper.showScore(correctAnswers, questionsAnswered);
+                    getNextQuestion();
+                }
+
+                @Override
+                public void onWrongAnswerGiven(int correctAnswers, int questionsAnswered) {
+                    viewWrapper.showScore(correctAnswers, questionsAnswered);
+                    getNextQuestion();
+                }
+            }));
         }
-    };
+    }
+
+    private void getNextQuestion() {
+        activeGameInteractors.getNextQuestionInteractor().runTask(new WeakReference<GetNextQuestionInteractor.Callback>(new GetNextQuestionInteractor.Callback() {
+            @Override
+            public void nextQuestion(QuizQuestion quizQuestion) {
+                viewWrapper.showQuestionState(viewQuestionFactory.create(quizQuestion));
+            }
+
+            @Override
+            public void onGameFinished() {
+                viewWrapper.showFinishedGameState();
+            }
+        }));
+    }
 }

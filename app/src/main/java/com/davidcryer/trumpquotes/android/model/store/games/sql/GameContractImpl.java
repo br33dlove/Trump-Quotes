@@ -107,7 +107,7 @@ public class GameContractImpl implements GameContract {
         private final static String COLUMN_ITEM_QUESTION_IDS = "questionIds";
         private final static String COLUMN_ITEM_QUESTIONS_ANSWERED = "questionsAnswered";
         private final static String COLUMN_ITEM_CORRECT_ANSWERS = "correctAnswers";
-        private final static String COLUMN_ITEM_IS_FINISHED = "isFinished";
+        private final static String COLUMN_ITEM_IS_FINISHED = "onGameFinished";
         private final static String COLUMN_ITEM_CURRENT_QUESTION_INDEX = "currentQuestionIndex";
         private final static String COLUMN_ITEM_IS_CURRENT_QUESTION_ANSWERED = "isCurrentQuestionAnswered";
         private static final String SQL_CREATE_ENTRIES =

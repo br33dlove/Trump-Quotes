@@ -5,23 +5,23 @@ import android.os.Bundle;
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModel;
 import com.davidcryer.trumpquotes.android.view.viewmodels.SwipeQuoteAndroidViewModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.SwipeQuoteAndroidView;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
+import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.SwipeQuotePresenterFactory;
-import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuoteView;
+import com.davidcryer.trumpquotes.platformindependent.view.SwipeQuestionView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.SwipeQuoteMvpViewModel;
 
 public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> {
     private final static String ARG_VIEW_MODEL = SwipeQuoteViewWrapper.class.getSimpleName();
     private final SwipeQuoteAndroidViewModel viewModel;
-    private final SwipeQuoteView.EventsListener wrapperEventsListener;
+    private final SwipeQuestionView.EventsListener wrapperEventsListener;
 
-    private SwipeQuoteViewWrapper(final SwipeQuotePresenterFactory<AndroidViewQuote> presenterFactory, final SwipeQuoteAndroidViewModel viewModel) {
+    private SwipeQuoteViewWrapper(final SwipeQuotePresenterFactory<AndroidViewQuestion> presenterFactory, final SwipeQuoteAndroidViewModel viewModel) {
         wrapperEventsListener = presenterFactory.create(viewWrapper).eventsListener();
         this.viewModel = viewModel;
     }
 
     public static ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> newInstance(
-            final SwipeQuotePresenterFactory<AndroidViewQuote> presenterFactory,
+            final SwipeQuotePresenterFactory<AndroidViewQuestion> presenterFactory,
             final SwipeQuoteAndroidViewModelFactory viewModelFactory
     ) {
         return new SwipeQuoteViewWrapper(presenterFactory, viewModelFactory.create());
@@ -29,32 +29,32 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
 
     public static ViewWrapper<SwipeQuoteAndroidView, SwipeQuoteAndroidView.EventsListener> retrieveInstanceOrGetNew(
             final Bundle savedState,
-            final SwipeQuotePresenterFactory<AndroidViewQuote> presenterFactory,
+            final SwipeQuotePresenterFactory<AndroidViewQuestion> presenterFactory,
             final SwipeQuoteAndroidViewModelFactory viewModelFactory
     ) {
         final SwipeQuoteAndroidViewModel viewModel = savedState.getParcelable(ARG_VIEW_MODEL);
         return new SwipeQuoteViewWrapper(presenterFactory, viewModel == null ? viewModelFactory.create() : viewModel);
     }
 
-    private final SwipeQuoteView<AndroidViewQuote> viewWrapper = new SwipeQuoteView<AndroidViewQuote>() {
+    private final SwipeQuestionView<AndroidViewQuestion> viewWrapper = new SwipeQuestionView<AndroidViewQuestion>() {
 
         @Override
-        public void showQuoteState(AndroidViewQuote quote) {
+        public void showQuestionState(AndroidViewQuestion quote) {
             viewModel.showQuoteState(view(), quote);
         }
 
         @Override
-        public void showLoadingQuotesState() {
+        public void showStartingGameState() {
             viewModel.showLoadingQuotesState(view());
         }
 
         @Override
-        public void showFailureToGetQuotesState() {
+        public void showFailureToStartGameState() {
             viewModel.showFailureToGetQuotesState(view());
         }
 
         @Override
-        public SwipeQuoteMvpViewModel<AndroidViewQuote> viewModel() {
+        public SwipeQuoteMvpViewModel<AndroidViewQuestion> viewModel() {
             return viewModel;
         }
 
@@ -83,12 +83,12 @@ public class SwipeQuoteViewWrapper extends ViewWrapper<SwipeQuoteAndroidView, Sw
 
         @Override
         public void onQuoteSwipedLeft() {
-            wrapperEventsListener.onQuoteSwipedLeft();
+            wrapperEventsListener.onAnswerOptionA();
         }
 
         @Override
         public void onQuoteSwipedRight() {
-            wrapperEventsListener.onQuoteSwipedRight();
+            wrapperEventsListener.onAnswerOptionB();
         }
 
         @Override

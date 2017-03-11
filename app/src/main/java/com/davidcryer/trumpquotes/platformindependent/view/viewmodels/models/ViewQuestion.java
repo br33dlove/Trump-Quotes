@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models;
 
-public interface ViewQuote {
+public interface ViewQuestion {
     String id();
     String text();
 }

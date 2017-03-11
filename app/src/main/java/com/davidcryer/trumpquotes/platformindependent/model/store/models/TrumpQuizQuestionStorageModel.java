@@ -2,12 +2,16 @@ package com.davidcryer.trumpquotes.platformindependent.model.store.models;
 
 public class TrumpQuizQuestionStorageModel {
     public final int id;
-    public final String text;
-    public final boolean isTrumpQuote;
+    public final String quote;
+    public final String optionA;
+    public final String optionB;
+    public final String answerType;
 
-    public TrumpQuizQuestionStorageModel(int id, String text, boolean isTrumpQuote) {
+    public TrumpQuizQuestionStorageModel(int id, String quote, String optionA, String optionB, String answerType) {
         this.id = id;
-        this.text = text;
-        this.isTrumpQuote = isTrumpQuote;
+        this.quote = quote;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.answerType = answerType;
     }
 }

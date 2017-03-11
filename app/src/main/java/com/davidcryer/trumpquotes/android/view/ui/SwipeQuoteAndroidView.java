@@ -1,9 +1,9 @@
 package com.davidcryer.trumpquotes.android.view.ui;
 
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuote;
+import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
 public interface SwipeQuoteAndroidView extends AndroidMvpView {
-    void showQuoteState(final AndroidViewQuote quote);
+    void showQuoteState(final AndroidViewQuestion quote);
     void showLoadingQuotesState();
     void showFailureToGetQuotesState();
     void showScore(final int correctAnswerCount, final int questionCount);
