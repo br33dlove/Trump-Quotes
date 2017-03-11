@@ -8,19 +8,19 @@ import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQu
 
 public class SQLiteGameStoreFactory implements TrumpQuizGameStoreFactory {
     private final static int DATABASE_VERSION = 1;
-    private final static String DATABASE_NAME = "games.sqlite";
+    private final static String DATABASE_NAME = "game.sqlite";
     private final Context context;
     private final SQLiteDatabase.CursorFactory cursorFactory;
-    private final GameContract quoteContract;
+    private final GameContract gameContract;
 
-    public SQLiteGameStoreFactory(Context context, SQLiteDatabase.CursorFactory cursorFactory, GameContract quoteContract) {
+    public SQLiteGameStoreFactory(Context context, SQLiteDatabase.CursorFactory cursorFactory, GameContract gameContract) {
         this.context = context;
         this.cursorFactory = cursorFactory;
-        this.quoteContract = quoteContract;
+        this.gameContract = gameContract;
     }
 
     @Override
     public TrumpQuizGameStore create() {
-        return new SQLiteGameStore(context, DATABASE_NAME, cursorFactory, DATABASE_VERSION, quoteContract);
+        return new SQLiteGameStore(context, DATABASE_NAME, cursorFactory, DATABASE_VERSION, gameContract);
     }
 }
