@@ -7,26 +7,41 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task
 public class InteractorFactory {
     private final TaskScheduler taskScheduler;
     private final ServiceFactory serviceFactory;
+    private LoadGameInteractor loadGameInteractor;
+    private InitialiseGameInteractor initialiseGameInteractor;
+    private AnswerQuestionInteractor answerQuestionInteractor;
+    private GetNextQuestionInteractor getNextQuestionInteractor;
 
     public InteractorFactory(TaskScheduler taskScheduler, ServiceFactory serviceFactory) {
         this.taskScheduler = taskScheduler;
         this.serviceFactory = serviceFactory;
     }
 
-    public AnswerQuestionInteractor createAnswerNotTrumpInteractor(final QuizGame game) {
-        return new AnswerQuestionInteractor(taskScheduler, game);
-    }
-
-    public GetNextQuestionInteractor createGetNextQuoteInteractor(final QuizGame game) {
-        return new GetNextQuestionInteractor(taskScheduler, game);
+    public LoadGameInteractor createLoadGameInteractor() {
+        if (loadGameInteractor == null) {
+            return new LoadGameInteractor(taskScheduler, this, serviceFactory.createTrumpQuizGameStorageService());
+        }
+        return loadGameInteractor;
     }
 
     public InitialiseGameInteractor createInitialiseGameInteractor() {
-        return new InitialiseGameInteractor(
-                taskScheduler,
-                this,
-                serviceFactory.createTrumpQuizGameStorageService(),
-                serviceFactory.createTrumpQuizGameInitialisationService()
-        );
+        if (initialiseGameInteractor == null) {
+            initialiseGameInteractor = new InitialiseGameInteractor(taskScheduler, this, serviceFactory.createTrumpQuizGameInitialisationService());
+        }
+        return initialiseGameInteractor;
+    }
+
+    public AnswerQuestionInteractor createAnswerNotTrumpInteractor(final QuizGame game) {
+        if (answerQuestionInteractor == null) {
+            answerQuestionInteractor = new AnswerQuestionInteractor(taskScheduler, game);
+        }
+        return answerQuestionInteractor;
+    }
+
+    public GetNextQuestionInteractor createGetNextQuoteInteractor(final QuizGame game) {
+        if (getNextQuestionInteractor == null) {
+            getNextQuestionInteractor = new GetNextQuestionInteractor(taskScheduler, game);
+        }
+        return getNextQuestionInteractor;
     }
 }

@@ -1,7 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.model.domain.interactors;
 
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizGame;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizQuestion;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.TrumpQuizGameImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.services.TrumpQuizGameStorageService;
 import com.davidcryer.trumpquotes.platformindependent.model.domain.services.errors.StorageError;
@@ -33,94 +32,82 @@ public class LoadGameInteractor extends Interactor {
         storageService.load(new TrumpQuizGameStorageService.LoadCallback() {
 
             @Override
-            public void onSuccess(TrumpQuizGameImpl game) {
-                tryToStartGame(game, false, callback);
+            public void onLoadGame(TrumpQuizGameImpl game) {
+                tryToStartGame(game, callback);
             }
 
             @Override
-            public void onFailure(StorageError error) {
+            public void onNoSavedGameFound() {
+                LoadGameInteractor.this.onNoSavedGameFound(callback);
+            }
 
+            @Override
+            public void onGameCorrupted() {
+                LoadGameInteractor.this.onGameCorrupted(callback);
+            }
+
+            @Override
+            public void onError(StorageError error) {
+                LoadGameInteractor.this.onError(callback);
             }
         });
     }
 
-    private void tryToStartGame(final QuizGame game, final boolean isNewGame, final WeakReference<Callback> callback) {
+    private void tryToStartGame(final QuizGame game, final WeakReference<Callback> callback) {
         game.startGame(new QuizGame.StartCallback() {
             @Override
             public void onReturn(int correctAnswers, int questionsAnswered) {
-                tryToGetNextQuote(game, correctAnswers, questionsAnswered, isNewGame, callback);
+                onLoadGame(new ActiveGameInteractors(interactorFactory, game), correctAnswers, questionsAnswered, callback);
             }
         });
     }
 
-    private void tryToGetNextQuote(
-            final QuizGame game,
-            final int correctAnswers,
-            final int questionsAnswered,
-            final WeakReference<Callback> callback
-    ) {
-        game.nextQuestion(new QuizGame.NextQuestionCallback() {
+    private void onLoadGame(final ActiveGameInteractors interactors, final int correctAnswers, final int questionsAnswered, final WeakReference<Callback> callback) {
+        executeOnMainThread(new Task() {
             @Override
-            public void onGameFinished() {
-                tryToInitialiseNewGameInstance(callback);
-            }
-
-            @Override
-            public void nextQuestion(QuizQuestion quizQuestion) {
-                onSuccess(payload(game, quizQuestion, correctAnswers, questionsAnswered, isNewGame), callback);
+            public void execute() {
+                if (callback.get() != null) {
+                    callback.get().onLoadGame(interactors, correctAnswers, questionsAnswered);
+                }
             }
         });
     }
 
-    private void onLoadGame() {
-
+    private void onNoSavedGameFound(final WeakReference<Callback> callback) {
+        executeOnMainThread(new Task() {
+            @Override
+            public void execute() {
+                if (callback.get() != null) {
+                    callback.get().onNoSavedGameFound();
+                }
+            }
+        });
     }
 
-    private void onNoSavedGameFound() {
-
+    private void onGameCorrupted(final WeakReference<Callback> callback) {
+        executeOnMainThread(new Task() {
+            @Override
+            public void execute() {
+                if (callback.get() != null) {
+                    callback.get().onGameCorrupted();
+                }
+            }
+        });
     }
 
-    private void onGameCorrupted() {
-
-    }
-
-    private void onError() {
-
-    }
-
-    private Payload payload(
-            final QuizGame game,
-            final int correctAnswers,
-            final int questionsAnswered
-    ) {
-        return new Payload(
-                new ActiveGameInteractors(
-                        interactorFactory.createAnswerNotTrumpInteractor(game),
-                        interactorFactory.createGetNextQuoteInteractor(game)
-                ),
-                correctAnswers,
-                questionsAnswered
-        );
-    }
-
-    public final static class Payload {
-        public final ActiveGameInteractors activeGameInteractors;
-        public final int correctAnswers;
-        public final int questionsAnswered;
-
-        private Payload(
-                ActiveGameInteractors activeGameInteractors,
-                int correctAnswers,
-                int questionsAnswered
-        ) {
-            this.activeGameInteractors = activeGameInteractors;
-            this.correctAnswers = correctAnswers;
-            this.questionsAnswered = questionsAnswered;
-        }
+    private void onError(final WeakReference<Callback> callback) {
+        executeOnMainThread(new Task() {
+            @Override
+            public void execute() {
+                if (callback.get() != null) {
+                    callback.get().onError();
+                }
+            }
+        });
     }
 
     public interface Callback {
-        void onLoadGame(final Payload payload);
+        void onLoadGame(final ActiveGameInteractors interactors, final int correctAnswers, final int questionsAnswered);
         void onNoSavedGameFound();
         void onGameCorrupted();
         void onError();

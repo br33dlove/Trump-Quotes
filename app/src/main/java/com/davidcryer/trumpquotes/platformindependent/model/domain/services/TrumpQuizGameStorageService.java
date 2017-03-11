@@ -9,11 +9,13 @@ public interface TrumpQuizGameStorageService {
 
     interface SaveCallback {
         void onSuccess();
-        void onFailure(final StorageError error);
+        void onError(final StorageError error);
     }
 
     interface LoadCallback {
-        void onSuccess(final TrumpQuizGameImpl game);
-        void onFailure(final StorageError error);
+        void onLoadGame(final TrumpQuizGameImpl game);
+        void onNoSavedGameFound();
+        void onGameCorrupted();
+        void onError(final StorageError error);
     }
 }

@@ -26,7 +26,7 @@ public class TrumpQuizGameStorageServiceImpl implements TrumpQuizGameStorageServ
         if (savedGame) {
             callback.onSuccess();
         } else {
-            callback.onFailure(new StorageError());
+            callback.onError(new StorageError());
         }
     }
 
@@ -45,9 +45,9 @@ public class TrumpQuizGameStorageServiceImpl implements TrumpQuizGameStorageServ
     public void load(LoadCallback callback) {
         final TrumpQuizGameImpl loadedGame = loadedGame();
         if (loadedGame != null) {
-            callback.onSuccess(loadedGame);
+            callback.onLoadGame(loadedGame);
         } else {
-            callback.onFailure(new StorageError());
+            callback.onError(new StorageError());
         }
     }
 

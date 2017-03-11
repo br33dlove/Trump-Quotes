@@ -37,10 +37,10 @@ public final class InitialiseGameInteractor extends Interactor {
     }
 
     private void tryToInitialiseNewGameInstance(final WeakReference<Callback> callback) {
-        initialisationService.initialiseNewGame(QUESTION_COUNT, new TrumpQuizGameInitialisationService.Callback() {//TODO replace hardcoded int
+        initialisationService.initialiseNewGame(QUESTION_COUNT, new TrumpQuizGameInitialisationService.Callback() {
             @Override
             public void onSuccess(QuizGame game) {
-                tryToStartGame(game, true, callback);
+                tryToStartGame(game, callback);
             }
 
             @Override
@@ -50,45 +50,21 @@ public final class InitialiseGameInteractor extends Interactor {
         });
     }
 
-    private void tryToStartGame(final QuizGame game, final boolean isNewGame, final WeakReference<Callback> callback) {
+    private void tryToStartGame(final QuizGame game, final WeakReference<Callback> callback) {
         game.startGame(new QuizGame.StartCallback() {
             @Override
             public void onReturn(int correctAnswers, int questionsAnswered) {
-                tryToGetNextQuote(game, correctAnswers, questionsAnswered, isNewGame, callback);
+                onSuccess(new ActiveGameInteractors(interactorFactory, game), correctAnswers, questionsAnswered, callback);
             }
         });
     }
 
-    private void tryToGetNextQuote(
-            final QuizGame game,
-            final int correctAnswers,
-            final int questionsAnswered,
-            final boolean isNewGame,
-            final WeakReference<Callback> callback
-    ) {
-        game.nextQuestion(new QuizGame.NextQuestionCallback() {
-            @Override
-            public void onGameFinished() {
-                if (isNewGame) {
-                    onError(callback);
-                } else {
-                    tryToInitialiseNewGameInstance(callback);
-                }
-            }
-
-            @Override
-            public void nextQuestion(QuizQuestion quizQuestion) {
-                onSuccess(payload(game, quizQuestion, correctAnswers, questionsAnswered, isNewGame), callback);
-            }
-        });
-    }
-
-    private void onSuccess(final Payload payload, final WeakReference<Callback> callback) {
+    private void onSuccess(final ActiveGameInteractors interactors, final int correctAnswers, final int questionsAnswered, final WeakReference<Callback> callback) {
         executeOnMainThread(new Task() {
             @Override
             public void execute() {
                 if (callback.get() != null) {
-                    callback.get().onInitialiseGame(payload);
+                    callback.get().onInitialiseGame(interactors, correctAnswers, questionsAnswered);
                 }
             }
         });
@@ -105,49 +81,8 @@ public final class InitialiseGameInteractor extends Interactor {
         });
     }
 
-    private Payload payload(
-            final QuizGame game,
-            final QuizQuestion quizQuestion,
-            final int correctAnswers,
-            final int questionsAnswered,
-            final boolean isNewGame
-    ) {
-        return new Payload(
-                new ActiveGameInteractors(
-                        interactorFactory.createAnswerNotTrumpInteractor(game),
-                        interactorFactory.createGetNextQuoteInteractor(game)
-                ),
-                quizQuestion,
-                correctAnswers,
-                questionsAnswered,
-                isNewGame
-        );
-    }
-
-    public final static class Payload {
-        public final ActiveGameInteractors activeGameInteractors;
-        public final QuizQuestion quizQuestion;
-        public final int correctAnswers;
-        public final int questionsAnswered;
-        public final boolean isNewGame;
-
-        private Payload(
-                ActiveGameInteractors activeGameInteractors,
-                QuizQuestion quizQuestion,
-                int correctAnswers,
-                int questionsAnswered,
-                boolean isNewGame
-        ) {
-            this.activeGameInteractors = activeGameInteractors;
-            this.quizQuestion = quizQuestion;
-            this.correctAnswers = correctAnswers;
-            this.questionsAnswered = questionsAnswered;
-            this.isNewGame = isNewGame;
-        }
-    }
-
     public interface Callback {
-        void onInitialiseGame(final Payload payload);
+        void onInitialiseGame(final ActiveGameInteractors interactors, final int correctAnswers, final int questionsAnswered);
         void onError();
     }
 }

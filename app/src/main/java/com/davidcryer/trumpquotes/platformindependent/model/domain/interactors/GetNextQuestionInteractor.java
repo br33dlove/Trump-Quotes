@@ -44,7 +44,7 @@ public final class GetNextQuestionInteractor extends Interactor {
     }
 
     public interface Callback {
-        void nextQuestion(final QuizQuestion quizQuestionuote);
+        void nextQuestion(final QuizQuestion quizQuestion);
         void onGameFinished();
     }
 }

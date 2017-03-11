@@ -9,6 +9,7 @@ public interface SwipeQuestionView<ViewQuestionType extends ViewQuestion> extend
     void showStartingGameState();
     void showFailureToStartGameState();
     void showNewGameTutorial();
+    void dismissNewGameTutorial();
     void showQuestionState(final ViewQuestionType quotes);
     void showFinishedGameState();
 
