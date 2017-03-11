@@ -11,10 +11,10 @@ import java.io.IOException;
 public class AndroidQuoteFile<QuoteType extends Quote> implements QuoteFile {
     private final String filePath;
     private final AssetManager assetManager;
-    private final Class<QuoteArray<QuoteType>> quoteArrayClass;
+    private final Class<QuoteType[]> quoteArrayClass;
     private final Gson gson;
 
-    public AndroidQuoteFile(String filePath, AssetManager assetManager, Class<QuoteArray<QuoteType>> quoteArrayClass, Gson gson) {
+    public AndroidQuoteFile(String filePath, AssetManager assetManager, Class<QuoteType[]> quoteArrayClass, Gson gson) {
         this.filePath = filePath;
         this.assetManager = assetManager;
         this.quoteArrayClass = quoteArrayClass;
@@ -23,14 +23,6 @@ public class AndroidQuoteFile<QuoteType extends Quote> implements QuoteFile {
 
     @Override
     public Quote[] quotes() throws IOException {
-        return gson.fromJson(TextFileReader.reader(filePath, assetManager), quoteArrayClass).quotes;
-    }
-
-    static class QuoteArray<QuoteType extends Quote> {
-        private final QuoteType[] quotes;
-
-        public QuoteArray(QuoteType[] quotes) {
-            this.quotes = quotes;
-        }
+        return gson.fromJson(TextFileReader.reader(filePath, assetManager), quoteArrayClass);
     }
 }
