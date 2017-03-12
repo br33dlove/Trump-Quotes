@@ -100,12 +100,12 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
 
             @Override
             public void onGameCorrupted() {
-                //TODO error screen
+                viewWrapper.showStartNewGameState();
             }
 
             @Override
             public void onError() {
-                //TODO error screen
+                viewWrapper.showStartNewGameState();
             }
         }));
     }

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TrumpQuotes</string>
 
+    <string name="api.base_url.trump_quotes">https://api.whatdoestrumpthink.com/api/</string>
+
     <string name="game.start_game.info.description">Swipe left for Trump and right for Gump!</string>
     <string name="game.start_game.info.load_failed">There was a problem starting a new game, please ensure that you are connected to the internet</string>
     <string name="game.start_game.button">Start Game</string>

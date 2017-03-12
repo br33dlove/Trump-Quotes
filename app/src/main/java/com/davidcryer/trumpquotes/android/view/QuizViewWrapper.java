@@ -49,7 +49,7 @@ public class QuizViewWrapper extends ViewWrapper<QuizAndroidView, QuizAndroidVie
 
         @Override
         public void showLoadingState() {
-            viewModel.showLoadingState(view());
+            viewModel.showNewGameLoadingState(view());
         }
 
         @Override
@@ -59,17 +59,17 @@ public class QuizViewWrapper extends ViewWrapper<QuizAndroidView, QuizAndroidVie
 
         @Override
         public void showNewGameTutorial() {
-            viewModel.showNewGameTutorial(view());
+            viewModel.showNewGameTutorialState(view());
         }
 
         @Override
         public void dismissNewGameTutorial() {
-            viewModel.dismissNewGameTutorial(view());
+            viewModel.showGameRunningState(view());
         }
 
         @Override
         public void showQuestionState(AndroidViewQuestion question) {
-            viewModel.showQuestionState(view(), question);
+            viewModel.showQuestion(view(), question);
         }
 
         @Override
@@ -101,7 +101,7 @@ public class QuizViewWrapper extends ViewWrapper<QuizAndroidView, QuizAndroidVie
         }
 
         @Override
-        public void onDismissNewGameTutorial() {
+        public void onDismissTutorial() {
             wrapperEventsListener.onDismissNewGameTutorial();
         }
 

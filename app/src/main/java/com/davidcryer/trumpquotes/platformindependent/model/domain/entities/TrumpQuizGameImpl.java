@@ -81,7 +81,7 @@ public final class TrumpQuizGameImpl implements QuizGame {
                 isFinished = true;
             }
         }
-        callback.nextQuestion(currentQuestion().quote());
+        callback.nextQuestion(currentQuestion());
     }
 
     QuizQuestionImpl[] questions() {

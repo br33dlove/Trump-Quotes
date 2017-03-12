@@ -59,7 +59,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
         private final QuoteNetworkService trumpQuoteNetworkService;
         private final QuoteFileService gumpQuoteFileService;
         private final int totalQuestionsCount;
-        private final Set<Cancelable> randomQuoteFetchers = new HashSet<>();
+        private final List<Cancelable> randomQuoteFetchers;
         private final List<QuizQuestionImpl> questions;
         private final Callback callback;
         private boolean stopRandomQuoteTasks = false;
@@ -73,6 +73,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
             this.trumpQuoteNetworkService = trumpQuoteNetworkService;
             this.gumpQuoteFileService = gumpQuoteFileService;
             this.totalQuestionsCount = totalQuestionsCount;
+            randomQuoteFetchers = new ArrayList<>(totalQuestionsCount);
             questions = new ArrayList<>(totalQuestionsCount);
             this.callback = callback;
         }
@@ -108,10 +109,12 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
         }
 
         private QuoteSource[] randomQuoteTypes() {
+            //TODO debug trump quotes not coming through
             final CoinFlipper coinFlipper = new CoinFlipper();
             final QuoteSource[] quoteSources = new QuoteSource[totalQuestionsCount];
             for (int i = 0; i < totalQuestionsCount; i++) {
-                quoteSources[i] = coinFlipper.flip() == CoinFlipper.Result.HEADS ? QuoteSource.GUMP : QuoteSource.TRUMP;
+                quoteSources[i] = QuoteSource.GUMP;
+//                quoteSources[i] = coinFlipper.flip() == CoinFlipper.Result.HEADS ? QuoteSource.GUMP : QuoteSource.TRUMP;
             }
             return quoteSources;
         }

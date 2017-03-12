@@ -17,7 +17,7 @@ public class RetrofitTrumpQuoteServiceFactoryImpl implements RetrofitTrumpQuoteS
     @Override
     public RetrofitTrumpQuoteService create() {
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(resources.getString(R.string.quote_base_url_trump_quotes_api))
+                .baseUrl(resources.getString(R.string.api_base_url_trump_quotes))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(RetrofitTrumpQuoteService.class);

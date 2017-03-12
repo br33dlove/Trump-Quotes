@@ -11,7 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.davidcryer.trumpquotes.R;
@@ -20,7 +20,6 @@ import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.View
 import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
-import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
@@ -31,7 +30,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsListener> implements QuizAndroidView {
-    private final static long ANIMATION_DURATION_MAX_FADE = 300;
     private Unbinder unbinder;
     @BindView(R.id.quote_card)
     QuoteCard card;
@@ -44,7 +42,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     @BindView(R.id.start_new_game_info)
     TextView startNewGameInfoTextView;
     @BindView(R.id.start_new_game_button)
-    View startNewGameButton;
+    Button startNewGameButton;
 
     public static QuizFragment newInstance() {
         return new QuizFragment();
@@ -131,35 +129,59 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     @Override
-    public void showStartNewGameState() {
-        showStartNewGameContainer();
-        hideLoadingViews();
-        hideQuoteCard();
+    public void showNewGameStateStart() {
+        showStartNewGameViews();
         startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
+        startNewGameButton.setEnabled(true);
+        startNewGameButton.setText(getString(R.string.game_start_game_button));
+        startNewGameButton.getCompoundDrawablesRelative()[0].setVisible(false, true);
     }
 
     @Override
-    public void showLoadingState() {
-        hideQuoteCard();
-        showLoadingViews();
+    public void showNewGameStateLoading() {
+        showStartNewGameViews();
+        startNewGameButton.setEnabled(false);
+        startNewGameButton.setText("");
+        startNewGameButton.getCompoundDrawablesRelative()[0].setVisible(true, true);
+    }
+
+    @Override
+    public void showNewGameStateError() {
+        showStartNewGameViews();
+        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
+        startNewGameButton.setEnabled(true);
+        startNewGameButton.setText(getString(R.string.game_start_game_button));
+        startNewGameButton.getCompoundDrawablesRelative()[0].setVisible(false, true);
+    }
+
+    @Override
+    public void hideNewGameState() {
         hideStartNewGameContainer();
     }
 
     @Override
-    public void showNewGameTutorial() {
-        //TODO
+    public void showPlayGameStateTutorial() {
+        showPlayGameViews();
     }
 
     @Override
-    public void dismissNewGameTutorial() {
-        //TODO
+    public void showPlayGameStateRunning() {
+        showPlayGameViews();
     }
 
     @Override
-    public void showQuestionState(AndroidViewQuestion question) {
-        showQuoteCard();
-        hideLoadingViews();
-        hideStartNewGameContainer();
+    public void showPlayGameStateFinished() {
+        showStartNewGameViews();
+    }
+
+    @Override
+    public void hidePlayGameState() {
+        hidePlayGameViews();
+    }
+
+    @Override
+    public void showQuestion(AndroidViewQuestion question) {
+        showPlayGameViews();//TODO remove later, need to fix showPlayGameStateTutorial and showPlayGameStateRunning not being called
         card.quote(question.quote());
         card.signatures(question.optionA(), question.optionB());
         swipeLayout.listenForChildGestures(card, true);
@@ -175,22 +197,20 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         //TODO setup card (slide into view?)
     }
 
-    @Override
-    public void showFailureToStartGameState() {
-        showStartNewGameContainer();
-        hideLoadingViews();
-        hideQuoteCard();
-        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
-    }
-
-    private void showStartNewGameContainer() {
-        startNewGameButton.setEnabled(true);
+    private void showStartNewGameViews() {
         StartNewGameContainerAnimationHelper.slideIn(startNewGameContainer, swipeRefreshLayout);
     }
 
     private void hideStartNewGameContainer() {
-        startNewGameButton.setEnabled(false);
         StartNewGameContainerAnimationHelper.slideOut(startNewGameContainer, swipeRefreshLayout);
+    }
+
+    private void showPlayGameViews() {
+        showQuoteCard();
+    }
+
+    private void hidePlayGameViews() {
+        hideQuoteCard();
     }
 
     private void showQuoteCard() {
@@ -199,29 +219,6 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     private void hideQuoteCard() {
         card.setVisibility(View.GONE);
-    }
-
-    private void showLoadingViews() {
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-    }
-
-    private void hideLoadingViews() {
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-    }
-
-    @Override
-    public void showFinishedGameState() {
-        //TODO
     }
 
     @OnClick(R.id.start_new_game_button)

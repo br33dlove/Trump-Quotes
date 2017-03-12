@@ -6,11 +6,10 @@ import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
 final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
-    enum State {START_NEW_GAME, LOADING, FAILURE_TO_START_GAME, QUESTION, GAME_FINISHED}
+    enum State {START_NEW_GAME, LOADING_NEW_GAME, FAILURE_TO_START_NEW_GAME, GAME_TUTORIAL, GAME_RUNNING, GAME_FINISHED}
     private State state;
     private AndroidViewQuestion question;
     private GameState gameState;
-    private boolean showNewGameTutorial;
     private boolean questionUpdated;
     private int correctAnswers;
     private int questionsAnswered;
@@ -19,7 +18,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
             State state,
             AndroidViewQuestion question,
             GameState gameState,
-            boolean showNewGameTutorial,
             boolean questionUpdated,
             int correctAnswers,
             int questionsAnswered
@@ -27,7 +25,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         this.state = state;
         this.question = question;
         this.gameState = gameState;
-        this.showNewGameTutorial = showNewGameTutorial;
         this.questionUpdated = questionUpdated;
         this.correctAnswers = correctAnswers;
         this.questionsAnswered = questionsAnswered;
@@ -37,7 +34,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         state = (State) parcel.readSerializable();
         question = parcel.readParcelable(AndroidViewQuestion.class.getClassLoader());
         gameState = (GameState) parcel.readSerializable();
-        showNewGameTutorial = parcel.readByte() != 0;
         questionUpdated = parcel.readByte() != 0;
         correctAnswers = parcel.readInt();
         questionsAnswered = parcel.readInt();
@@ -53,7 +49,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         dest.writeSerializable(state);
         dest.writeParcelable(question, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeSerializable(gameState);
-        dest.writeByte((byte) (showNewGameTutorial ? 1 : 0));
         dest.writeByte((byte) (questionUpdated ? 1 : 0));
         dest.writeInt(correctAnswers);
         dest.writeInt(questionsAnswered);
@@ -71,6 +66,14 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         }
     };
 
+    private boolean showingNewGameState() {
+        return state == State.START_NEW_GAME || state == State.LOADING_NEW_GAME || state == State.FAILURE_TO_START_NEW_GAME || state == State.GAME_FINISHED;
+    }
+
+    private boolean showingPlayGameState() {
+        return state == State.GAME_TUTORIAL || state == State.GAME_RUNNING;
+    }
+
     @Override
     public void showScore(QuizAndroidView view, int correctAnswerCount, int questionCount) {
         this.correctAnswers = correctAnswerCount;
@@ -82,105 +85,115 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
 
     @Override
     public void showStartNewGameState(QuizAndroidView view) {
+        if (view != null) {
+            view.showNewGameStateStart();
+            if (showingPlayGameState()) {
+                view.hidePlayGameState();
+            }
+        }
         state = State.START_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
-        if (view != null) {
-            view.showStartNewGameState();
-        }
     }
 
     @Override
-    public void showLoadingState(QuizAndroidView view) {
-        state = State.LOADING;
+    public void showNewGameLoadingState(QuizAndroidView view) {
         if (view != null) {
-            view.showStartNewGameState();
+            view.showNewGameStateStart();
+            if (showingPlayGameState()) {
+                view.hidePlayGameState();
+            }
         }
+        state = State.LOADING_NEW_GAME;
+        gameState = GameState.NOT_INITIALISED;
     }
 
     @Override
     public void showFailureToStartGameState(QuizAndroidView view) {
-        state = State.FAILURE_TO_START_GAME;
+        if (view != null) {
+            view.showNewGameStateStart();
+            if (showingPlayGameState()) {
+                view.hidePlayGameState();
+            }
+        }
+        state = State.FAILURE_TO_START_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
-        if (view != null) {
-            view.showStartNewGameState();
-        }
     }
 
     @Override
-    public void showNewGameTutorial(QuizAndroidView view) {
-        showNewGameTutorial = true;
+    public void showNewGameTutorialState(QuizAndroidView view) {
         if (view != null) {
-            view.showStartNewGameState();
+            view.showNewGameStateStart();
+            if (showingNewGameState()) {
+                view.hideNewGameState();
+            }
         }
+        state = State.GAME_TUTORIAL;
+        gameState = GameState.INITIALISED;
     }
 
     @Override
-    public void dismissNewGameTutorial(QuizAndroidView view) {
-        showNewGameTutorial = false;
+    public void showGameRunningState(QuizAndroidView view) {
         if (view != null) {
-            view.showStartNewGameState();
+            view.showPlayGameStateRunning();
+            if (showingNewGameState()) {
+                view.hideNewGameState();
+            }
         }
+        state = State.GAME_RUNNING;
+        gameState = GameState.INITIALISED;
     }
 
     @Override
-    public void showQuestionState(QuizAndroidView view, AndroidViewQuestion question) {
-        state = State.QUESTION;
-        gameState = GameState.RUNNING;
+    public void showQuestion(QuizAndroidView view, AndroidViewQuestion question) {
         this.question = question;
         if (view != null) {
-            view.showQuestionState(question);
+            view.showQuestion(question);
+        } else {
+            questionUpdated = true;
         }
     }
 
     @Override
     public void showFinishedGameState(QuizAndroidView view) {
+        if (view != null) {
+            view.showPlayGameStateFinished();
+            if (showingPlayGameState()) {
+                view.hidePlayGameState();
+            }
+        }
+        question = null;
         state = State.GAME_FINISHED;
         gameState = GameState.FINISHED;
-        question = null;
-        if (view != null) {
-            view.showFinishedGameState();
-        }
     }
 
     @Override
     public void onto(QuizAndroidView view, final boolean setAllData) {
-        if (setAllData) {
-            if (showNewGameTutorial) {
-                view.showNewGameTutorial();
-            }
-        }
         switch (state) {
             case START_NEW_GAME: {
-                if (setAllData) {
-                    view.showStartNewGameState();
-                }
+                view.showNewGameStateStart();
                 break;
             }
-            case LOADING: {
-                if (setAllData) {
-                    view.showLoadingState();
-                }
+            case LOADING_NEW_GAME: {
+                view.showNewGameStateLoading();
                 break;
             }
-            case FAILURE_TO_START_GAME: {
-                if (setAllData) {
-                    view.showFailureToStartGameState();
-                }
+            case FAILURE_TO_START_NEW_GAME: {
+                view.showNewGameStateError();
                 break;
             }
-            case QUESTION: {
-                if (setAllData || questionUpdated) {
-                    questionUpdated = false;
-                    view.showQuestionState(question);
-                    view.showScore(correctAnswers, questionsAnswered);
-                }
+            case GAME_TUTORIAL: {
+                view.showPlayGameStateTutorial();
+                view.showScore(correctAnswers, questionsAnswered);
+                break;
+            }
+            case GAME_RUNNING: {
+                view.showPlayGameStateRunning();
+                view.showScore(correctAnswers, questionsAnswered);
+                view.showQuestion(question);
                 break;
             }
             case GAME_FINISHED: {
-                if (setAllData) {
-                    view.showFinishedGameState();
-                    view.showScore(correctAnswers, questionsAnswered);
-                }
+                view.showPlayGameStateFinished();
                 break;
             }
         }

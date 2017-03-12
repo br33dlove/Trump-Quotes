@@ -26,7 +26,8 @@ public class StartNewGameContainerAnimationHelper {
             final float currentY = view.getY();
             final int viewHeight = view.getHeight();
             final int rootHeight = root.getHeight();
-            slideIn(view, currentY, animateInFinalY(viewHeight, rootHeight), currentY - rootHeight);
+            final float finalY = animateInFinalY(viewHeight, rootHeight);
+            slideIn(view, currentY, finalY, currentY - rootHeight);
         }
     }
 
@@ -35,7 +36,9 @@ public class StartNewGameContainerAnimationHelper {
     }
 
     private static void slideIn(final View view, final float startY, final float finalY, final float offsetStartY) {
-        SlideInAndOffScreenHelper.slideInY(view, startY, finalY, duration(startY, finalY, offsetStartY));
+        if (startY != finalY) {
+            SlideInAndOffScreenHelper.slideInY(view, startY, finalY, duration(startY, finalY, offsetStartY));
+        }
     }
 
     private static int duration(final float startY, final float finalY, final float offsetStartY) {
@@ -52,6 +55,8 @@ public class StartNewGameContainerAnimationHelper {
     }
 
     private static void slideOut(final View view, final float startY, final float finalY, final float offsetStartY) {
-        SlideInAndOffScreenHelper.slideOutY(view, startY, finalY, duration(startY, finalY, offsetStartY));
+        if (startY != finalY) {
+            SlideInAndOffScreenHelper.slideOutY(view, startY, finalY, duration(startY, finalY, offsetStartY));
+        }
     }
 }

@@ -3,14 +3,14 @@ package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.trum
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
 
 public class TrumpQuote implements Quote {
-    private String quote;
+    private String message;
 
-    public TrumpQuote(String quote) {
-        this.quote = quote;
+    public TrumpQuote(String message) {
+        this.message = message;
     }
 
     @Override
     public String quote() {
-        return quote;
+        return message;
     }
 }

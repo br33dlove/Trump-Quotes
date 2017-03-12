@@ -42,8 +42,8 @@
                 android:id="@+id/start_new_game_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:text="@string/game.start_game.button" />
+                android:drawableStart="@android:drawable/progress_indeterminate_horizontal"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
