@@ -22,13 +22,30 @@
 
         </com.davidcryer.trumpquotes.android.view.ui.components.SingleChildSwipeLayout>
 
-        <TextView
-            android:id="@+id/loading_failed"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/start_new_game_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/quizQuestion.loading_failed"
-            android:visibility="gone" />
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:dividerPadding="32dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/start_new_game_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/start_new_game_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/game.start_game.button" />
+
+        </LinearLayout>
 
     </FrameLayout>
 

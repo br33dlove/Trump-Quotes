@@ -3,6 +3,7 @@ package com.davidcryer.trumpquotes.android.view.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
 import com.davidcryer.trumpquotes.R;
 import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
@@ -18,11 +21,13 @@ import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
+import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsListener> implements QuizAndroidView {
@@ -34,8 +39,12 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout)
     SwipeLayout swipeLayout;
-    @BindView(R.id.loading_failed)
-    View loadingFailedTextView;
+    @BindView(R.id.start_new_game_container)
+    View startNewGameContainer;
+    @BindView(R.id.start_new_game_info)
+    TextView startNewGameInfoTextView;
+    @BindView(R.id.start_new_game_button)
+    View startNewGameButton;
 
     public static QuizFragment newInstance() {
         return new QuizFragment();
@@ -61,17 +70,22 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     private void setupViews() {
+        swipeRefreshLayout.setEnabled(false);
         swipeLayout.swipeListener(new SwipeDelegate.Listener() {
             @Override
             public void onViewEscapedLeft(View child) {
-                eventsListener.onAnswerOptionA();
+                if (hasEventsListener()) {
+                    eventsListener().onAnswerOptionA();
+                }
                 swipeLayout.listenForChildGestures(child, false);
                 //TODO clean up view
             }
 
             @Override
             public void onViewEscapedRight(View child) {
-                eventsListener.onAnswerOptionB();
+                if (hasEventsListener()) {
+                    eventsListener().onAnswerOptionB();
+                }
                 swipeLayout.listenForChildGestures(child, false);
                 //TODO clean up view
             }
@@ -98,13 +112,17 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        eventsListener.onViewCreated();
+        if (hasEventsListener()) {
+            eventsListener().onViewCreated();
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        eventsListener.onSaveInstance(outState);
+        if (hasEventsListener()) {
+            eventsListener().onSaveInstance(outState);
+        }
     }
 
     @Override
@@ -114,15 +132,17 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     @Override
     public void showStartNewGameState() {
-        //TODO
+        showStartNewGameContainer();
+        hideLoadingViews();
+        hideQuoteCard();
+        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
     }
 
     @Override
     public void showLoadingState() {
         hideQuoteCard();
-        showLoadingQuote();
-        hideFailureToStartGameViews();
-        swipeRefreshLayout.setEnabled(false);
+        showLoadingViews();
+        hideStartNewGameContainer();
     }
 
     @Override
@@ -139,12 +159,11 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     public void showQuestionState(AndroidViewQuestion question) {
         showQuoteCard();
         hideLoadingViews();
-        hideFailureToStartGameViews();
-        swipeRefreshLayout.setEnabled(false);
+        hideStartNewGameContainer();
         card.quote(question.quote());
         card.signatures(question.optionA(), question.optionB());
         swipeLayout.listenForChildGestures(card, true);
-        if (card.getWidth() > 0) {
+        if (ViewCompat.isLaidOut(card)) {//TODO test
             final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
             final int xOrigin = cardLp.leftMargin;
             final int yOrigin = cardLp.topMargin;
@@ -158,21 +177,31 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     @Override
     public void showFailureToStartGameState() {
-        hideQuoteCard();
+        showStartNewGameContainer();
         hideLoadingViews();
-        showFailureToGetQuote();
-        swipeRefreshLayout.setEnabled(true);
+        hideQuoteCard();
+        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
     }
 
-    public void showQuoteCard() {
+    private void showStartNewGameContainer() {
+        startNewGameButton.setEnabled(true);
+        StartNewGameContainerAnimationHelper.slideIn(startNewGameContainer, swipeRefreshLayout);
+    }
+
+    private void hideStartNewGameContainer() {
+        startNewGameButton.setEnabled(false);
+        StartNewGameContainerAnimationHelper.slideOut(startNewGameContainer, swipeRefreshLayout);
+    }
+
+    private void showQuoteCard() {
         card.setVisibility(View.VISIBLE);
     }
 
-    public void hideQuoteCard() {
+    private void hideQuoteCard() {
         card.setVisibility(View.GONE);
     }
 
-    public void showLoadingQuote() {
+    private void showLoadingViews() {
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -181,7 +210,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         });
     }
 
-    public void hideLoadingViews() {
+    private void hideLoadingViews() {
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -190,17 +219,16 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         });
     }
 
-    public void showFailureToGetQuote() {
-        AlphaAnimationHelper.fadeIn(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
-    }
-
-    public void hideFailureToStartGameViews() {
-        AlphaAnimationHelper.fadeOut(loadingFailedTextView, ANIMATION_DURATION_MAX_FADE);
-    }
-
     @Override
     public void showFinishedGameState() {
         //TODO
+    }
+
+    @OnClick(R.id.start_new_game_button)
+    public void startNewGame() {
+        if (hasEventsListener()) {
+            eventsListener().onClickStartNewGame();
+        }
     }
 
     @Override

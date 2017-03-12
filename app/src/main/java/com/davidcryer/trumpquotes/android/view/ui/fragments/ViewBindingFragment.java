@@ -13,7 +13,7 @@ import com.davidcryer.trumpquotes.platformindependent.javahelpers.CastHelper;
 
 abstract class ViewBindingFragment<EventsListenerType extends AndroidMvpView.EventsListener> extends Fragment {
     private ViewWrapperRepository viewWrapperRepository;
-    EventsListenerType eventsListener;
+    private EventsListenerType eventsListener;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -62,4 +62,12 @@ abstract class ViewBindingFragment<EventsListenerType extends AndroidMvpView.Eve
     }
 
     abstract void unbind(final ViewWrapperRepository viewWrapperRepository, final ViewUnbindType unbindType);
+
+    boolean hasEventsListener() {
+        return eventsListener != null;
+    }
+
+    EventsListenerType eventsListener() {
+        return eventsListener;
+    }
 }
