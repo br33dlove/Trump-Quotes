@@ -42,7 +42,7 @@
                 android:id="@+id/start_new_game_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@android:drawable/progress_indeterminate_horizontal"
+                android:layout_gravity="center_horizontal"
                 android:textAllCaps="false" />
 
         </LinearLayout>

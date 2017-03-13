@@ -26,10 +26,7 @@ public class SingleChildSwipeLayout extends SwipeLayout {
         setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (swipeDelegate != null) {
-                    swipeDelegate.onTouch(event);
-                }
-                return false;
+                return swipeDelegate != null && swipeDelegate.onTouch(event);
             }
         });
     }

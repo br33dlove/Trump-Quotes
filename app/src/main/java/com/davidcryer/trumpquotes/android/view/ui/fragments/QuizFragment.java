@@ -134,7 +134,6 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.game_start_game_button));
-        startNewGameButton.getCompoundDrawablesRelative()[0].setVisible(false, true);
     }
 
     @Override
@@ -142,7 +141,6 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         showStartNewGameViews();
         startNewGameButton.setEnabled(false);
         startNewGameButton.setText("");
-        startNewGameButton.getCompoundDrawablesRelative()[0].setVisible(true, true);
     }
 
     @Override
@@ -151,7 +149,6 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.game_start_game_button));
-        startNewGameButton.getCompoundDrawablesRelative()[0].setVisible(false, true);
     }
 
     @Override
@@ -172,6 +169,9 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     @Override
     public void showPlayGameStateFinished() {
         showStartNewGameViews();
+        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
+        startNewGameButton.setEnabled(true);
+        startNewGameButton.setText(getString(R.string.game_start_game_button));
     }
 
     @Override
