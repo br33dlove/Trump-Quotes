@@ -16,7 +16,7 @@
             <com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard
                 android:id="@+id/quote_card"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="32dp"
                 android:visibility="gone" />
 
