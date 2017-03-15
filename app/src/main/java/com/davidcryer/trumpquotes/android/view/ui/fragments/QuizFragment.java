@@ -169,7 +169,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     @Override
     public void showPlayGameStateFinished() {
         showStartNewGameViews();
-        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
+        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_finished));
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.game_start_game_button));
     }
