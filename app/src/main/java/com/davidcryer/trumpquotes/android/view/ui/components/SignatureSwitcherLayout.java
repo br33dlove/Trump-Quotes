@@ -33,8 +33,9 @@ public class SignatureSwitcherLayout extends FrameLayout {
     }
 
     public void showSignatures(final String leftSignature, final String rightSignature) {
-        leftSignatureView.setText(leftSignature);
-        rightSignatureView.setText(rightSignature);
+        final String dashFormat = getResources().getString(R.string.signature_format_dash);
+        leftSignatureView.setText(String.format(dashFormat, leftSignature));
+        rightSignatureView.setText(String.format(dashFormat, rightSignature));
     }
 
     public void update(final float percentageOffsetFromCentreX) {
