@@ -54,13 +54,11 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
 
             @Override
             public void onAnswerOptionA() {
-                showLoadingState();
                 answerOptionA();
             }
 
             @Override
             public void onAnswerOptionB() {
-                showLoadingState();
                 answerOptionB();
             }
 
@@ -75,7 +73,6 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
         if (viewWrapper.viewModel().gameState() == QuizViewModel.GameState.NOT_INITIALISED) {
             viewWrapper.showStartNewGameState();
         } else {
-            showLoadingState();
             loadGame();
         }
     }
@@ -133,11 +130,13 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
                 @Override
                 public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
                     viewWrapper.showScore(correctAnswers, questionsAnswered);
+                    getNextQuestion();
                 }
 
                 @Override
                 public void onWrongAnswerGiven(int correctAnswers, int questionsAnswered) {
                     viewWrapper.showScore(correctAnswers, questionsAnswered);
+                    getNextQuestion();
                 }
             }));
         }

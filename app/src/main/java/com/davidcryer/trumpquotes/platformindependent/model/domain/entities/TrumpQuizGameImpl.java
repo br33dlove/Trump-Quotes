@@ -79,6 +79,8 @@ public final class TrumpQuizGameImpl implements QuizGame {
             currentQuestionIndex++;
             if (currentQuestionIndex >= questions.length) {
                 isFinished = true;
+                callback.onGameFinished();
+                return;
             }
         }
         callback.nextQuestion(currentQuestion());

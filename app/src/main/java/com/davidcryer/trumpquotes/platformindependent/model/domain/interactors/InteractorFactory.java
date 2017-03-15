@@ -7,10 +7,6 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task
 public class InteractorFactory {
     private final TaskScheduler taskScheduler;
     private final ServiceFactory serviceFactory;
-    private LoadGameInteractor loadGameInteractor;
-    private InitialiseGameInteractor initialiseGameInteractor;
-    private AnswerQuestionInteractor answerQuestionInteractor;
-    private GetNextQuestionInteractor getNextQuestionInteractor;
 
     public InteractorFactory(TaskScheduler taskScheduler, ServiceFactory serviceFactory) {
         this.taskScheduler = taskScheduler;
@@ -18,30 +14,18 @@ public class InteractorFactory {
     }
 
     public LoadGameInteractor createLoadGameInteractor() {
-        if (loadGameInteractor == null) {
-            return new LoadGameInteractor(taskScheduler, this, serviceFactory.createTrumpQuizGameStorageService());
-        }
-        return loadGameInteractor;
+        return new LoadGameInteractor(taskScheduler, this, serviceFactory.createTrumpQuizGameStorageService());
     }
 
     public InitialiseGameInteractor createInitialiseGameInteractor() {
-        if (initialiseGameInteractor == null) {
-            initialiseGameInteractor = new InitialiseGameInteractor(taskScheduler, this, serviceFactory.createTrumpQuizGameInitialisationService());
-        }
-        return initialiseGameInteractor;
+        return new InitialiseGameInteractor(taskScheduler, this, serviceFactory.createTrumpQuizGameInitialisationService());
     }
 
     public AnswerQuestionInteractor createAnswerNotTrumpInteractor(final QuizGame game) {
-        if (answerQuestionInteractor == null) {
-            answerQuestionInteractor = new AnswerQuestionInteractor(taskScheduler, game);
-        }
-        return answerQuestionInteractor;
+        return new AnswerQuestionInteractor(taskScheduler, game);
     }
 
     public GetNextQuestionInteractor createGetNextQuoteInteractor(final QuizGame game) {
-        if (getNextQuestionInteractor == null) {
-            getNextQuestionInteractor = new GetNextQuestionInteractor(taskScheduler, game);
-        }
-        return getNextQuestionInteractor;
+        return new GetNextQuestionInteractor(taskScheduler, game);
     }
 }
