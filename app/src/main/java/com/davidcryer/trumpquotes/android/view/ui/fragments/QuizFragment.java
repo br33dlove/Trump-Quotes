@@ -181,11 +181,11 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     @Override
     public void showQuestion(AndroidViewQuestion question) {
-        showPlayGameViews();//TODO remove later, need to fix showPlayGameStateTutorial and showPlayGameStateRunning not being called
+        showPlayGameViews();//TODO remove later, need to fix showPlayGameStateTutorial and showPlayGameStateRunning not being called (ie by dismissing tutorial)
         card.quote(question.quote());
         card.signatures(question.optionA(), question.optionB());
         swipeLayout.listenForChildGestures(card, true);
-        if (ViewCompat.isLaidOut(card)) {//TODO test
+        if (ViewCompat.isLaidOut(card)) {//TODO test - broke once after rotating to horizontal layout and started new game (card likely not been through onLayout)
             final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
             final int xOrigin = cardLp.leftMargin;
             final int yOrigin = cardLp.topMargin;
