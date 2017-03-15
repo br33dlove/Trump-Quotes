@@ -93,7 +93,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     @Override
     public void showNewGameLoadingState(QuizAndroidView view) {
         if (view != null) {
-            view.showNewGameStateStart();
+            view.showNewGameStateLoading();
             if (showingPlayGameState()) {
                 view.hidePlayGameState();
             }
@@ -105,7 +105,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     @Override
     public void showFailureToStartGameState(QuizAndroidView view) {
         if (view != null) {
-            view.showNewGameStateStart();
+            view.showNewGameStateError();
             if (showingPlayGameState()) {
                 view.hidePlayGameState();
             }
@@ -117,7 +117,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     @Override
     public void showNewGameTutorialState(QuizAndroidView view) {
         if (view != null) {
-            view.showNewGameStateStart();
+            view.showPlayGameStateTutorial();
             if (showingNewGameState()) {
                 view.hideNewGameState();
             }
