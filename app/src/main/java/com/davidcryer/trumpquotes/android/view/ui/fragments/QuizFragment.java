@@ -181,7 +181,6 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     @Override
     public void showQuestion(AndroidViewQuestion question) {
-        showPlayGameViews();//TODO remove later, need to fix showPlayGameStateTutorial and showPlayGameStateRunning not being called (ie by dismissing tutorial)
         card.quote(question.quote());
         card.signatures(question.optionA(), question.optionB());
         swipeLayout.listenForChildGestures(card, true);
