@@ -2,10 +2,12 @@ package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requ
 
 import com.davidcryer.trumpquotes.platformindependent.model.framework.Cancelable;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Requester;
+import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestFactory;
 
-class RandomQuoteRequesterImpl extends QuoteRequester implements RandomQuoteRequester {
+class RandomQuoteRequesterImpl extends Requester<Quote> implements RandomQuoteRequester {
     private final QuoteRequestFactory requestFactory;
 
     RandomQuoteRequesterImpl(QuoteRequestFactory requestFactory) {
@@ -13,10 +15,10 @@ class RandomQuoteRequesterImpl extends QuoteRequester implements RandomQuoteRequ
     }
 
     @Override
-    public Cancelable request(QuoteRequestCallback callback) {
-        return enqueuedQuoteRequest(new RequestProvider() {
+    public Cancelable randomQuoteRequest(RequestCallback<Quote> callback) {
+        return enqueuedQuoteRequest(new RequestProvider<Quote>() {
             @Override
-            public Request request(final QuoteRequestCallback callback) {
+            public Request request(final RequestCallback<Quote> callback) {
                 return requestFactory.randomQuoteRequest(callback);
             }
         }, callback);

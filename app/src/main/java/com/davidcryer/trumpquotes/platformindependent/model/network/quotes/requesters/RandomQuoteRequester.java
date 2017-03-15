@@ -1,7 +1,9 @@
 package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters;
 
-import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Requester;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.Cancelable;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
+import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
 
-public interface RandomQuoteRequester extends Requester<QuoteRequestCallback> {
+public interface RandomQuoteRequester {
+    Cancelable randomQuoteRequest(final RequestCallback<Quote> callback);
 }

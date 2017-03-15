@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.android.model.network.retrofit.quotes;
 
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestCallback;
 
 import java.lang.ref.WeakReference;
 
@@ -12,9 +12,9 @@ import retrofit2.Response;
 
 public class RetrofitQuoteRequest<QuoteType extends Quote> implements Request {
     private final Call<QuoteType> call;
-    private final WeakReference<QuoteRequestCallback> callback;
+    private final WeakReference<RequestCallback<Quote>> callback;
 
-    public RetrofitQuoteRequest(Call<QuoteType> call, WeakReference<QuoteRequestCallback> callback) {
+    public RetrofitQuoteRequest(Call<QuoteType> call, WeakReference<RequestCallback<Quote>> callback) {
         this.call = call;
         this.callback = callback;
     }
