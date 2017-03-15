@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGameInitialisationService {
+final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGameInitialisationService {
     private final static String OPTION_A = "D. Trump";
     private final static String OPTION_B = "F. Gump";
     private final static QuizAnswer ANSWER_TRUMP = QuizAnswer.newInstanceA();
@@ -26,7 +26,7 @@ public final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGa
     private final QuoteNetworkService trumpQuoteNetworkService;
     private final QuoteFileService gumpQuoteFileService;
 
-    public TrumpQuizGameInitialisationServiceImpl(QuoteNetworkService trumpQuoteNetworkService, QuoteFileService gumpQuoteFileService) {
+    TrumpQuizGameInitialisationServiceImpl(QuoteNetworkService trumpQuoteNetworkService, QuoteFileService gumpQuoteFileService) {
         this.trumpQuoteNetworkService = trumpQuoteNetworkService;
         this.gumpQuoteFileService = gumpQuoteFileService;
     }

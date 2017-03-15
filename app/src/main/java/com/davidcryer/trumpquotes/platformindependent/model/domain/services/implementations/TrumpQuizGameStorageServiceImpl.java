@@ -9,11 +9,11 @@ import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQu
 import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizGameStore;
 import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizQuestionStore;
 
-public class TrumpQuizGameStorageServiceImpl implements TrumpQuizGameStorageService {
+class TrumpQuizGameStorageServiceImpl implements TrumpQuizGameStorageService {
     private final TrumpQuizGameStore gameStore;
     private final TrumpQuizQuestionStore questionStore;
 
-    public TrumpQuizGameStorageServiceImpl(TrumpQuizGameStore gameStore, TrumpQuizQuestionStore questionStore) {
+    TrumpQuizGameStorageServiceImpl(TrumpQuizGameStore gameStore, TrumpQuizQuestionStore questionStore) {
         this.gameStore = gameStore;
         this.questionStore = questionStore;
     }
