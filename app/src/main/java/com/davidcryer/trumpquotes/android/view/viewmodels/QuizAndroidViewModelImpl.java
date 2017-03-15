@@ -10,7 +10,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     private State state;
     private AndroidViewQuestion question;
     private GameState gameState;
-    private boolean questionUpdated;
     private int correctAnswers;
     private int questionsAnswered;
 
@@ -18,14 +17,12 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
             State state,
             AndroidViewQuestion question,
             GameState gameState,
-            boolean questionUpdated,
             int correctAnswers,
             int questionsAnswered
     ) {
         this.state = state;
         this.question = question;
         this.gameState = gameState;
-        this.questionUpdated = questionUpdated;
         this.correctAnswers = correctAnswers;
         this.questionsAnswered = questionsAnswered;
     }
@@ -34,7 +31,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         state = (State) parcel.readSerializable();
         question = parcel.readParcelable(AndroidViewQuestion.class.getClassLoader());
         gameState = (GameState) parcel.readSerializable();
-        questionUpdated = parcel.readByte() != 0;
         correctAnswers = parcel.readInt();
         questionsAnswered = parcel.readInt();
     }
@@ -49,7 +45,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         dest.writeSerializable(state);
         dest.writeParcelable(question, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeSerializable(gameState);
-        dest.writeByte((byte) (questionUpdated ? 1 : 0));
         dest.writeInt(correctAnswers);
         dest.writeInt(questionsAnswered);
     }
@@ -148,8 +143,6 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         this.question = question;
         if (view != null) {
             view.showQuestion(question);
-        } else {
-            questionUpdated = true;
         }
     }
 

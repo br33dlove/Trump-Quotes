@@ -7,7 +7,6 @@ public class QuizAndroidViewModelFactoryImpl implements QuizAndroidViewModelFact
     private final static QuizAndroidViewModel.GameState DEFAULT_GAME_STATE = QuizViewModel.GameState.NOT_INITIALISED;
     private final static int DEFAULT_CORRECT_ANSWER_COUNT = 0;
     private final static int DEFAULT_QUESTION_COUNT = 0;
-    private final static boolean DEFAULT_QUESTION_UPDATED = false;
 
     @Override
     public QuizAndroidViewModel create() {
@@ -15,7 +14,6 @@ public class QuizAndroidViewModelFactoryImpl implements QuizAndroidViewModelFact
                 DEFAULT_STATE,
                 null,
                 DEFAULT_GAME_STATE,
-                DEFAULT_QUESTION_UPDATED,
                 DEFAULT_CORRECT_ANSWER_COUNT,
                 DEFAULT_QUESTION_COUNT
         );
