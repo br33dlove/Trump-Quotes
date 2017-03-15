@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.gumpfile;
+package com.davidcryer.trumpquotes.platformindependent.model.localfiles.quotes;
 
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
 

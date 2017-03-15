@@ -37,7 +37,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.ThreadPoolExecutorTaskSchedulerFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.gumpfile.GumpQuote;
+import com.davidcryer.trumpquotes.platformindependent.model.localfiles.quotes.GumpQuote;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.RandomQuoteRequester;
