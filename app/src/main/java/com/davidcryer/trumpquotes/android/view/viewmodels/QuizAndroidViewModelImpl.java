@@ -177,6 +177,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
             case GAME_TUTORIAL: {
                 view.showPlayGameStateTutorial();
                 view.showScore(correctAnswers, questionsAnswered);
+                view.showQuestion(question);//TODO may want to remove when tutorial properly implemented
                 break;
             }
             case GAME_RUNNING: {

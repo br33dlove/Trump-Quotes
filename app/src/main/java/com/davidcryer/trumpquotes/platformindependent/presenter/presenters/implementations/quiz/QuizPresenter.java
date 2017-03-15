@@ -70,10 +70,12 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
     }
 
     private void initialiseView() {
-        if (viewWrapper.viewModel().gameState() == QuizViewModel.GameState.NOT_INITIALISED) {
-            viewWrapper.showStartNewGameState();
-        } else {
-            loadGame();
+        if (activeGameInteractors == null) {
+            if (viewWrapper.viewModel().gameState() == QuizViewModel.GameState.NOT_INITIALISED) {
+                viewWrapper.showStartNewGameState();
+            } else {
+                loadGame();
+            }
         }
     }
 
