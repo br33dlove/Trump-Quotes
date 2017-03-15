@@ -172,6 +172,7 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
             @Override
             public void onGameFinished() {
                 viewWrapper.showFinishedGameState();
+                activeGameInteractors = null;
             }
         }));
     }
