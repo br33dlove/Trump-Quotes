@@ -3,10 +3,12 @@
 
     <string name="api.base_url.trump_quotes">https://api.whatdoestrumpthink.com/api/</string>
 
-    <string name="game.start_game.info.description">Swipe left for Trump and right for Gump!</string>
-    <string name="game.start_game.info.load_failed">There was a problem starting a new game, please ensure that you are connected to the internet</string>
-    <string name="game.start_game.info.finished">Game finished</string>
-    <string name="game.start_game.button">Start Game</string>
+    <string name="start_game.info.description">Swipe left for Trump and right for Gump!</string>
+    <string name="start_game.info.load_failed">There was a problem starting a new game, please ensure that you are connected to the internet</string>
+    <string name="start_game.info.finished">Game finished; you answered %1$s of %2$s questions correctly!</string>
+    <string name="start_game.button">Start Game</string>
+
+    <string name="score.format">%1$s / %2$s</string>
 
     <string name="signature.format.dash">&#8211; %s</string>
 </resources>

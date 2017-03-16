@@ -20,6 +20,7 @@ import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.View
 import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
+import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
@@ -43,6 +44,8 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     TextView startNewGameInfoTextView;
     @BindView(R.id.start_new_game_button)
     Button startNewGameButton;
+    @BindView(R.id.score)
+    TextView scoreTextView;
 
     public static QuizFragment newInstance() {
         return new QuizFragment();
@@ -125,15 +128,15 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     @Override
     public void showScore(int correctAnswerCount, int questionCount) {
-        //TODO
+        scoreTextView.setText(String.format(getString(R.string.score_format), correctAnswerCount, questionCount));
     }
 
     @Override
     public void showNewGameStateStart() {
         showStartNewGameViews();
-        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
+        startNewGameInfoTextView.setText(getString(R.string.start_game_info_description));
         startNewGameButton.setEnabled(true);
-        startNewGameButton.setText(getString(R.string.game_start_game_button));
+        startNewGameButton.setText(getString(R.string.start_game_button));
     }
 
     @Override
@@ -146,9 +149,9 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     @Override
     public void showNewGameStateError() {
         showStartNewGameViews();
-        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_description));
+        startNewGameInfoTextView.setText(getString(R.string.start_game_info_description));
         startNewGameButton.setEnabled(true);
-        startNewGameButton.setText(getString(R.string.game_start_game_button));
+        startNewGameButton.setText(getString(R.string.start_game_button));
     }
 
     @Override
@@ -167,11 +170,11 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     @Override
-    public void showPlayGameStateFinished() {
+    public void showPlayGameStateFinished(int correctAnswerCount, int questionCount) {
         showStartNewGameViews();
-        startNewGameInfoTextView.setText(getString(R.string.game_start_game_info_finished));
+        startNewGameInfoTextView.setText(String.format(getString(R.string.start_game_info_finished), correctAnswerCount, questionCount));
         startNewGameButton.setEnabled(true);
-        startNewGameButton.setText(getString(R.string.game_start_game_button));
+        startNewGameButton.setText(getString(R.string.start_game_button));
     }
 
     @Override
@@ -206,10 +209,12 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     private void showPlayGameViews() {
         showQuoteCard();
+        showScoreView();
     }
 
     private void hidePlayGameViews() {
         hideQuoteCard();
+        hideScoreView();
     }
 
     private void showQuoteCard() {
@@ -218,6 +223,14 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     private void hideQuoteCard() {
         card.setVisibility(View.GONE);
+    }
+
+    private void showScoreView() {
+        AlphaAnimationHelper.fadeIn(scoreTextView, getResources().getInteger(R.integer.max_duration_fade_score_ms));
+    }
+
+    private void hideScoreView() {
+        AlphaAnimationHelper.fadeOut(scoreTextView, getResources().getInteger(R.integer.max_duration_fade_score_ms));
     }
 
     @OnClick(R.id.start_new_game_button)

@@ -9,7 +9,7 @@ public interface QuizAndroidView extends AndroidMvpView {
     void hideNewGameState();
     void showPlayGameStateTutorial();
     void showPlayGameStateRunning();
-    void showPlayGameStateFinished();
+    void showPlayGameStateFinished(final int correctAnswerCount, final int questionCount);
     void hidePlayGameState();
     void showScore(final int correctAnswerCount, final int questionCount);
     void showQuestion(final AndroidViewQuestion question);

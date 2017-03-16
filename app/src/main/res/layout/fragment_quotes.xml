@@ -8,6 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:visibility="gone" />
+
         <com.davidcryer.trumpquotes.android.view.ui.components.SingleChildSwipeLayout
             android:id="@+id/swipe_layout"
             android:layout_width="match_parent"
@@ -28,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
-            android:dividerPadding="32dp"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -36,7 +42,12 @@
                 android:id="@+id/start_new_game_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:lines="3" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
             <Button
                 android:id="@+id/start_new_game_button"

@@ -149,7 +149,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     @Override
     public void showFinishedGameState(QuizAndroidView view) {
         if (view != null) {
-            view.showPlayGameStateFinished();
+            view.showPlayGameStateFinished(correctAnswers, questionsAnswered);
             if (showingPlayGameState()) {
                 view.hidePlayGameState();
             }
@@ -187,7 +187,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
                 break;
             }
             case GAME_FINISHED: {
-                view.showPlayGameStateFinished();
+                view.showPlayGameStateFinished(correctAnswers, questionsAnswered);
                 break;
             }
         }
