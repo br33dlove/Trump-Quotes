@@ -160,7 +160,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     }
 
     @Override
-    public void onto(QuizAndroidView view, final boolean setAllData) {
+    public void onto(QuizAndroidView view) {
         switch (state) {
             case START_NEW_GAME: {
                 view.showNewGameStateStart();

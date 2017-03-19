@@ -122,8 +122,8 @@ public class QuizViewWrapper extends ViewWrapper<QuizAndroidView, QuizAndroidVie
     };
 
     @Override
-    protected void showCurrentState(final QuizAndroidView view, boolean setAllData) {
-        viewModel.onto(view, setAllData);
+    protected void showCurrentState(final QuizAndroidView view) {
+        viewModel.onto(view);
     }
 
     @Override

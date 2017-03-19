@@ -5,12 +5,13 @@ import com.davidcryer.trumpquotes.android.view.ui.AndroidMvpView;
 public abstract class ViewWrapper<ViewType extends AndroidMvpView, ViewEventsListenerType extends AndroidMvpView.EventsListener> {
     private ViewType view;
 
-    public void register(final ViewType view, final boolean setAllData) {
+    public ViewEventsListenerType register(final ViewType view) {
         this.view = view;
-        showCurrentState(view, setAllData);
+        showCurrentState(view);
+        return viewEventsListener();
     }
 
-    abstract void showCurrentState(final ViewType view, final boolean setAllData);
+    abstract void showCurrentState(final ViewType view);
 
     ViewType view() {
         return view;
@@ -22,5 +23,5 @@ public abstract class ViewWrapper<ViewType extends AndroidMvpView, ViewEventsLis
 
     public abstract void releaseResources(final boolean isFinishing);
 
-    public abstract ViewEventsListenerType viewEventsListener();
+    abstract ViewEventsListenerType viewEventsListener();
 }

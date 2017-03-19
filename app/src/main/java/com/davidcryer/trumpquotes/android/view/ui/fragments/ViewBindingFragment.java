@@ -11,22 +11,27 @@ import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.View
 import com.davidcryer.trumpquotes.android.view.ui.AndroidMvpView;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.CastHelper;
 
+import java.util.UUID;
+
 abstract class ViewBindingFragment<EventsListenerType extends AndroidMvpView.EventsListener> extends Fragment {
+    private final static String ARG_STATE_INSTANCE_ID = "instance id";
     private ViewWrapperRepository viewWrapperRepository;
     private EventsListenerType eventsListener;
+    private String instanceId;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialiseViewWrapperRepositoryReference();
-        eventsListener = bind(viewWrapperRepository, savedInstanceState);
+        instanceId = savedInstanceState == null ? UUID.randomUUID().toString() : savedInstanceState.getString(ARG_STATE_INSTANCE_ID);
+        eventsListener = bind(viewWrapperRepository, instanceId, savedInstanceState);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         if (eventsListener == null) {
-            eventsListener = bind(viewWrapperRepository, null);
+            eventsListener = bind(viewWrapperRepository, instanceId, null);
         }
     }
 
@@ -42,12 +47,12 @@ abstract class ViewBindingFragment<EventsListenerType extends AndroidMvpView.Eve
         return CastHelper.riskyCastToInterface(getActivity(), ViewWrapperRepositoryProvider.class);
     }
 
-    abstract EventsListenerType bind(final ViewWrapperRepository viewWrapperRepository, final Bundle savedState);
+    abstract EventsListenerType bind(final ViewWrapperRepository viewWrapperRepository, final String instanceId, final Bundle savedState);
 
     @Override
     public void onStop() {
         super.onStop();
-        unbind(viewWrapperRepository, unbindType());
+        unbind(viewWrapperRepository, instanceId, unbindType());
         eventsListener = null;
     }
 
@@ -61,7 +66,7 @@ abstract class ViewBindingFragment<EventsListenerType extends AndroidMvpView.Eve
         return ViewUnbindType.NON_CONFIG_CHANGE;
     }
 
-    abstract void unbind(final ViewWrapperRepository viewWrapperRepository, final ViewUnbindType unbindType);
+    abstract void unbind(final ViewWrapperRepository viewWrapperRepository, final String instanceId, final ViewUnbindType unbindType);
 
     boolean hasEventsListener() {
         return eventsListener != null;

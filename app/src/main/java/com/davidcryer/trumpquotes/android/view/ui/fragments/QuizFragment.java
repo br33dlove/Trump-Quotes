@@ -247,13 +247,13 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     @Override
-    protected QuizAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, final Bundle savedState) {
-        return viewWrapperRepository.bind(this, savedState);
+    protected QuizAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, String instanceId, Bundle savedState) {
+        return viewWrapperRepository.bind(this, instanceId, savedState);
     }
 
     @Override
-    protected void unbind(ViewWrapperRepository viewWrapperRepository, ViewUnbindType unbindType) {
-        viewWrapperRepository.unbind(this, unbindType);
+    protected void unbind(ViewWrapperRepository viewWrapperRepository, String instanceId, ViewUnbindType unbindType) {
+        viewWrapperRepository.unbind(this, instanceId, unbindType);
     }
 
     @Override
