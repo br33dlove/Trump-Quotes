@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.store.games.sharedpreferences;
+package com.davidcryer.trumpquotes.android.model.framework.store.games.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,7 +8,7 @@ import com.davidcryer.trumpquotes.platformindependent.javahelpers.StringHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizGameStorageModel;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
 
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.DELIMITER_COMMA;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.DELIMITER_COMMA;
 
 public class SharedPreferencesGameStore implements TrumpQuizGameStore {
     private final static String KEY_SHARED_PREFERENCES = "game";

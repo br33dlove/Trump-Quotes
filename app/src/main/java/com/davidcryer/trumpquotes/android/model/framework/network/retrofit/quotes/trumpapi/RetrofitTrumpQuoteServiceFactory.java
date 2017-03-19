@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi;
+package com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes.trumpapi;
 
 public interface RetrofitTrumpQuoteServiceFactory {
     RetrofitTrumpQuoteService create();

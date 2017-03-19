@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.store.games.sql;
+package com.davidcryer.trumpquotes.android.model.framework.store.games.sqlite;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -10,17 +10,17 @@ import com.davidcryer.trumpquotes.platformindependent.javahelpers.ArrayHelper;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.StringHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizGameStorageModel;
 
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.CLOSE_BRACKET;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.COMMA;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.CREATE_TABLE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.DELIMITER_COMMA;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INTEGER_TYPE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INT_VALUE_FALSE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INT_VALUE_TRUE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.OPEN_BRACKET;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.PRIMARY_KEY_TYPE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.SPACE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.TEXT_TYPE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.CLOSE_BRACKET;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.COMMA;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.CREATE_TABLE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.DELIMITER_COMMA;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.INTEGER_TYPE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.INT_VALUE_FALSE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.INT_VALUE_TRUE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.OPEN_BRACKET;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.PRIMARY_KEY_TYPE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.SPACE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.TEXT_TYPE;
 
 public class GameContractImpl implements GameContract {
 

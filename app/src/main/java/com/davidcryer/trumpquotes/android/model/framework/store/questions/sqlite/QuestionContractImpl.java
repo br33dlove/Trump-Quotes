@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.store.questions;
+package com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -6,17 +6,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.provider.BaseColumns;
 
-import com.davidcryer.trumpquotes.android.model.helpers.store.QueryHelper;
+import com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.QueryHelper;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.ArrayHelper;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizQuestionStorageModel;
 
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.CLOSE_BRACKET;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.COMMA;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.CREATE_TABLE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.OPEN_BRACKET;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.PRIMARY_KEY_TYPE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.SPACE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.TEXT_TYPE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.CLOSE_BRACKET;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.COMMA;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.CREATE_TABLE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.OPEN_BRACKET;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.PRIMARY_KEY_TYPE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.SPACE;
+import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.TEXT_TYPE;
 
 public class QuestionContractImpl implements QuestionContract {
 

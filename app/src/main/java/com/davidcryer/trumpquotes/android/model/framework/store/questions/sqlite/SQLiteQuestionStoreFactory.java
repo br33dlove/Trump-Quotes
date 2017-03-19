@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.store.questions;
+package com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

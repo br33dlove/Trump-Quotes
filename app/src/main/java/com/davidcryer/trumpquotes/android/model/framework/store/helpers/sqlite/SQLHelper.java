@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.helpers.store;
+package com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite;
 
 public interface SQLHelper {
     String SPACE = " ";

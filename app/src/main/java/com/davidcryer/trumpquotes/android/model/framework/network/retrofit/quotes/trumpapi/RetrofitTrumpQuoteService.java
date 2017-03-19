@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpapi;
+package com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes.trumpapi;
 
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.TrumpQuote;
 
