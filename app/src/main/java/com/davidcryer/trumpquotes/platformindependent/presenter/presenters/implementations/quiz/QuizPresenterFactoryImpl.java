@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.quiz;
 
-import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InteractorFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizPresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.QuizView;

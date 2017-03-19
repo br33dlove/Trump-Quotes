@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.android.view.viewmodels.models;
 
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizQuestion;
+import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 
 public class AndroidViewQuestionFactory implements ViewQuestionFactory<AndroidViewQuestion> {

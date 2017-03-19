@@ -1,11 +1,11 @@
 package com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.quiz;
 
-import com.davidcryer.trumpquotes.platformindependent.model.domain.entities.QuizQuestion;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.ActiveGameInteractors;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.AnswerQuestionInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.GetNextQuestionInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InitialiseGameInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.LoadGameInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.ActiveGameInteractors;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.AnswerQuestionInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.GetNextQuestionInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.InitialiseGameInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.LoadGameInteractor;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.Presenter;
 import com.davidcryer.trumpquotes.platformindependent.view.QuizView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewModel;

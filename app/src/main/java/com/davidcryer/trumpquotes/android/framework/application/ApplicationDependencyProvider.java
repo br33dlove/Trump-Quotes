@@ -30,9 +30,9 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQues
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestionFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.interactors.InteractorFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.services.ServiceFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.domain.services.implementations.ServiceFactoryImpl;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.services.implementations.ServiceFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.QuoteFile;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.ThreadPoolExecutorTaskSchedulerFactory;
