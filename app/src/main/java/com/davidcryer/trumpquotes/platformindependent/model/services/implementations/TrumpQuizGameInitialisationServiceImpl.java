@@ -94,6 +94,15 @@ final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGameIniti
             }
         }
 
+        private QuoteSource[] randomQuoteTypes() {
+            final CoinFlipper coinFlipper = new CoinFlipper();
+            final QuoteSource[] quoteSources = new QuoteSource[totalQuestionsCount];
+            for (int i = 0; i < totalQuestionsCount; i++) {
+                quoteSources[i] = coinFlipper.flip() == CoinFlipper.Result.HEADS ? QuoteSource.GUMP : QuoteSource.TRUMP;
+            }
+            return quoteSources;
+        }
+
         private void getQuoteFromFile(final QuoteFileService fileService, final QuizAnswer answer) {
             try {
                 onQuestionCreated(question(fileService.randomQuote(), answer));
@@ -104,17 +113,6 @@ final class TrumpQuizGameInitialisationServiceImpl implements TrumpQuizGameIniti
 
         private void sendQuoteNetworkRequest(final QuoteNetworkService networkService, final QuizAnswer answer) {
             randomQuoteFetchers.add(networkService.randomQuote(quoteServiceCallback(answer)));
-        }
-
-        private QuoteSource[] randomQuoteTypes() {
-            //TODO debug trump quotes not coming through
-            final CoinFlipper coinFlipper = new CoinFlipper();
-            final QuoteSource[] quoteSources = new QuoteSource[totalQuestionsCount];
-            for (int i = 0; i < totalQuestionsCount; i++) {
-                quoteSources[i] = QuoteSource.GUMP;
-//                quoteSources[i] = coinFlipper.flip() == CoinFlipper.Result.HEADS ? QuoteSource.GUMP : QuoteSource.TRUMP;
-            }
-            return quoteSources;
         }
 
         private QuoteNetworkService.Callback quoteServiceCallback(final QuizAnswer answer) {
