@@ -33,16 +33,16 @@ import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperF
 import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.implementations.ServiceFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.QuoteFile;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.QuoteFile;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.ThreadPoolExecutorTaskSchedulerFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.localfiles.quotes.gumpfile.GumpQuote;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.QuoteRequesterFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.RandomQuoteRequester;
-import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizGameStore;
-import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizQuestionStore;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.QuoteRequestFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.gump.GumpQuote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters.QuoteRequesterFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters.QuoteRequesterFactoryImpl;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters.RandomQuoteRequester;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizQuestionStore;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 import com.google.gson.Gson;
 

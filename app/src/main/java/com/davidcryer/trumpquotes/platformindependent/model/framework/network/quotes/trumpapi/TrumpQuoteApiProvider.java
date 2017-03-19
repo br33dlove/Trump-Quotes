@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.trumpapi;
+package com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi;
 
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.ApiProvider;
 

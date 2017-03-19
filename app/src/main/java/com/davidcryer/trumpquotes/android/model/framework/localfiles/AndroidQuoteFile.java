@@ -2,8 +2,8 @@ package com.davidcryer.trumpquotes.android.model.framework.localfiles;
 
 import android.content.res.AssetManager;
 
-import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.QuoteFile;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.QuoteFile;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 import com.google.gson.Gson;
 
 import java.io.IOException;

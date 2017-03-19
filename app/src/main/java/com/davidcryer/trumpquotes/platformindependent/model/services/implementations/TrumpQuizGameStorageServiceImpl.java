@@ -4,10 +4,10 @@ import com.davidcryer.trumpquotes.platformindependent.model.domainentities.Domai
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.TrumpQuizGameImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.services.TrumpQuizGameStorageService;
 import com.davidcryer.trumpquotes.platformindependent.model.services.errors.StorageError;
-import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizGameStorageModel;
-import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizQuestionStorageModel;
-import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizGameStore;
-import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizQuestionStore;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizGameStorageModel;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizQuestionStorageModel;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizQuestionStore;
 
 class TrumpQuizGameStorageServiceImpl implements TrumpQuizGameStorageService {
     private final TrumpQuizGameStore gameStore;

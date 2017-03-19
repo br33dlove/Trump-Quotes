@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.android.model.store.questions;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizQuestionStorageModel;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizQuestionStorageModel;
 
 public interface QuestionContract {
     void createTable(final SQLiteDatabase database);

@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.platformindependent.model.services;
 
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 
 import java.io.IOException;
 

@@ -1,6 +1,6 @@
-package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.trumpapi;
+package com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi;
 
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 
 public class TrumpQuote implements Quote {
     private String message;

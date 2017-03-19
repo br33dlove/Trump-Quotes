@@ -5,10 +5,10 @@ import com.davidcryer.trumpquotes.platformindependent.model.services.QuoteNetwor
 import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.TrumpQuizGameInitialisationService;
 import com.davidcryer.trumpquotes.platformindependent.model.services.TrumpQuizGameStorageService;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.QuoteFile;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.RandomQuoteRequester;
-import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizGameStore;
-import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizQuestionStore;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.QuoteFile;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters.RandomQuoteRequester;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizQuestionStore;
 
 public class ServiceFactoryImpl implements ServiceFactory {
     private final QuoteFile gumpQuoteFile;

@@ -3,8 +3,8 @@ package com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.trumpap
 import com.davidcryer.trumpquotes.android.model.network.retrofit.quotes.RetrofitQuoteRequest;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.QuoteRequestFactory;
 
 import java.lang.ref.WeakReference;
 

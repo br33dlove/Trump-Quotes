@@ -3,8 +3,8 @@ package com.davidcryer.trumpquotes.platformindependent.model.services.implementa
 import com.davidcryer.trumpquotes.platformindependent.model.services.QuoteNetworkService;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.Cancelable;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters.RandomQuoteRequester;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters.RandomQuoteRequester;
 
 class QuoteNetworkServiceImpl implements QuoteNetworkService {
     private final RandomQuoteRequester quoteRequester;

@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.platformindependent.model.store.models;
+package com.davidcryer.trumpquotes.platformindependent.model.framework.store.models;
 
 public class TrumpQuizQuestionStorageModel {
     public final int id;

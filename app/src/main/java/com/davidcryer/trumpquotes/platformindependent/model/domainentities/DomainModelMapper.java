@@ -1,7 +1,7 @@
 package com.davidcryer.trumpquotes.platformindependent.model.domainentities;
 
-import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizGameStorageModel;
-import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizQuestionStorageModel;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizGameStorageModel;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizQuestionStorageModel;
 
 public class DomainModelMapper {
 

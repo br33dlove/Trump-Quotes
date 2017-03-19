@@ -1,6 +1,6 @@
-package com.davidcryer.trumpquotes.platformindependent.model.network.quotes.requesters;
+package com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters;
 
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.QuoteRequestFactory;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.QuoteRequestFactory;
 
 public class QuoteRequesterFactoryImpl implements QuoteRequesterFactory {
     private final QuoteRequestFactory quoteRequestFactory;

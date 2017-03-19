@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizGameStorageModel;
-import com.davidcryer.trumpquotes.platformindependent.model.store.stores.TrumpQuizGameStore;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizGameStorageModel;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
 
 class SQLiteGameStore extends SQLiteOpenHelper implements TrumpQuizGameStore {
     private final GameContract gameContract;

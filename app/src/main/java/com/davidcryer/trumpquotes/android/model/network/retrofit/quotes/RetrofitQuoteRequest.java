@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.android.model.network.retrofit.quotes;
 
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 
 import java.lang.ref.WeakReference;
 

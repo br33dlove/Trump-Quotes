@@ -8,14 +8,11 @@ import android.provider.BaseColumns;
 
 import com.davidcryer.trumpquotes.android.model.helpers.store.QueryHelper;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.ArrayHelper;
-import com.davidcryer.trumpquotes.platformindependent.model.store.models.TrumpQuizQuestionStorageModel;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizQuestionStorageModel;
 
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.CLOSE_BRACKET;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.COMMA;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.CREATE_TABLE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INTEGER_TYPE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INT_VALUE_FALSE;
-import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.INT_VALUE_TRUE;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.OPEN_BRACKET;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.PRIMARY_KEY_TYPE;
 import static com.davidcryer.trumpquotes.android.model.helpers.store.SQLHelper.SPACE;

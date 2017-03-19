@@ -1,6 +1,6 @@
-package com.davidcryer.trumpquotes.platformindependent.model.localfiles.quotes.gumpfile;
+package com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.gump;
 
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 
 public class GumpQuote implements Quote {
     private final String quote;

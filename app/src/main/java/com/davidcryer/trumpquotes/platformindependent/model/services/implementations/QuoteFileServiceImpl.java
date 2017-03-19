@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.platformindependent.model.services.implementations;
 
 import com.davidcryer.trumpquotes.platformindependent.model.services.QuoteFileService;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.QuoteFile;
-import com.davidcryer.trumpquotes.platformindependent.model.network.quotes.Quote;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.QuoteFile;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 
 import java.io.IOException;
 import java.util.Random;
