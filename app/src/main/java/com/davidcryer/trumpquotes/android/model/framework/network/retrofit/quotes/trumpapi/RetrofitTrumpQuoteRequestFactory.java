@@ -6,8 +6,6 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Re
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.QuoteRequestFactory;
 
-import java.lang.ref.WeakReference;
-
 public class RetrofitTrumpQuoteRequestFactory implements QuoteRequestFactory {
     private final RetrofitTrumpQuoteService quoteService;
 
@@ -17,6 +15,6 @@ public class RetrofitTrumpQuoteRequestFactory implements QuoteRequestFactory {
 
     @Override
     public Request randomQuoteRequest(final RequestCallback<Quote> requestCallback) {
-        return new RetrofitQuoteRequest<>(quoteService.randomQuote(), new WeakReference<>(requestCallback));
+        return new RetrofitQuoteRequest<>(quoteService.randomQuote(), requestCallback);
     }
 }

@@ -4,17 +4,15 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Re
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
 
-import java.lang.ref.WeakReference;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RetrofitQuoteRequest<QuoteType extends Quote> implements Request {
     private final Call<QuoteType> call;
-    private final WeakReference<RequestCallback<Quote>> callback;
+    private final RequestCallback<Quote> callback;
 
-    public RetrofitQuoteRequest(Call<QuoteType> call, WeakReference<RequestCallback<Quote>> callback) {
+    public RetrofitQuoteRequest(Call<QuoteType> call, RequestCallback<Quote> callback) {
         this.call = call;
         this.callback = callback;
     }
@@ -24,15 +22,15 @@ public class RetrofitQuoteRequest<QuoteType extends Quote> implements Request {
         call.enqueue(new Callback<QuoteType>() {
             @Override
             public void onResponse(Call<QuoteType> call, Response<QuoteType> response) {
-                if (callback.get() != null) {
-                    callback.get().success(response.body());
+                if (callback != null) {
+                    callback.success(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<QuoteType> call, Throwable t) {
-                if (callback.get() != null) {
-                    callback.get().failure();
+                if (callback != null) {
+                    callback.failure();
                 }
             }
         });
@@ -46,7 +44,6 @@ public class RetrofitQuoteRequest<QuoteType extends Quote> implements Request {
     @Override
     public void cancel() {
         call.cancel();
-        callback.clear();
     }
 
     @Override
