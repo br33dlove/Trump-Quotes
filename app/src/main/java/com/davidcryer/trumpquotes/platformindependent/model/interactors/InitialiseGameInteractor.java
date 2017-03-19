@@ -9,7 +9,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task
 import java.lang.ref.WeakReference;
 
 public final class InitialiseGameInteractor extends Interactor {
-    private final static int QUESTION_COUNT = 2;
+    private final static int QUESTION_COUNT = 10;
     private final InteractorFactory interactorFactory;
     private final TrumpQuizGameInitialisationService initialisationService;
 
