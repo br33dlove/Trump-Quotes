@@ -43,7 +43,7 @@ public class FragmentManagerHelper {
     public static int nonRetainedFragmentCount(final FragmentManager fragmentManager) {
         int nonRetainedFragmentCount = 0;
         for (final Fragment fragment : fragmentManager.getFragments()) {
-            if (!fragment.getRetainInstance()) {
+            if (fragment != null && !fragment.getRetainInstance()) {
                 nonRetainedFragmentCount++;
             }
         }
