@@ -18,10 +18,15 @@ public class AlphaAnimationHelper {
     }
 
     public static void fadeIn(final View view, final long maxDuration) {
-        view.setVisibility(View.VISIBLE);
         view.animate()
                 .alpha(1)
                 .setDuration(alphaAnimationDuration(view.getAlpha(), 1, maxDuration))
+                .withStartAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.VISIBLE);
+                    }
+                })
                 .start();
     }
 
