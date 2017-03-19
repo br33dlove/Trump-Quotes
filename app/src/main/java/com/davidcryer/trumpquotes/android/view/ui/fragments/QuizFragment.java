@@ -134,7 +134,14 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     @Override
     public void showNewGameStateStart() {
         showStartNewGameViews();
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         startNewGameInfoTextView.setText(getString(R.string.start_game_info_description));
+        AlphaAnimationHelper.fadeIn(startNewGameButton, getResources().getInteger(R.integer.max_duration_fade_score_ms));
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.start_game_button));
     }
@@ -142,20 +149,38 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     @Override
     public void showNewGameStateLoading() {
         showStartNewGameViews();
-        startNewGameButton.setEnabled(false);
-        startNewGameButton.setText("");
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+        AlphaAnimationHelper.fadeOut(startNewGameButton, getResources().getInteger(R.integer.max_duration_fade_score_ms));
     }
 
     @Override
     public void showNewGameStateError() {
         showStartNewGameViews();
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         startNewGameInfoTextView.setText(getString(R.string.start_game_info_description));
+        AlphaAnimationHelper.fadeIn(startNewGameButton, getResources().getInteger(R.integer.max_duration_fade_score_ms));
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.start_game_button));
     }
 
     @Override
     public void hideNewGameState() {
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         hideStartNewGameContainer();
     }
 
@@ -173,6 +198,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     public void showPlayGameStateFinished(int correctAnswerCount, int questionCount) {
         showStartNewGameViews();
         startNewGameInfoTextView.setText(String.format(getString(R.string.start_game_info_finished), correctAnswerCount, questionCount));
+        AlphaAnimationHelper.fadeIn(startNewGameButton, 0);
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.start_game_button));
     }
