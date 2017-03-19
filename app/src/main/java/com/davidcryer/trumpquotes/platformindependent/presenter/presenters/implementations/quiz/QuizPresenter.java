@@ -110,72 +110,66 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
     }
 
     private void initialiseGame() {
-        initialiseGameInteractor.runTask(new WeakReference<InitialiseGameInteractor.Callback>(new InitialiseGameInteractor.Callback() {
-            @Override
-            public void onInitialiseGame(ActiveGameInteractors interactors, int correctAnswers, int questionsAnswered) {
-                activeGameInteractors = interactors;
-                viewWrapper.showScore(correctAnswers, questionsAnswered);
-                viewWrapper.showNewGameTutorial();
-                getNextQuestion();
-            }
-
-            @Override
-            public void onError() {
-                viewWrapper.showFailureToStartGameState();
-            }
-        }));
+        initialiseGameInteractor.runTask(new WeakReference<>(initialisationCallback));
     }
+
+    private final InitialiseGameInteractor.Callback initialisationCallback = new InitialiseGameInteractor.Callback() {
+        @Override
+        public void onInitialiseGame(ActiveGameInteractors interactors, int correctAnswers, int questionsAnswered) {
+            activeGameInteractors = interactors;
+            viewWrapper.showScore(correctAnswers, questionsAnswered);
+            viewWrapper.showNewGameTutorial();
+            getNextQuestion();
+        }
+
+        @Override
+        public void onError() {
+            viewWrapper.showFailureToStartGameState();
+        }
+    };
 
     private void answerOptionA() {
         if (activeGameInteractors != null) {
-            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionA(new WeakReference<AnswerQuestionInteractor.Callback>(new AnswerQuestionInteractor.Callback() {
-                @Override
-                public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
-                    viewWrapper.showScore(correctAnswers, questionsAnswered);
-                    getNextQuestion();
-                }
-
-                @Override
-                public void onWrongAnswerGiven(int correctAnswers, int questionsAnswered) {
-                    viewWrapper.showScore(correctAnswers, questionsAnswered);
-                    getNextQuestion();
-                }
-            }));
+            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionA(new WeakReference<>(answerQuestionCallback));
         }
     }
 
     private void answerOptionB() {
         if (activeGameInteractors != null) {
-            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionB(new WeakReference<AnswerQuestionInteractor.Callback>(new AnswerQuestionInteractor.Callback() {
-                @Override
-                public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
-                    viewWrapper.showScore(correctAnswers, questionsAnswered);
-                    getNextQuestion();
-                }
-
-                @Override
-                public void onWrongAnswerGiven(int correctAnswers, int questionsAnswered) {
-                    viewWrapper.showScore(correctAnswers, questionsAnswered);
-                    getNextQuestion();
-                }
-            }));
+            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionB(new WeakReference<>(answerQuestionCallback));
         }
     }
 
-    private void getNextQuestion() {
-        activeGameInteractors.getNextQuestionInteractor().runTask(new WeakReference<GetNextQuestionInteractor.Callback>(new GetNextQuestionInteractor.Callback() {
-            @Override
-            public void nextQuestion(QuizQuestion quizQuestion) {
-                viewWrapper.showQuestionState(viewQuestionFactory.create(quizQuestion));
-            }
+    private final AnswerQuestionInteractor.Callback answerQuestionCallback = new AnswerQuestionInteractor.Callback() {
+        @Override
+        public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
+            viewWrapper.showScore(correctAnswers, questionsAnswered);
+            getNextQuestion();
+        }
 
-            @Override
-            public void onGameFinished() {
-                viewWrapper.showFinishedGameState();
-                activeGameInteractors = null;
-            }
-        }));
+        @Override
+        public void onWrongAnswerGiven(int correctAnswers, int questionsAnswered) {
+            viewWrapper.showScore(correctAnswers, questionsAnswered);
+            getNextQuestion();
+        }
+    };
+
+    private void getNextQuestion() {
+        activeGameInteractors.getNextQuestionInteractor().runTask(new WeakReference<>(getNextQuestionCallback));
     }
+
+    private final GetNextQuestionInteractor.Callback getNextQuestionCallback = new GetNextQuestionInteractor.Callback() {
+        @Override
+        public void nextQuestion(QuizQuestion quizQuestion) {
+            viewWrapper.showQuestionState(viewQuestionFactory.create(quizQuestion));
+        }
+
+        @Override
+        public void onGameFinished() {
+            viewWrapper.showFinishedGameState();
+            activeGameInteractors = null;
+        }
+    };
 
     private void dismissNewGameTutorial() {
         viewWrapper.dismissNewGameTutorial();
