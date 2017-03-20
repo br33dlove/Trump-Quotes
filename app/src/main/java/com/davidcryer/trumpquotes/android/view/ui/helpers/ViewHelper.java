@@ -5,10 +5,6 @@ import android.view.View;
 public class ViewHelper {
 
     public static boolean coordinatesAreInView(final float x, final float y, final View view) {
-        return true;//TODO
-    }
-
-    public static boolean coordinatesAreInView(final int x, final int y, final View view) {
-        return true;//TODO
+        return x >= view.getX() && x <= view.getX() + view.getWidth() && y >= view.getY() && y <= view.getY() + view.getHeight();
     }
 }

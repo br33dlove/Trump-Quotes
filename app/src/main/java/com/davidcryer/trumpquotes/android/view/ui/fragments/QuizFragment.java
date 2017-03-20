@@ -3,7 +3,6 @@ package com.davidcryer.trumpquotes.android.view.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,7 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.davidcryer.trumpquotes.R;
@@ -21,6 +22,7 @@ import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
+import com.davidcryer.trumpquotes.android.view.ui.helpers.OnGlobalLayoutHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
@@ -32,8 +34,6 @@ import butterknife.Unbinder;
 
 public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsListener> implements QuizAndroidView {
     private Unbinder unbinder;
-    @BindView(R.id.quote_card)
-    QuoteCard card;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout)
@@ -78,8 +78,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
                 if (hasEventsListener()) {
                     eventsListener().onAnswerOptionA();
                 }
-                swipeLayout.listenForChildGestures(child, false);
-                //TODO clean up view
+                swipeLayout.removeView(child);
             }
 
             @Override
@@ -87,16 +86,15 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
                 if (hasEventsListener()) {
                     eventsListener().onAnswerOptionB();
                 }
-                swipeLayout.listenForChildGestures(child, false);
-                //TODO clean up view
+                swipeLayout.removeView(child);
             }
 
-            @Override
-            public void onCardMoved(float percentageOffsetFromCentreX) {
-                card.updateSignatureAlpha(percentageOffsetFromCentreX);
+            public void onViewMoved(final View child, float percentageOffsetFromCentreX) {
+                if (child instanceof QuoteCard) {
+                    ((QuoteCard) child).updateSignatureAlpha(percentageOffsetFromCentreX);
+                }
             }
         });
-        card.setVisibility(View.GONE);
     }
 
     @Override
@@ -209,20 +207,39 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     @Override
-    public void showQuestion(AndroidViewQuestion question) {
-        card.quote(question.quote());
-        card.signatures(question.optionA(), question.optionB());
-        swipeLayout.listenForChildGestures(card, true);
-        if (ViewCompat.isLaidOut(card)) {//TODO test - broke once after rotating to horizontal layout and started new game (card likely not been through onLayout)
-            final ViewGroup.MarginLayoutParams cardLp = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
-            final int xOrigin = cardLp.leftMargin;
-            final int yOrigin = cardLp.topMargin;
-            card.setX(xOrigin);
-            card.setY(yOrigin);
-            card.invalidate();
-        }
-        card.updateSignatureAlpha(0);
-        //TODO setup card (slide into view?)
+    public void showQuestion(final AndroidViewQuestion question) {
+        final int horizontalMargin = getResources().getDimensionPixelOffset(R.dimen.card_margin_horizontal);
+        final int offscreenY = swipeRefreshLayout.getHeight() + getResources().getDimensionPixelOffset(R.dimen.card_buffer_offscreen);
+        final QuoteCard card = new QuoteCard(getActivity());
+        OnGlobalLayoutHelper.listen(card, new OnGlobalLayoutHelper.PreLayoutCallback() {
+            @Override
+            public void onPreLayout() {
+                card.quote(question.quote());
+                card.signatures(question.optionA(), question.optionB());
+                card.updateSignatureAlpha(0);
+                final FrameLayout.LayoutParams cardLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                cardLp.leftMargin = horizontalMargin;
+                cardLp.rightMargin = horizontalMargin;
+                card.setLayoutParams(cardLp);
+                card.setY(offscreenY);
+                swipeLayout.addView(card);
+            }
+        }, new OnGlobalLayoutHelper.PostLayoutCallback() {
+            @Override
+            public void onPostLayout() {
+                card.animate()
+                        .y((swipeRefreshLayout.getHeight() - card.getHeight()) / 2.0f)
+                        .setInterpolator(new DecelerateInterpolator())
+                        .setDuration(300)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                swipeLayout.listenForChildGestures(card, true);
+                            }
+                        })
+                        .start();
+            }
+        });
     }
 
     private void showStartNewGameViews() {
@@ -234,21 +251,11 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     private void showPlayGameViews() {
-        showQuoteCard();
         showScoreView();
     }
 
     private void hidePlayGameViews() {
-        hideQuoteCard();
         hideScoreView();
-    }
-
-    private void showQuoteCard() {
-        card.setVisibility(View.VISIBLE);
-    }
-
-    private void hideQuoteCard() {
-        card.setVisibility(View.GONE);
     }
 
     private void showScoreView() {

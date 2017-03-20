@@ -15,19 +15,10 @@
             android:layout_gravity="end|bottom"
             android:visibility="gone" />
 
-        <com.davidcryer.trumpquotes.android.view.ui.components.SingleChildSwipeLayout
+        <com.davidcryer.trumpquotes.android.view.ui.components.MultiChildSwipeLayout
             android:id="@+id/swipe_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard
-                android:id="@+id/quote_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="32dp"
-                android:visibility="gone" />
-
-        </com.davidcryer.trumpquotes.android.view.ui.components.SingleChildSwipeLayout>
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/start_new_game_container"

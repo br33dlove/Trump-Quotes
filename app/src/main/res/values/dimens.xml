@@ -1,3 +1,4 @@
 <resources>
-
+    <dimen name="card.margin.horizontal">32dp</dimen>
+    <dimen name="card.buffer.offscreen">8dp</dimen>
 </resources>

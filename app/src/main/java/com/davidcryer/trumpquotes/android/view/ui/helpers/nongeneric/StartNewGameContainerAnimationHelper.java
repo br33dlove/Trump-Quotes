@@ -2,7 +2,7 @@ package com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric;
 
 import android.view.View;
 
-import com.davidcryer.trumpquotes.android.view.ui.helpers.OnLayoutHelper;
+import com.davidcryer.trumpquotes.android.view.ui.helpers.OnGlobalLayoutHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.SlideInAndOffScreenHelper;
 
 public class StartNewGameContainerAnimationHelper {
@@ -10,14 +10,14 @@ public class StartNewGameContainerAnimationHelper {
 
     public static void slideIn(final View view, final View root) {
         if (view.getVisibility() == View.GONE) {
-            OnLayoutHelper.layout(view, new OnLayoutHelper.Callback() {
+            OnGlobalLayoutHelper.listen(view, new OnGlobalLayoutHelper.PreLayoutCallback() {
                 @Override
-                public void preLayout() {
+                public void onPreLayout() {
                     view.setVisibility(View.VISIBLE);
                 }
-
+            }, new OnGlobalLayoutHelper.PostLayoutCallback() {
                 @Override
-                public void postLayout() {
+                public void onPostLayout() {
                     final int rootHeight = root.getHeight();
                     slideIn(view, rootHeight, animateInFinalY(view.getHeight(), rootHeight), 0);
                 }

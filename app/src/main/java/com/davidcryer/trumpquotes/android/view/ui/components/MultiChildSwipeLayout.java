@@ -93,9 +93,9 @@ public class MultiChildSwipeLayout extends SwipeLayout {
             }
 
             @Override
-            public void onCardMoved(float percentageOffsetFromCentreX) {
+            public void onViewMoved(View child, float percentageOffsetFromCentreX) {
                 if (swipeListener != null) {
-                    swipeListener.onCardMoved(percentageOffsetFromCentreX);
+                    swipeListener.onViewMoved(child, percentageOffsetFromCentreX);
                 }
             }
         }));

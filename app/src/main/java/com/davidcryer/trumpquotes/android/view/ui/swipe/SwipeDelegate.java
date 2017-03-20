@@ -68,7 +68,7 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         stopCardMovement();
         final ViewGroup.MarginLayoutParams viewLp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         final int xOrigin = viewLp.leftMargin;
-        final int yOrigin = viewLp.topMargin;
+        final float yOrigin = (((ViewGroup) view.getParent()).getHeight() - view.getHeight()) / 2.0f;
         toOriginAnimator = view.animate()
                 .x(xOrigin)
                 .y(yOrigin)
@@ -181,12 +181,12 @@ public class SwipeDelegate implements GestureDetector.OnGestureListener {
         final float viewCentreX = currentX + view.getWidth() / 2.0f;
         final float parentCentreX = parentWidth / 2.0f;
         final float percentageOffsetFromCentreX = (viewCentreX - parentCentreX) / parentWidth;
-        listener.onCardMoved(percentageOffsetFromCentreX);
+        listener.onViewMoved(view, percentageOffsetFromCentreX);
     }
 
     public interface Listener {
         void onViewEscapedLeft(final View child);
         void onViewEscapedRight(final View child);
-        void onCardMoved(final float percentageOffsetFromCentreX);
+        void onViewMoved(final View child, final float percentageOffsetFromCentreX);
     }
 }
