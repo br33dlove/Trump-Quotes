@@ -6,7 +6,7 @@ import com.davidcryer.trumpquotes.android.view.ui.helpers.OnGlobalLayoutHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.SlideInAndOffScreenHelper;
 
 public class StartNewGameContainerAnimationHelper {
-    private final static int ANIMATION_DURATION_MAX = 500;
+    private final static int ANIMATION_DURATION_MAX = 300;
 
     public static void slideIn(final View view, final View root) {
         if (view.getVisibility() == View.GONE) {
