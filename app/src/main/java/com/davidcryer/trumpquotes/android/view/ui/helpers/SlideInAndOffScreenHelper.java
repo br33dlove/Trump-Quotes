@@ -36,4 +36,34 @@ public class SlideInAndOffScreenHelper {
                 .withEndAction(endAction)
                 .start();
     }
+
+    public static void slideInX(final View view, final float startX, final float finalX, final int duration) {
+        slideX(view, startX, finalX, duration, new DecelerateInterpolator(), null);
+    }
+
+    public static void slideOutX(final View view, final float startX, final float finalX, final int duration) {
+        slideX(view, startX, finalX, duration, new AccelerateInterpolator(), new Runnable() {
+            @Override
+            public void run() {
+                view.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private static void slideX(
+            final View view,
+            final float startX,
+            final float finalX,
+            final int duration,
+            final Interpolator interpolator,
+            final Runnable endAction
+    ) {
+        view.setX(startX);
+        view.animate()
+                .x(finalX)
+                .setDuration(duration)
+                .setInterpolator(interpolator)
+                .withEndAction(endAction)
+                .start();
+    }
 }

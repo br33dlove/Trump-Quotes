@@ -12,6 +12,7 @@ public class AlphaAnimationHelper {
                     @Override
                     public void run() {
                         view.setVisibility(View.GONE);
+                        view.setAlpha(1);
                     }
                 })
                 .start();

@@ -4,19 +4,16 @@ import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewMo
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestion;
 
 public interface QuizView<ViewQuestionType extends ViewQuestion> extends MvpView<QuizViewModel> {
+    void showStartNewGame();
+    void showLoadingGame();
+    void showFailureToLoadGame();
+    void showQuestion(final ViewQuestionType quotes);
     void showScore(final int correctAnswerCount, final int questionCount);
-    void showStartNewGameState();
-    void showLoadingState();
-    void showFailureToStartGameState();
-    void showNewGameTutorial();
-    void dismissNewGameTutorial();
-    void showQuestionState(final ViewQuestionType quotes);
-    void showFinishedGameState();
+    void showFinishedGame();
 
     interface EventsListener extends MvpView.EventsListener {
         void onInitialise();
         void onClickStartNewGame();
-        void onDismissNewGameTutorial();
         void onAnswerOptionA();
         void onAnswerOptionB();
     }

@@ -5,8 +5,10 @@ import android.os.Parcel;
 import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
 
+import java.lang.ref.WeakReference;
+
 final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
-    enum State {START_NEW_GAME, LOADING_NEW_GAME, FAILURE_TO_START_NEW_GAME, GAME_TUTORIAL, GAME_RUNNING, GAME_FINISHED}
+    enum State {START_NEW_GAME, LOADING_NEW_GAME, FAILURE_TO_START_NEW_GAME, GAME_RUNNING, GAME_FINISHED}
     private State state;
     private AndroidViewQuestion question;
     private GameState gameState;
@@ -66,92 +68,80 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     }
 
     private boolean showingPlayGameState() {
-        return state == State.GAME_TUTORIAL || state == State.GAME_RUNNING;
+        return state == State.GAME_RUNNING;
     }
 
     @Override
     public void showScore(QuizAndroidView view, int correctAnswerCount, int questionCount) {
         this.correctAnswers = correctAnswerCount;
         this.questionsAnswered = questionCount;
-        if (view != null) {
+        if (view != null && showingPlayGameState()) {
             view.showScore(correctAnswerCount, questionCount);
         }
     }
 
     @Override
-    public void showStartNewGameState(QuizAndroidView view) {
+    public void showStartNewGame(QuizAndroidView view) {
         if (view != null) {
-            view.showNewGameStateStart();
-            if (showingPlayGameState()) {
-                view.hidePlayGameState();
-            }
+            view.animateInNewGameStartState();
         }
         state = State.START_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
     }
 
     @Override
-    public void showNewGameLoadingState(QuizAndroidView view) {
+    public void showLoadingGame(QuizAndroidView view) {
         if (view != null) {
-            view.showNewGameStateLoading();
-            if (showingPlayGameState()) {
-                view.hidePlayGameState();
-            }
+            view.animateInNewGameLoadingState();
         }
         state = State.LOADING_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
     }
 
     @Override
-    public void showFailureToStartGameState(QuizAndroidView view) {
+    public void showFailureToLoadGame(QuizAndroidView view) {
         if (view != null) {
-            view.showNewGameStateError();
-            if (showingPlayGameState()) {
-                view.hidePlayGameState();
-            }
+            view.animateInNewGameFailedToLoadGameState();
         }
         state = State.FAILURE_TO_START_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
     }
 
     @Override
-    public void showNewGameTutorialState(QuizAndroidView view) {
+    public void showQuestion(QuizAndroidView view, final AndroidViewQuestion question) {
+        this.question = question;
         if (view != null) {
-            view.showPlayGameStateTutorial();
             if (showingNewGameState()) {
-                view.hideNewGameState();
-            }
-        }
-        state = State.GAME_TUTORIAL;
-        gameState = GameState.INITIALISED;
-    }
-
-    @Override
-    public void showGameRunningState(QuizAndroidView view) {
-        if (view != null) {
-            view.showPlayGameStateRunning();
-            if (showingNewGameState()) {
-                view.hideNewGameState();
+                final WeakReference<QuizAndroidView> weakReference = new WeakReference<>(view);
+                view.animateOutNewGameScene(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (weakReference.get() != null) {
+                            weakReference.get().animateInQuestion(question);
+                            weakReference.get().animateInScore(correctAnswers, questionsAnswered);
+                        }
+                    }
+                });
+            } else {
+                view.animateInQuestion(question);
             }
         }
         state = State.GAME_RUNNING;
-        gameState = GameState.INITIALISED;
-    }
-
-    @Override
-    public void showQuestion(QuizAndroidView view, AndroidViewQuestion question) {
-        this.question = question;
-        if (view != null) {
-            view.showQuestion(question);
-        }
     }
 
     @Override
     public void showFinishedGameState(QuizAndroidView view) {
         if (view != null) {
-            view.showPlayGameStateFinished(correctAnswers, questionsAnswered);
             if (showingPlayGameState()) {
-                view.hidePlayGameState();
+                final WeakReference<QuizAndroidView> weakReference = new WeakReference<>(view);
+                view.animateOutGameInPlayScene(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (weakReference.get() != null) {
+                            weakReference.get().animateInNewGameFinishedState(correctAnswers, questionsAnswered);
+                        }
+                    }
+                });
             }
         }
         question = null;
@@ -163,31 +153,29 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     public void onto(QuizAndroidView view) {
         switch (state) {
             case START_NEW_GAME: {
-                view.showNewGameStateStart();
+                view.showNewGameStartState();
+                view.hideGameInPlayScene();
                 break;
             }
             case LOADING_NEW_GAME: {
-                view.showNewGameStateLoading();
+                view.showNewGameLoadingState();
+                view.hideGameInPlayScene();
                 break;
             }
             case FAILURE_TO_START_NEW_GAME: {
-                view.showNewGameStateError();
-                break;
-            }
-            case GAME_TUTORIAL: {
-                view.showPlayGameStateTutorial();
-                view.showScore(correctAnswers, questionsAnswered);
-                view.showQuestion(question);//TODO may want to remove when tutorial properly implemented
+                view.showNewGameFailedToStartState();
+                view.hideGameInPlayScene();
                 break;
             }
             case GAME_RUNNING: {
-                view.showPlayGameStateRunning();
                 view.showScore(correctAnswers, questionsAnswered);
                 view.showQuestion(question);
+                view.hideNewGameScene();
                 break;
             }
             case GAME_FINISHED: {
-                view.showPlayGameStateFinished(correctAnswers, questionsAnswered);
+                view.showNewGameFinishedState(correctAnswers, questionsAnswered);
+                view.hideGameInPlayScene();
                 break;
             }
         }

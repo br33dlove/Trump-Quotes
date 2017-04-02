@@ -48,11 +48,6 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
             }
 
             @Override
-            public void onDismissNewGameTutorial() {
-                dismissNewGameTutorial();
-            }
-
-            @Override
             public void onAnswerOptionA() {
                 answerOptionA();
             }
@@ -72,7 +67,7 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
     private void initialiseView() {
         if (activeGameInteractors == null) {
             if (viewWrapper.viewModel().gameState() == QuizViewModel.GameState.NOT_INITIALISED) {
-                viewWrapper.showStartNewGameState();
+                viewWrapper.showStartNewGame();
             } else {
                 loadGame();
             }
@@ -80,7 +75,7 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
     }
 
     private void showLoadingState() {
-        viewWrapper.showLoadingState();
+        viewWrapper.showLoadingGame();
     }
 
     private void loadGame() {
@@ -94,17 +89,17 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
 
             @Override
             public void onNoSavedGameFound() {
-                viewWrapper.showStartNewGameState();
+                viewWrapper.showStartNewGame();
             }
 
             @Override
             public void onGameCorrupted() {
-                viewWrapper.showStartNewGameState();
+                viewWrapper.showStartNewGame();
             }
 
             @Override
             public void onError() {
-                viewWrapper.showStartNewGameState();
+                viewWrapper.showStartNewGame();
             }
         }));
     }
@@ -118,13 +113,12 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
         public void onInitialiseGame(ActiveGameInteractors interactors, int correctAnswers, int questionsAnswered) {
             activeGameInteractors = interactors;
             viewWrapper.showScore(correctAnswers, questionsAnswered);
-            viewWrapper.showNewGameTutorial();
             getNextQuestion();
         }
 
         @Override
         public void onError() {
-            viewWrapper.showFailureToStartGameState();
+            viewWrapper.showFailureToLoadGame();
         }
     };
 
@@ -161,17 +155,13 @@ class QuizPresenter<ViewQuestionType extends ViewQuestion> extends Presenter<Qui
     private final GetNextQuestionInteractor.Callback getNextQuestionCallback = new GetNextQuestionInteractor.Callback() {
         @Override
         public void nextQuestion(QuizQuestion quizQuestion) {
-            viewWrapper.showQuestionState(viewQuestionFactory.create(quizQuestion));
+            viewWrapper.showQuestion(viewQuestionFactory.create(quizQuestion));
         }
 
         @Override
         public void onGameFinished() {
-            viewWrapper.showFinishedGameState();
+            viewWrapper.showFinishedGame();
             activeGameInteractors = null;
         }
     };
-
-    private void dismissNewGameTutorial() {
-        viewWrapper.dismissNewGameTutorial();
-    }
 }

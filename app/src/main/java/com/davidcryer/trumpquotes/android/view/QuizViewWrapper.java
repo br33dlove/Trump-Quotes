@@ -43,37 +43,27 @@ public class QuizViewWrapper extends ViewWrapper<QuizAndroidView, QuizAndroidVie
         }
 
         @Override
-        public void showStartNewGameState() {
-            viewModel.showStartNewGameState(view());
+        public void showStartNewGame() {
+            viewModel.showStartNewGame(view());
         }
 
         @Override
-        public void showLoadingState() {
-            viewModel.showNewGameLoadingState(view());
+        public void showLoadingGame() {
+            viewModel.showLoadingGame(view());
         }
 
         @Override
-        public void showFailureToStartGameState() {
-            viewModel.showFailureToStartGameState(view());
+        public void showFailureToLoadGame() {
+            viewModel.showFailureToLoadGame(view());
         }
 
         @Override
-        public void showNewGameTutorial() {
-            viewModel.showNewGameTutorialState(view());
-        }
-
-        @Override
-        public void dismissNewGameTutorial() {
-            viewModel.showGameRunningState(view());
-        }
-
-        @Override
-        public void showQuestionState(AndroidViewQuestion question) {
+        public void showQuestion(AndroidViewQuestion question) {
             viewModel.showQuestion(view(), question);
         }
 
         @Override
-        public void showFinishedGameState() {
+        public void showFinishedGame() {
             viewModel.showFinishedGameState(view());
         }
 
@@ -98,11 +88,6 @@ public class QuizViewWrapper extends ViewWrapper<QuizAndroidView, QuizAndroidVie
         @Override
         public void onClickStartNewGame() {
             wrapperEventsListener.onClickStartNewGame();
-        }
-
-        @Override
-        public void onDismissTutorial() {
-            wrapperEventsListener.onDismissNewGameTutorial();
         }
 
         @Override

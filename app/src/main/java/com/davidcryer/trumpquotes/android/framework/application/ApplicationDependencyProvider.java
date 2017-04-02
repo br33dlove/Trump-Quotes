@@ -30,6 +30,7 @@ import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQues
 import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestionFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.TrumpQuoteApiProvider;
 import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.implementations.ServiceFactoryImpl;
@@ -88,7 +89,7 @@ class ApplicationDependencyProvider {
     private static ServiceFactory createServiceFactory(final Context context) {
         return new ServiceFactoryImpl(
                 createGumpQuoteFile(context.getAssets()),
-                createRandomQuoteRequester(context.getResources()),
+                createRandomQuoteRequester(),
                 createTrumpQuizGameStore(context),
                 createTrumpQuizQuestionStore(context)
         );
@@ -98,24 +99,28 @@ class ApplicationDependencyProvider {
         return new AndroidQuoteFile<>(FILE_PATH_GUMP_QUOTES, assetManager, GumpQuote[].class, new Gson());
     }
 
-    private static RandomQuoteRequester createRandomQuoteRequester(final Resources resources) {
-        return createQuoteRequesterFactory(resources).createRandomQuoteRequester();
+    private static RandomQuoteRequester createRandomQuoteRequester() {
+        return createQuoteRequesterFactory().createRandomQuoteRequester();
     }
 
-    private static QuoteRequesterFactory createQuoteRequesterFactory(final Resources resources) {
-        return new QuoteRequesterFactoryImpl(createQuoteRequestFactory(resources));
+    private static QuoteRequesterFactory createQuoteRequesterFactory() {
+        return new QuoteRequesterFactoryImpl(createQuoteRequestFactory());
     }
 
-    private static QuoteRequestFactory createQuoteRequestFactory(final Resources resources) {
-        return new RetrofitTrumpQuoteRequestFactory(createRetrofitQuoteService(resources));
+    private static QuoteRequestFactory createQuoteRequestFactory() {
+        return new RetrofitTrumpQuoteRequestFactory(createRetrofitQuoteService());
     }
 
-    private static RetrofitTrumpQuoteService createRetrofitQuoteService(final Resources resources) {
-        return createRetrofitTrumpQuoteServiceFactory(resources).create();
+    private static RetrofitTrumpQuoteService createRetrofitQuoteService() {
+        return createRetrofitTrumpQuoteServiceFactory().create();
     }
 
-    private static RetrofitTrumpQuoteServiceFactory createRetrofitTrumpQuoteServiceFactory(final Resources resources) {
-        return new RetrofitTrumpQuoteServiceFactoryImpl(resources);
+    private static RetrofitTrumpQuoteServiceFactory createRetrofitTrumpQuoteServiceFactory() {
+        return new RetrofitTrumpQuoteServiceFactoryImpl(createTrumpQuoteApiProvider());
+    }
+
+    private static TrumpQuoteApiProvider createTrumpQuoteApiProvider() {
+        return new TrumpQuoteApiProvider();
     }
 
     private static TrumpQuizGameStore createTrumpQuizGameStore(final Context context) {

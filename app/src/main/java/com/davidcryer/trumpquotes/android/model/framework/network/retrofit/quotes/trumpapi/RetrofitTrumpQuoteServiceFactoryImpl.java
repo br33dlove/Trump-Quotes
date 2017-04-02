@@ -1,23 +1,21 @@
 package com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes.trumpapi;
 
-import android.content.res.Resources;
-
-import com.davidcryer.trumpquotes.R;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.TrumpQuoteApiProvider;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitTrumpQuoteServiceFactoryImpl implements RetrofitTrumpQuoteServiceFactory {
-    private final Resources resources;
+    private TrumpQuoteApiProvider trumpQuoteApiProvider;
 
-    public RetrofitTrumpQuoteServiceFactoryImpl(Resources resources) {
-        this.resources = resources;
+    public RetrofitTrumpQuoteServiceFactoryImpl(TrumpQuoteApiProvider trumpQuoteApiProvider) {
+        this.trumpQuoteApiProvider = trumpQuoteApiProvider;
     }
 
     @Override
     public RetrofitTrumpQuoteService create() {
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(resources.getString(R.string.api_base_url_trump_quotes))
+                .baseUrl(trumpQuoteApiProvider.baseUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(RetrofitTrumpQuoteService.class);
