@@ -159,7 +159,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     @Override
     public void animateInNewGameLoadingState() {
-        AlphaAnimationHelper.fadeOut(startNewGameButton, getResources().getInteger(R.integer.max_duration_fade_score_ms));
+        AlphaAnimationHelper.fadeOut(startNewGameButton, getResources().getInteger(R.integer.max_duration_fade_score_ms), View.INVISIBLE);
         setupNewGameLoadingState();
     }
 
@@ -192,7 +192,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        startNewGameInfoTextView.setText(getString(R.string.start_game_info_description));
+        startNewGameInfoTextView.setText(getString(R.string.start_game_info_load_failed));
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.start_game_button));
     }
@@ -216,7 +216,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        animateOutStartNewGameContainer();
+        animateOutStartNewGameContainer(endAction);
     }
 
     @Override
@@ -302,19 +302,18 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
 
     @Override
     public void animateOutGameInPlayScene(Runnable endAction) {
-        animateOutScoreView();
+        animateOutScoreView(endAction);
     }
 
     @Override
     public void showNewGameFinishedState(int correctAnswerCount, int questionCount) {
         showStartNewGameViews();
-        startNewGameButton.setVisibility(View.VISIBLE);
         setupNewGameFinishedState(correctAnswerCount, questionCount);
     }
 
     @Override
     public void animateInNewGameFinishedState(int correctAnswerCount, int questionCount) {
-        AlphaAnimationHelper.fadeIn(startNewGameButton, R.integer.max_duration_fade_score_ms);
+        animateInStartNewGameViews();
         setupNewGameFinishedState(correctAnswerCount, questionCount);
     }
 
@@ -322,6 +321,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         startNewGameInfoTextView.setText(String.format(getString(R.string.start_game_info_finished), correctAnswerCount, questionCount));
         startNewGameButton.setEnabled(true);
         startNewGameButton.setText(getString(R.string.start_game_button));
+        startNewGameButton.setVisibility(View.VISIBLE);
     }
 
     private void showStartNewGameViews() {
@@ -336,8 +336,8 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         startNewGameContainer.setVisibility(View.GONE);
     }
 
-    private void animateOutStartNewGameContainer() {
-        StartNewGameContainerAnimationHelper.slideOut(startNewGameContainer, swipeRefreshLayout);
+    private void animateOutStartNewGameContainer(final Runnable endAction) {
+        StartNewGameContainerAnimationHelper.slideOut(startNewGameContainer, swipeRefreshLayout, endAction);
     }
 
     private void showPlayGameViews() {
@@ -352,8 +352,8 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         scoreTextView.setVisibility(View.GONE);
     }
 
-    private void animateOutScoreView() {
-        ScoreViewAnimationHelper.slideIn(scoreTextView, swipeRefreshLayout);
+    private void animateOutScoreView(final Runnable endAction) {
+        ScoreViewAnimationHelper.slideOut(scoreTextView, swipeRefreshLayout, endAction);
     }
 
     @OnClick(R.id.start_new_game_button)

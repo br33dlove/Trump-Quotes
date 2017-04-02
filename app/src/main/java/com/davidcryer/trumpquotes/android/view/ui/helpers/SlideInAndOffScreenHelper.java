@@ -7,15 +7,18 @@ import android.view.animation.Interpolator;
 
 public class SlideInAndOffScreenHelper {
 
-    public static void slideInY(final View view, final float startY, final float finalY, final int duration) {
-        slideY(view, startY, finalY, duration, new DecelerateInterpolator(), null);
+    public static void slideInY(final View view, final float startY, final float finalY, final int duration, final Runnable endAction) {
+        slideY(view, startY, finalY, duration, new DecelerateInterpolator(), endAction);
     }
 
-    public static void slideOutY(final View view, final float startY, final float finalY, final int duration) {
+    public static void slideOutY(final View view, final float startY, final float finalY, final int duration, final Runnable endAction) {
         slideY(view, startY, finalY, duration, new AccelerateInterpolator(), new Runnable() {
             @Override
             public void run() {
                 view.setVisibility(View.GONE);
+                if (endAction != null) {
+                    endAction.run();
+                }
             }
         });
     }
@@ -37,15 +40,18 @@ public class SlideInAndOffScreenHelper {
                 .start();
     }
 
-    public static void slideInX(final View view, final float startX, final float finalX, final int duration) {
-        slideX(view, startX, finalX, duration, new DecelerateInterpolator(), null);
+    public static void slideInX(final View view, final float startX, final float finalX, final int duration, final Runnable endAction) {
+        slideX(view, startX, finalX, duration, new DecelerateInterpolator(), endAction);
     }
 
-    public static void slideOutX(final View view, final float startX, final float finalX, final int duration) {
+    public static void slideOutX(final View view, final float startX, final float finalX, final int duration, final Runnable endAction) {
         slideX(view, startX, finalX, duration, new AccelerateInterpolator(), new Runnable() {
             @Override
             public void run() {
                 view.setVisibility(View.GONE);
+                if (endAction != null) {
+                    endAction.run();
+                }
             }
         });
     }

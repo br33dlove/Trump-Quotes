@@ -39,7 +39,7 @@ public class ScoreViewAnimationHelper {
 
     private static void slideIn(final View view, final float startX, final float finalX, final float offsetStartX) {
         if (startX != finalX) {
-            SlideInAndOffScreenHelper.slideInX(view, startX, finalX, duration(startX, finalX, offsetStartX));
+            SlideInAndOffScreenHelper.slideInX(view, startX, finalX, duration(startX, finalX, offsetStartX), null);
         }
     }
 
@@ -47,18 +47,18 @@ public class ScoreViewAnimationHelper {
         return (int) ((startX - finalX) / (startX - offsetStartX - finalX) * ANIMATION_DURATION_MAX);
     }
 
-    public static void slideOut(final View view, final View root) {
+    public static void slideOut(final View view, final View root, final Runnable endAction) {
         view.setEnabled(false);
         if (view.getVisibility() == View.VISIBLE) {
             final float currentX = view.getX();
             final int rootWidth = root.getWidth();
-            slideOut(view, currentX, rootWidth, currentX - animateInFinalX(view.getWidth(), rootWidth, view.getResources()));
+            slideOut(view, currentX, rootWidth, currentX - animateInFinalX(view.getWidth(), rootWidth, view.getResources()), endAction);
         }
     }
 
-    private static void slideOut(final View view, final float startX, final float finalX, final float offsetStartX) {
+    private static void slideOut(final View view, final float startX, final float finalX, final float offsetStartX, final Runnable endAction) {
         if (startX != finalX) {
-            SlideInAndOffScreenHelper.slideOutX(view, startX, finalX, duration(startX, finalX, offsetStartX));
+            SlideInAndOffScreenHelper.slideOutX(view, startX, finalX, duration(startX, finalX, offsetStartX), endAction);
         }
     }
 }

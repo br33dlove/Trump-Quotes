@@ -1,17 +1,18 @@
 package com.davidcryer.trumpquotes.android.view.ui.helpers;
 
 import android.view.View;
+import android.widget.Button;
 
 public class AlphaAnimationHelper {
 
-    public static void fadeOut(final View view, final long maxDuration) {
+    public static void fadeOut(final View view, final long maxDuration, final int finalVisibility) {
         view.animate()
                 .alpha(0)
                 .setDuration(alphaAnimationDuration(view.getAlpha(), 0, maxDuration))
                 .withEndAction(new Runnable() {
                     @Override
                     public void run() {
-                        view.setVisibility(View.GONE);
+                        view.setVisibility(finalVisibility);
                         view.setAlpha(1);
                     }
                 })
