@@ -116,9 +116,10 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
                 view.animateOutNewGameScene(new Runnable() {
                     @Override
                     public void run() {
-                        if (weakReference.get() != null) {
-                            weakReference.get().animateInQuestion(question);
-                            weakReference.get().animateInScore(correctAnswers, questionsAnswered);
+                        final QuizAndroidView view = weakReference.get();
+                        if (view != null) {
+                            view.animateInQuestion(question);
+                            view.animateInScore(correctAnswers, questionsAnswered);
                         }
                     }
                 });
@@ -137,8 +138,9 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
                 view.animateOutGameInPlayScene(new Runnable() {
                     @Override
                     public void run() {
-                        if (weakReference.get() != null) {
-                            weakReference.get().animateInNewGameFinishedState(correctAnswers, questionsAnswered);
+                        final QuizAndroidView view = weakReference.get();
+                        if (view != null) {
+                            view.animateInNewGameFinishedState(correctAnswers, questionsAnswered);
                         }
                     }
                 });
