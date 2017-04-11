@@ -1,11 +1,12 @@
 package com.davidcryer.trumpquotes.platformindependent.model.interactors;
 
+import com.davidc.interactor.Interactor;
+import com.davidc.interactor.Task;
+import com.davidc.interactor.TaskScheduler;
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizGame;
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.TrumpQuizGameImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.services.TrumpQuizGameStorageService;
 import com.davidcryer.trumpquotes.platformindependent.model.services.errors.StorageError;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
 
 import java.lang.ref.WeakReference;
 
@@ -63,7 +64,7 @@ public class LoadGameInteractor extends Interactor {
     }
 
     private void onLoadGame(final ActiveGameInteractors interactors, final int correctAnswers, final int questionsAnswered, final WeakReference<Callback> callback) {
-        executeOnMainThread(new Task() {
+        executeOnCallbackThread(new Task() {
             @Override
             public void execute() {
                 if (callback.get() != null) {
@@ -74,7 +75,7 @@ public class LoadGameInteractor extends Interactor {
     }
 
     private void onNoSavedGameFound(final WeakReference<Callback> callback) {
-        executeOnMainThread(new Task() {
+        executeOnCallbackThread(new Task() {
             @Override
             public void execute() {
                 if (callback.get() != null) {
@@ -85,7 +86,7 @@ public class LoadGameInteractor extends Interactor {
     }
 
     private void onGameCorrupted(final WeakReference<Callback> callback) {
-        executeOnMainThread(new Task() {
+        executeOnCallbackThread(new Task() {
             @Override
             public void execute() {
                 if (callback.get() != null) {
@@ -96,7 +97,7 @@ public class LoadGameInteractor extends Interactor {
     }
 
     private void onError(final WeakReference<Callback> callback) {
-        executeOnMainThread(new Task() {
+        executeOnCallbackThread(new Task() {
             @Override
             public void execute() {
                 if (callback.get() != null) {

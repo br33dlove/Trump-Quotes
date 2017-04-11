@@ -1,9 +1,10 @@
 package com.davidcryer.trumpquotes.platformindependent.model.interactors;
 
+import com.davidc.interactor.Interactor;
+import com.davidc.interactor.Task;
+import com.davidc.interactor.TaskScheduler;
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizGame;
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
 
 import java.lang.ref.WeakReference;
 
@@ -19,7 +20,7 @@ public final class GetNextQuestionInteractor extends Interactor {
         game.nextQuestion(new QuizGame.NextQuestionCallback() {
             @Override
             public void onGameFinished() {
-                executeOnMainThread(new Task() {
+                executeOnCallbackThread(new Task() {
                     @Override
                     public void execute() {
                         if (callback.get() != null) {
@@ -31,7 +32,7 @@ public final class GetNextQuestionInteractor extends Interactor {
 
             @Override
             public void nextQuestion(final QuizQuestion quizQuestion) {
-                executeOnMainThread(new Task() {
+                executeOnCallbackThread(new Task() {
                     @Override
                     public void execute() {
                         if (callback.get() != null) {

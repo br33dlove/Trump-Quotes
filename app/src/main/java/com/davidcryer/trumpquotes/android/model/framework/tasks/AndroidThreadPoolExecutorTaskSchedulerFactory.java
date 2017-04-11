@@ -3,8 +3,8 @@ package com.davidcryer.trumpquotes.android.model.framework.tasks;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.ThreadPoolExecutorTaskSchedulerFactory;
+import com.davidc.interactor.TaskScheduler;
+import com.davidc.interactor.ThreadPoolExecutorTaskSchedulerFactory;
 
 import java.util.concurrent.ThreadPoolExecutor;
 

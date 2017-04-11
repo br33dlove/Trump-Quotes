@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.platformindependent.model.interactors;
 
+import com.davidc.interactor.TaskScheduler;
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizGame;
 import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
 
 public class InteractorFactory {
     private final TaskScheduler taskScheduler;

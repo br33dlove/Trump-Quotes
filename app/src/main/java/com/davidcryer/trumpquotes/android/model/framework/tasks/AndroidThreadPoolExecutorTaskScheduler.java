@@ -2,8 +2,8 @@ package com.davidcryer.trumpquotes.android.model.framework.tasks;
 
 import android.os.Handler;
 
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.Task;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
+import com.davidc.interactor.Task;
+import com.davidc.interactor.TaskScheduler;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -27,7 +27,7 @@ public class AndroidThreadPoolExecutorTaskScheduler implements TaskScheduler {
     }
 
     @Override
-    public void executeOnMainThread(final Task task) {
+    public void executeOnCallbackThread(final Task task) {
         handler.post(new Runnable() {
             @Override
             public void run() {
