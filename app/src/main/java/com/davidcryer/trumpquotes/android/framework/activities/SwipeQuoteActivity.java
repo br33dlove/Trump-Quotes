@@ -7,13 +7,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import com.davidcryer.trumpquotes.R;
+import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepositoryImpl;
 import com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper;
 import com.davidcryer.trumpquotes.android.view.ui.fragments.QuizFragment;
+import com.example.davidc.uiwrapper.UiWrapperRepositoryActivity;
 
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.addFragment;
 import static com.davidcryer.trumpquotes.android.helpers.FragmentManagerHelper.noFragmentBoundToView;
 
-public class SwipeQuoteActivity extends ViewWrapperRepositoryActivity {
+public class SwipeQuoteActivity extends UiWrapperRepositoryActivity<UiWrapperRepositoryImpl> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

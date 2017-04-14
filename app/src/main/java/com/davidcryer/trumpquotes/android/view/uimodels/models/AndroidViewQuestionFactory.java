@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.view.viewmodels.models;
+package com.davidcryer.trumpquotes.android.view.uimodels.models;
 
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;

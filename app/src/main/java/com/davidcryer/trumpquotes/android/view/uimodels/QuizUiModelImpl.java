@@ -1,13 +1,13 @@
-package com.davidcryer.trumpquotes.android.view.viewmodels;
+package com.davidcryer.trumpquotes.android.view.uimodels;
 
 import android.os.Parcel;
 
-import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
+import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
 
 import java.lang.ref.WeakReference;
 
-final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
+final class QuizUiModelImpl implements QuizUiModel {
     enum State {START_NEW_GAME, LOADING_NEW_GAME, FAILURE_TO_START_NEW_GAME, GAME_RUNNING, GAME_FINISHED}
     private State state;
     private AndroidViewQuestion question;
@@ -15,13 +15,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     private int correctAnswers;
     private int questionsAnswered;
 
-    QuizAndroidViewModelImpl(
-            State state,
-            AndroidViewQuestion question,
-            GameState gameState,
-            int correctAnswers,
-            int questionsAnswered
-    ) {
+    QuizUiModelImpl(State state, AndroidViewQuestion question, GameState gameState, int correctAnswers, int questionsAnswered) {
         this.state = state;
         this.question = question;
         this.gameState = gameState;
@@ -29,7 +23,7 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         this.questionsAnswered = questionsAnswered;
     }
 
-    private QuizAndroidViewModelImpl(final Parcel parcel) {
+    private QuizUiModelImpl(final Parcel parcel) {
         state = (State) parcel.readSerializable();
         question = parcel.readParcelable(AndroidViewQuestion.class.getClassLoader());
         gameState = (GameState) parcel.readSerializable();
@@ -51,15 +45,15 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
         dest.writeInt(questionsAnswered);
     }
 
-    static final Creator<QuizAndroidViewModel> CREATOR = new Creator<QuizAndroidViewModel>() {
+    static final Creator<QuizUiModel> CREATOR = new Creator<QuizUiModel>() {
         @Override
-        public QuizAndroidViewModel createFromParcel(Parcel source) {
-            return new QuizAndroidViewModelImpl(source);
+        public QuizUiModel createFromParcel(Parcel source) {
+            return new QuizUiModelImpl(source);
         }
 
         @Override
-        public QuizAndroidViewModel[] newArray(int size) {
-            return new QuizAndroidViewModel[size];
+        public QuizUiModel[] newArray(int size) {
+            return new QuizUiModel[size];
         }
     };
 
@@ -72,75 +66,75 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     }
 
     @Override
-    public void showScore(QuizAndroidView view, int correctAnswerCount, int questionCount) {
+    public void showScore(QuizUi ui, int correctAnswerCount, int questionCount) {
         this.correctAnswers = correctAnswerCount;
         this.questionsAnswered = questionCount;
-        if (view != null && showingPlayGameState()) {
-            view.showScore(correctAnswerCount, questionCount);
+        if (ui != null && showingPlayGameState()) {
+            ui.showScore(correctAnswerCount, questionCount);
         }
     }
 
     @Override
-    public void showStartNewGame(QuizAndroidView view) {
-        if (view != null) {
-            view.animateInNewGameStartState();
+    public void showStartNewGame(QuizUi ui) {
+        if (ui != null) {
+            ui.animateInNewGameStartState();
         }
         state = State.START_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
     }
 
     @Override
-    public void showLoadingGame(QuizAndroidView view) {
-        if (view != null) {
-            view.animateInNewGameLoadingState();
+    public void showLoadingGame(QuizUi ui) {
+        if (ui != null) {
+            ui.animateInNewGameLoadingState();
         }
         state = State.LOADING_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
     }
 
     @Override
-    public void showFailureToLoadGame(QuizAndroidView view) {
-        if (view != null) {
-            view.animateInNewGameFailedToLoadGameState();
+    public void showFailureToLoadGame(QuizUi ui) {
+        if (ui != null) {
+            ui.animateInNewGameFailedToLoadGameState();
         }
         state = State.FAILURE_TO_START_NEW_GAME;
         gameState = GameState.NOT_INITIALISED;
     }
 
     @Override
-    public void showQuestion(QuizAndroidView view, final AndroidViewQuestion question) {
+    public void showQuestion(QuizUi ui, final AndroidViewQuestion question) {
         this.question = question;
-        if (view != null) {
+        if (ui != null) {
             if (showingNewGameState()) {
-                final WeakReference<QuizAndroidView> weakReference = new WeakReference<>(view);
-                view.animateOutNewGameScene(new Runnable() {
+                final WeakReference<QuizUi> weakReference = new WeakReference<>(ui);
+                ui.animateOutNewGameScene(new Runnable() {
                     @Override
                     public void run() {
-                        final QuizAndroidView view = weakReference.get();
-                        if (view != null) {
-                            view.animateInQuestion(question);
-                            view.animateInScore(correctAnswers, questionsAnswered);
+                        final QuizUi ui = weakReference.get();
+                        if (ui != null) {
+                            ui.animateInQuestion(question);
+                            ui.animateInScore(correctAnswers, questionsAnswered);
                         }
                     }
                 });
             } else {
-                view.animateInQuestion(question);
+                ui.animateInQuestion(question);
             }
         }
         state = State.GAME_RUNNING;
     }
 
     @Override
-    public void showFinishedGameState(QuizAndroidView view) {
-        if (view != null) {
+    public void showFinishedGameState(QuizUi ui) {
+        if (ui != null) {
             if (showingPlayGameState()) {
-                final WeakReference<QuizAndroidView> weakReference = new WeakReference<>(view);
-                view.animateOutGameInPlayScene(new Runnable() {
+                final WeakReference<QuizUi> weakReference = new WeakReference<>(ui);
+                ui.animateOutGameInPlayScene(new Runnable() {
                     @Override
                     public void run() {
-                        final QuizAndroidView view = weakReference.get();
-                        if (view != null) {
-                            view.animateInNewGameFinishedState(correctAnswers, questionsAnswered);
+                        final QuizUi ui = weakReference.get();
+                        if (ui != null) {
+                            ui.animateInNewGameFinishedState(correctAnswers, questionsAnswered);
                         }
                     }
                 });
@@ -152,32 +146,32 @@ final class QuizAndroidViewModelImpl implements QuizAndroidViewModel {
     }
 
     @Override
-    public void onto(QuizAndroidView view) {
+    public void onto(QuizUi ui) {
         switch (state) {
             case START_NEW_GAME: {
-                view.showNewGameStartState();
-                view.hideGameInPlayScene();
+                ui.showNewGameStartState();
+                ui.hideGameInPlayScene();
                 break;
             }
             case LOADING_NEW_GAME: {
-                view.showNewGameLoadingState();
-                view.hideGameInPlayScene();
+                ui.showNewGameLoadingState();
+                ui.hideGameInPlayScene();
                 break;
             }
             case FAILURE_TO_START_NEW_GAME: {
-                view.showNewGameFailedToStartState();
-                view.hideGameInPlayScene();
+                ui.showNewGameFailedToStartState();
+                ui.hideGameInPlayScene();
                 break;
             }
             case GAME_RUNNING: {
-                view.showScore(correctAnswers, questionsAnswered);
-                view.showQuestion(question);
-                view.hideNewGameScene();
+                ui.showScore(correctAnswers, questionsAnswered);
+                ui.showQuestion(question);
+                ui.hideNewGameScene();
                 break;
             }
             case GAME_FINISHED: {
-                view.showNewGameFinishedState(correctAnswers, questionsAnswered);
-                view.hideGameInPlayScene();
+                ui.showNewGameFinishedState(correctAnswers, questionsAnswered);
+                ui.hideGameInPlayScene();
                 break;
             }
         }

@@ -1,8 +1,9 @@
 package com.davidcryer.trumpquotes.android.view.ui;
 
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
+import com.example.davidc.uiwrapper.Ui;
 
-public interface QuizAndroidView extends AndroidMvpView {
+public interface QuizUi extends Ui {
     void showNewGameStartState();
     void animateInNewGameStartState();
     void showNewGameLoadingState();
@@ -20,7 +21,7 @@ public interface QuizAndroidView extends AndroidMvpView {
     void hideGameInPlayScene();
     void animateOutGameInPlayScene(final Runnable endAction);
 
-    interface EventsListener extends AndroidMvpView.EventsListener {
+    interface EventsListener extends Ui.EventsListener {
         void onViewCreated();
         void onClickStartNewGame();
         void onAnswerOptionA();

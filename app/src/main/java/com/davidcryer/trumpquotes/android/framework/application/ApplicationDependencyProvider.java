@@ -2,13 +2,11 @@ package com.davidcryer.trumpquotes.android.framework.application;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactory;
-import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepositoryFactoryImpl;
+import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepositoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.framework.localfiles.AndroidQuoteFile;
 import com.davidcryer.trumpquotes.android.model.framework.tasks.AndroidThreadPoolExecutorTaskScheduler;
 import com.davidcryer.trumpquotes.android.model.framework.tasks.AndroidThreadPoolExecutorTaskSchedulerFactory;
@@ -24,12 +22,12 @@ import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite
 import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite.SQLiteQuestionStoreFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactory;
 import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.view.viewmodels.QuizAndroidViewModelFactory;
-import com.davidcryer.trumpquotes.android.view.viewmodels.QuizAndroidViewModelFactoryImpl;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestionFactory;
-import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactory;
-import com.davidcryer.trumpquotes.android.view.viewwrapperfactories.ViewWrapperFactoryImpl;
+import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModelFactory;
+import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModelFactoryImpl;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestionFactory;
+import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
+import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.TrumpQuoteApiProvider;
 import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
@@ -55,11 +53,11 @@ class ApplicationDependencyProvider {
     private final static String FILE_PATH_GUMP_QUOTES = "gump_quotes.json";
 
     static ViewWrapperRepositoryFactory viewWrapperRepositoryFactory(final Context context) {
-        return ViewWrapperRepositoryFactoryImpl.newInstance(createViewStateFactory(context));
+        return UiWrapperRepositoryFactoryImpl.newInstance(createViewStateFactory(context));
     }
 
-    private static ViewWrapperFactory createViewStateFactory(final Context context) {
-        return new ViewWrapperFactoryImpl(createPresenterFactory(context), createQuotesAndroidViewModelFactory());
+    private static UiWrapperFactory createViewStateFactory(final Context context) {
+        return new UiWrapperFactoryImpl(createPresenterFactory(context), createQuotesAndroidViewModelFactory());
     }
 
     private static PresenterFactoryFactory createPresenterFactory(final Context context) {
@@ -135,8 +133,8 @@ class ApplicationDependencyProvider {
         return null;
     }
 
-    private static QuizAndroidViewModelFactory createQuotesAndroidViewModelFactory() {
-        return new QuizAndroidViewModelFactoryImpl();
+    private static QuizUiModelFactory createQuotesAndroidViewModelFactory() {
+        return new QuizUiModelFactoryImpl();
     }
 
     private static GameContract createGameContract() {

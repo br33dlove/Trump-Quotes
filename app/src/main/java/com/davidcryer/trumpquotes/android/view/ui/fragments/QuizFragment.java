@@ -1,6 +1,5 @@
 package com.davidcryer.trumpquotes.android.view.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,9 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.davidcryer.trumpquotes.R;
-import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewUnbindType;
-import com.davidcryer.trumpquotes.android.framework.viewwrapperrepositories.ViewWrapperRepository;
-import com.davidcryer.trumpquotes.android.view.ui.QuizAndroidView;
+import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepositoryImpl;
+import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.AlphaAnimationHelper;
@@ -26,14 +24,15 @@ import com.davidcryer.trumpquotes.android.view.ui.helpers.OnGlobalLayoutHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.ScoreViewAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
+import com.example.davidc.uiwrapper.UiFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsListener> implements QuizAndroidView {
+public class QuizFragment extends UiFragment<UiWrapperRepositoryImpl, QuizUi.EventsListener> implements QuizUi {
     private Unbinder unbinder;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -114,14 +113,6 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         super.onViewCreated(view, savedInstanceState);
         if (hasEventsListener()) {
             eventsListener().onViewCreated();
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (hasEventsListener()) {
-            eventsListener().onSaveInstance(outState);
         }
     }
 
@@ -356,6 +347,7 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
         ScoreViewAnimationHelper.slideOut(scoreTextView, swipeRefreshLayout, endAction);
     }
 
+    @SuppressWarnings("unused")
     @OnClick(R.id.start_new_game_button)
     public void startNewGame() {
         if (hasEventsListener()) {
@@ -370,17 +362,12 @@ public class QuizFragment extends ViewBindingFragment<QuizAndroidView.EventsList
     }
 
     @Override
-    protected QuizAndroidView.EventsListener bind(ViewWrapperRepository viewWrapperRepository, String instanceId, Bundle savedState) {
-        return viewWrapperRepository.bind(this, instanceId, savedState);
+    protected EventsListener bind(UiWrapperRepositoryImpl uiWrapperRepository, String instanceId, Bundle savedInstanceState) {
+        return uiWrapperRepository.bind(this, instanceId, savedInstanceState);
     }
 
     @Override
-    protected void unbind(ViewWrapperRepository viewWrapperRepository, String instanceId, ViewUnbindType unbindType) {
-        viewWrapperRepository.unbind(this, instanceId, unbindType);
-    }
-
-    @Override
-    public Activity activity() {
-        return getActivity();
+    protected void unbind(UiWrapperRepositoryImpl uiWrapperRepository, String instanceId, Bundle outState, boolean isConfigurationChange) {
+        uiWrapperRepository.unbind(this, instanceId, outState, isConfigurationChange);
     }
 }

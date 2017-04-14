@@ -1,6 +1,6 @@
 package com.davidcryer.trumpquotes.android.presenter.presenters;
 
-import com.davidcryer.trumpquotes.android.view.viewmodels.models.AndroidViewQuestion;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
 import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizPresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.implementations.quiz.QuizPresenterFactoryImpl;
