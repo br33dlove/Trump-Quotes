@@ -14,8 +14,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.davidc.uiwrapper.UiFragment;
 import com.davidcryer.trumpquotes.R;
-import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepositoryImpl;
+import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepository;
 import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
 import com.davidcryer.trumpquotes.android.view.ui.components.QuoteCard;
 import com.davidcryer.trumpquotes.android.view.ui.components.SwipeLayout;
@@ -25,14 +26,13 @@ import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.ScoreViewAn
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
 import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
-import com.example.davidc.uiwrapper.UiFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class QuizFragment extends UiFragment<UiWrapperRepositoryImpl, QuizUi.EventsListener> implements QuizUi {
+public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listener> implements QuizUi {
     private Unbinder unbinder;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -362,12 +362,12 @@ public class QuizFragment extends UiFragment<UiWrapperRepositoryImpl, QuizUi.Eve
     }
 
     @Override
-    protected EventsListener bind(UiWrapperRepositoryImpl uiWrapperRepository, String instanceId, Bundle savedInstanceState) {
+    protected Listener bind(UiWrapperRepository uiWrapperRepository, String instanceId, Bundle savedInstanceState) {
         return uiWrapperRepository.bind(this, instanceId, savedInstanceState);
     }
 
     @Override
-    protected void unbind(UiWrapperRepositoryImpl uiWrapperRepository, String instanceId, Bundle outState, boolean isConfigurationChange) {
+    protected void unbind(UiWrapperRepository uiWrapperRepository, String instanceId, Bundle outState, boolean isConfigurationChange) {
         uiWrapperRepository.unbind(this, instanceId, outState, isConfigurationChange);
     }
 }

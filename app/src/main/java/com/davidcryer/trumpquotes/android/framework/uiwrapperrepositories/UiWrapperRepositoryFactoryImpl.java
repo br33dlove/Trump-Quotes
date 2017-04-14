@@ -1,8 +1,7 @@
 package com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories;
 
+import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
-import com.example.davidc.uiwrapper.UiWrapperRepository;
-import com.example.davidc.uiwrapper.UiWrapperRepositoryFactory;
 
 public class UiWrapperRepositoryFactoryImpl implements UiWrapperRepositoryFactory {
     private final UiWrapperFactory uiWrapperFactory;

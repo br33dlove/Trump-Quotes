@@ -2,10 +2,11 @@ package com.davidcryer.trumpquotes.android.framework.application;
 
 import android.app.Application;
 
-import com.example.davidc.uiwrapper.UiWrapperRepositoryFactory;
+import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
+import com.davidc.uiwrapper.UiWrapperRepositoryFactoryProvider;
 
-public class TrumpQuotesApplication extends Application implements ViewWrapperRepositoryFactoryProvider {
-    private UiWrapperRepositoryFactory UiWrapperRepositoryFactory;
+public class TrumpQuotesApplication extends Application implements UiWrapperRepositoryFactoryProvider {
+    private UiWrapperRepositoryFactory uiWrapperRepositoryFactory;
 
     public TrumpQuotesApplication() {
         super();
@@ -15,11 +16,11 @@ public class TrumpQuotesApplication extends Application implements ViewWrapperRe
     @Override
     public void onCreate() {
         super.onCreate();
-        UiWrapperRepositoryFactory = ApplicationDependencyProvider.viewWrapperRepositoryFactory(this);
+        uiWrapperRepositoryFactory = ApplicationDependencyProvider.uiWrapperRepositoryFactory(this);
     }
 
     @Override
-    public ViewWrapperRepositoryFactory viewWrapperRepositoryFactory() {
-        return UiWrapperRepositoryFactory;
+    public UiWrapperRepositoryFactory viewWrapperRepositoryFactory() {
+        return uiWrapperRepositoryFactory;
     }
 }

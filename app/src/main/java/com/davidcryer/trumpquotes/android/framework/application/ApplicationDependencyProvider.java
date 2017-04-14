@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.davidc.interactor.TaskScheduler;
+import com.davidc.interactor.ThreadPoolExecutorTaskSchedulerFactory;
+import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepositoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.framework.localfiles.AndroidQuoteFile;
 import com.davidcryer.trumpquotes.android.model.framework.tasks.AndroidThreadPoolExecutorTaskScheduler;
@@ -33,8 +36,6 @@ import com.davidcryer.trumpquotes.platformindependent.model.interactors.Interact
 import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.implementations.ServiceFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.QuoteFile;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.TaskScheduler;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.tasks.ThreadPoolExecutorTaskSchedulerFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.QuoteRequestFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.localfiles.quotes.gump.GumpQuote;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters.QuoteRequesterFactory;
@@ -52,7 +53,7 @@ import java.util.concurrent.TimeUnit;
 class ApplicationDependencyProvider {
     private final static String FILE_PATH_GUMP_QUOTES = "gump_quotes.json";
 
-    static ViewWrapperRepositoryFactory viewWrapperRepositoryFactory(final Context context) {
+    static UiWrapperRepositoryFactory uiWrapperRepositoryFactory(final Context context) {
         return UiWrapperRepositoryFactoryImpl.newInstance(createViewStateFactory(context));
     }
 

@@ -2,6 +2,7 @@ package com.davidcryer.trumpquotes.android.view;
 
 import android.os.Bundle;
 
+import com.davidc.uiwrapper.UiWrapper;
 import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModel;
 import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModelFactory;
 import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
@@ -9,9 +10,8 @@ import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuesti
 import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizPresenterFactory;
 import com.davidcryer.trumpquotes.platformindependent.view.QuizView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewModel;
-import com.example.davidc.uiwrapper.UiWrapper;
 
-public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.EventsListener> {
+public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.Listener> {
     private final static String ARG_UI_MODEL = QuizUiWrapper.class.getSimpleName();
     private final QuizUiModel uiModel;
     private final QuizView.EventsListener viewEventsListener;
@@ -21,14 +21,14 @@ public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.EventsListener> {
         this.uiModel = uiModel;
     }
 
-    public static UiWrapper<QuizUi, QuizUi.EventsListener> newInstance(
+    public static UiWrapper<QuizUi, QuizUi.Listener> newInstance(
             final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
             final QuizUiModelFactory uiModelFactory
     ) {
         return new QuizUiWrapper(presenterFactory, uiModelFactory.create());
     }
 
-    public static UiWrapper<QuizUi, QuizUi.EventsListener> retrieveInstanceOrGetNew(
+    public static UiWrapper<QuizUi, QuizUi.Listener> retrieveInstanceOrGetNew(
             final Bundle savedState,
             final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
             final QuizUiModelFactory uiModelFactory
@@ -81,11 +81,11 @@ public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.EventsListener> {
     }
 
     @Override
-    protected QuizUi.EventsListener eventsListener() {
-        return uiEventsListener;
+    protected QuizUi.Listener eventsListener() {
+        return uiListener;
     }
 
-    private final QuizUi.EventsListener uiEventsListener = new QuizUi.EventsListener() {
+    private final QuizUi.Listener uiListener = new QuizUi.Listener() {
         @Override
         public void onViewCreated() {
             viewEventsListener.onInitialise();

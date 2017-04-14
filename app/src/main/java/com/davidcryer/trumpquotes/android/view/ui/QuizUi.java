@@ -1,7 +1,7 @@
 package com.davidcryer.trumpquotes.android.view.ui;
 
+import com.davidc.uiwrapper.Ui;
 import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
-import com.example.davidc.uiwrapper.Ui;
 
 public interface QuizUi extends Ui {
     void showNewGameStartState();
@@ -21,7 +21,7 @@ public interface QuizUi extends Ui {
     void hideGameInPlayScene();
     void animateOutGameInPlayScene(final Runnable endAction);
 
-    interface EventsListener extends Ui.EventsListener {
+    interface Listener extends Ui.Listener {
         void onViewCreated();
         void onClickStartNewGame();
         void onAnswerOptionA();
