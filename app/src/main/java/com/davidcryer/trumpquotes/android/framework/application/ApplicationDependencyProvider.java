@@ -9,6 +9,7 @@ import android.os.Looper;
 import com.davidc.interactor.TaskScheduler;
 import com.davidc.interactor.ThreadPoolExecutorTaskSchedulerFactory;
 import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
+import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepository;
 import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepositoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.framework.localfiles.AndroidQuoteFile;
 import com.davidcryer.trumpquotes.android.model.framework.tasks.AndroidThreadPoolExecutorTaskScheduler;
@@ -53,7 +54,7 @@ import java.util.concurrent.TimeUnit;
 class ApplicationDependencyProvider {
     private final static String FILE_PATH_GUMP_QUOTES = "gump_quotes.json";
 
-    static UiWrapperRepositoryFactory uiWrapperRepositoryFactory(final Context context) {
+    static UiWrapperRepositoryFactory<UiWrapperRepository> uiWrapperRepositoryFactory(final Context context) {
         return UiWrapperRepositoryFactoryImpl.newInstance(createViewStateFactory(context));
     }
 
@@ -71,10 +72,6 @@ class ApplicationDependencyProvider {
 
     private static InteractorFactory createInteractorFactory(final Context context) {
         return new InteractorFactory(createInteractorTaskScheduler(), createServiceFactory(context));
-    }
-
-    private static ThreadPoolExecutorTaskSchedulerFactory createThreadPoolExecutorTaskSchedulerFactory() {
-        return new AndroidThreadPoolExecutorTaskSchedulerFactory();
     }
 
     private static TaskScheduler createInteractorTaskScheduler() {
