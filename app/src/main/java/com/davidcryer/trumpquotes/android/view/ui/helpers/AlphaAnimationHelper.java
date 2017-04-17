@@ -33,6 +33,6 @@ public class AlphaAnimationHelper {
     }
 
     private static long alphaAnimationDuration(final float start, final float end, final long maxDuration) {
-        return (long) Math.abs(start - end) * maxDuration;
+        return (long) (Math.abs(start - end) * maxDuration);
     }
 }
