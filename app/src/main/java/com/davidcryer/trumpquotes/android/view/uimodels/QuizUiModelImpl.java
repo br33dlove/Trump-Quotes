@@ -1,6 +1,7 @@
 package com.davidcryer.trumpquotes.android.view.uimodels;
 
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 
 import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
 import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
@@ -122,6 +123,7 @@ final class QuizUiModelImpl implements QuizUiModel {
             }
         }
         state = State.GAME_RUNNING;
+        gameState = GameState.INITIALISED;
     }
 
     @Override
@@ -146,7 +148,7 @@ final class QuizUiModelImpl implements QuizUiModel {
     }
 
     @Override
-    public void onto(QuizUi ui) {
+    public void onto(@NonNull QuizUi ui) {
         switch (state) {
             case START_NEW_GAME: {
                 ui.showNewGameStartState();

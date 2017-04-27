@@ -1,6 +1,7 @@
 package com.davidcryer.trumpquotes.android.view.ui.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -75,16 +76,16 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
         swipeLayout.swipeListener(new SwipeDelegate.Listener() {
             @Override
             public void onViewEscapedLeft(View child) {
-                if (hasEventsListener()) {
-                    eventsListener().onAnswerOptionA();
+                if (hasListener()) {
+                    listener().onAnswerOptionA();
                 }
                 swipeLayout.removeView(child);
             }
 
             @Override
             public void onViewEscapedRight(View child) {
-                if (hasEventsListener()) {
-                    eventsListener().onAnswerOptionB();
+                if (hasListener()) {
+                    listener().onAnswerOptionB();
                 }
                 swipeLayout.removeView(child);
             }
@@ -104,15 +105,10 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (hasEventsListener()) {
-            eventsListener().onViewCreated();
+        if (hasListener()) {
+            listener().onViewCreated();
         }
     }
 
@@ -350,8 +346,8 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     @SuppressWarnings("unused")
     @OnClick(R.id.start_new_game_button)
     public void startNewGame() {
-        if (hasEventsListener()) {
-            eventsListener().onClickStartNewGame();
+        if (hasListener()) {
+            listener().onClickStartNewGame();
         }
     }
 
@@ -362,12 +358,12 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     }
 
     @Override
-    protected Listener bind(UiWrapperRepository uiWrapperRepository, String instanceId, Bundle savedInstanceState) {
+    protected Listener bind(@NonNull UiWrapperRepository uiWrapperRepository, @NonNull String instanceId, Bundle savedInstanceState) {
         return uiWrapperRepository.bind(this, instanceId, savedInstanceState);
     }
 
     @Override
-    protected void unbind(UiWrapperRepository uiWrapperRepository, String instanceId, Bundle outState, boolean isConfigurationChange) {
+    protected void unbind(@NonNull UiWrapperRepository uiWrapperRepository, @NonNull String instanceId, Bundle outState, boolean isConfigurationChange) {
         uiWrapperRepository.unbind(this, instanceId, outState, isConfigurationChange);
     }
 }

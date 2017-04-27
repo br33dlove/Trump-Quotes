@@ -11,24 +11,23 @@ import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizP
 import com.davidcryer.trumpquotes.platformindependent.view.QuizView;
 import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewModel;
 
-public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.Listener> {
+public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.Listener, QuizUiModel> {
     private final static String ARG_UI_MODEL = QuizUiWrapper.class.getSimpleName();
-    private final QuizUiModel uiModel;
     private final QuizView.EventsListener viewEventsListener;
 
     private QuizUiWrapper(final QuizPresenterFactory<AndroidViewQuestion> presenterFactory, final QuizUiModel uiModel) {
+        super(uiModel);
         viewEventsListener = presenterFactory.create(view).eventsListener();
-        this.uiModel = uiModel;
     }
 
-    public static UiWrapper<QuizUi, QuizUi.Listener> newInstance(
+    public static UiWrapper<QuizUi, QuizUi.Listener, QuizUiModel> newInstance(
             final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
             final QuizUiModelFactory uiModelFactory
     ) {
         return new QuizUiWrapper(presenterFactory, uiModelFactory.create());
     }
 
-    public static UiWrapper<QuizUi, QuizUi.Listener> retrieveInstanceOrGetNew(
+    public static UiWrapper<QuizUi, QuizUi.Listener, QuizUiModel> retrieveInstanceOrGetNew(
             final Bundle savedState,
             final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
             final QuizUiModelFactory uiModelFactory
@@ -40,48 +39,43 @@ public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.Listener> {
     private final QuizView<AndroidViewQuestion> view = new QuizView<AndroidViewQuestion>() {
         @Override
         public void showScore(int correctAnswerCount, int questionCount) {
-            uiModel.showScore(ui(), correctAnswerCount, questionCount);
+            uiModel().showScore(ui(), correctAnswerCount, questionCount);
         }
 
         @Override
         public void showStartNewGame() {
-            uiModel.showStartNewGame(ui());
+            uiModel().showStartNewGame(ui());
         }
 
         @Override
         public void showLoadingGame() {
-            uiModel.showLoadingGame(ui());
+            uiModel().showLoadingGame(ui());
         }
 
         @Override
         public void showFailureToLoadGame() {
-            uiModel.showFailureToLoadGame(ui());
+            uiModel().showFailureToLoadGame(ui());
         }
 
         @Override
         public void showQuestion(AndroidViewQuestion question) {
-            uiModel.showQuestion(ui(), question);
+            uiModel().showQuestion(ui(), question);
         }
 
         @Override
         public void showFinishedGame() {
-            uiModel.showFinishedGameState(ui());
+            uiModel().showFinishedGameState(ui());
         }
 
         @Override
         public QuizViewModel viewModel() {
-            return uiModel;
+            return uiModel();
         }
 
     };
 
     @Override
-    protected void showCurrentUiState(QuizUi ui) {
-        uiModel.onto(ui);
-    }
-
-    @Override
-    protected QuizUi.Listener eventsListener() {
+    protected QuizUi.Listener uiListener() {
         return uiListener;
     }
 
@@ -106,9 +100,4 @@ public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.Listener> {
             viewEventsListener.onAnswerOptionB();
         }
     };
-
-    @Override
-    protected void saveState(Bundle outState) {
-        outState.putParcelable(ARG_UI_MODEL, uiModel);
-    }
 }

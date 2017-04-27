@@ -3,17 +3,14 @@ package com.davidcryer.trumpquotes.android.framework.application;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Handler;
 import android.os.Looper;
 
 import com.davidc.interactor.TaskScheduler;
-import com.davidc.interactor.ThreadPoolExecutorTaskSchedulerFactory;
+import com.davidc.interactor.ThreadPoolExecutorAndHandlerTaskScheduler;
 import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepository;
 import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepositoryFactoryImpl;
 import com.davidcryer.trumpquotes.android.model.framework.localfiles.AndroidQuoteFile;
-import com.davidcryer.trumpquotes.android.model.framework.tasks.AndroidThreadPoolExecutorTaskScheduler;
-import com.davidcryer.trumpquotes.android.model.framework.tasks.AndroidThreadPoolExecutorTaskSchedulerFactory;
 import com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteService;
 import com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteRequestFactory;
 import com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes.trumpapi.RetrofitTrumpQuoteServiceFactory;
@@ -32,7 +29,9 @@ import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuesti
 import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestionFactory;
 import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactoryImpl;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.TrumpQuoteApiProvider;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.TrumpQuoteApiProvider;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.LiveTrumpQuoteApiProvider;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStoreFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.ServiceFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.services.implementations.ServiceFactoryImpl;
@@ -75,7 +74,7 @@ class ApplicationDependencyProvider {
     }
 
     private static TaskScheduler createInteractorTaskScheduler() {
-        return new AndroidThreadPoolExecutorTaskScheduler(createInteractorThreadPoolExecutor(), new Handler(Looper.getMainLooper()));
+        return new ThreadPoolExecutorAndHandlerTaskScheduler(createInteractorThreadPoolExecutor(), Looper.getMainLooper());
     }
 
     private static ThreadPoolExecutor createInteractorThreadPoolExecutor() {
@@ -116,14 +115,14 @@ class ApplicationDependencyProvider {
     }
 
     private static TrumpQuoteApiProvider createTrumpQuoteApiProvider() {
-        return new TrumpQuoteApiProvider();
+        return new LiveTrumpQuoteApiProvider();
     }
 
     private static TrumpQuizGameStore createTrumpQuizGameStore(final Context context) {
-        return createSQLiteGameStoreFactory(context).create();
+        return createTrumpQuizGameStoreFactory(context).create();
     }
 
-    private static SQLiteGameStoreFactory createSQLiteGameStoreFactory(final Context context) {
+    private static TrumpQuizGameStoreFactory createTrumpQuizGameStoreFactory(final Context context) {
         return new SQLiteGameStoreFactory(context, createCursorFactory(), createGameContract());
     }
 

@@ -1,12 +1,12 @@
 package com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes.trumpapi;
 
-import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.TrumpQuoteApiProvider;
+import com.davidcryer.trumpquotes.platformindependent.model.framework.network.TrumpQuoteApiProvider;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitTrumpQuoteServiceFactoryImpl implements RetrofitTrumpQuoteServiceFactory {
-    private TrumpQuoteApiProvider trumpQuoteApiProvider;
+    private final TrumpQuoteApiProvider trumpQuoteApiProvider;
 
     public RetrofitTrumpQuoteServiceFactoryImpl(TrumpQuoteApiProvider trumpQuoteApiProvider) {
         this.trumpQuoteApiProvider = trumpQuoteApiProvider;

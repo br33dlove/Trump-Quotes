@@ -1,7 +1,6 @@
 package com.davidcryer.trumpquotes.android.view.ui.helpers;
 
 import android.view.View;
-import android.widget.Button;
 
 public class AlphaAnimationHelper {
 

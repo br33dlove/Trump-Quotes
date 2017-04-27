@@ -1,5 +1,7 @@
 package com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories;
 
+import android.support.annotation.NonNull;
+
 import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
 
@@ -15,6 +17,7 @@ public class UiWrapperRepositoryFactoryImpl implements UiWrapperRepositoryFactor
     }
 
     @Override
+    @NonNull
     public UiWrapperRepository create() {
         return new UiWrapperRepositoryImpl(uiWrapperFactory);
     }

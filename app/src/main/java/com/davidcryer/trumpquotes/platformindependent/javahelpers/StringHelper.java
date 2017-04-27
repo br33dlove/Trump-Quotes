@@ -2,10 +2,6 @@ package com.davidcryer.trumpquotes.platformindependent.javahelpers;
 
 public class StringHelper {
 
-    public static boolean nullOrEmpty(final String string) {
-        return string == null || string.isEmpty();
-    }
-
     public static int[] splitDelimitedInts(final String string, final String delimiterRegex) {
         if (string == null) {
             return null;

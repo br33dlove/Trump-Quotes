@@ -29,18 +29,16 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     @Override
-    public QuoteFileService createQuoteFileService(final QuoteFile quoteFile) {
-        return new QuoteFileServiceImpl(quoteFile);
+    public TrumpQuizGameInitialisationService createTrumpQuizGameInitialisationService() {
+        return new TrumpQuizGameInitialisationServiceImpl(createQuoteNetworkService(trumpQuoteRequester), createQuoteFileService(gumpQuoteFile));
     }
 
-    @Override
-    public QuoteNetworkService createQuoteNetworkService(final RandomQuoteRequester quoteRequester) {
+    private QuoteNetworkService createQuoteNetworkService(final RandomQuoteRequester quoteRequester) {
         return new QuoteNetworkServiceImpl(quoteRequester);
     }
 
-    @Override
-    public TrumpQuizGameInitialisationService createTrumpQuizGameInitialisationService() {
-        return new TrumpQuizGameInitialisationServiceImpl(createQuoteNetworkService(trumpQuoteRequester), createQuoteFileService(gumpQuoteFile));
+    private QuoteFileService createQuoteFileService(final QuoteFile quoteFile) {
+        return new QuoteFileServiceImpl(quoteFile);
     }
 
     @Override

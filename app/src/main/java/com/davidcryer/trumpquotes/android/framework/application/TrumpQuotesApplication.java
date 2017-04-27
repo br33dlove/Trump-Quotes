@@ -1,6 +1,7 @@
 package com.davidcryer.trumpquotes.android.framework.application;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
 import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
 import com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories.UiWrapperRepository;
@@ -20,6 +21,7 @@ public class TrumpQuotesApplication extends Application implements UiWrapperRepo
     }
 
     @Override
+    @NonNull
     public UiWrapperRepository create() {
         return uiWrapperRepositoryFactory.create();
     }

@@ -10,22 +10,6 @@ import java.io.Reader;
 
 class TextFileReader {
 
-    public static String text(final String filepath, final AssetManager assetManager) {
-        try {
-            final StringBuilder stringBuilder = new StringBuilder();
-            final InputStream json = assetManager.open(filepath);
-            final BufferedReader in = new BufferedReader(new InputStreamReader(json, "UTF-8"));
-            String str;
-            while ((str = in.readLine()) != null) {
-                stringBuilder.append(str);
-            }
-            in.close();
-            return stringBuilder.toString();
-        } catch (IOException ioe) {
-            return "";
-        }
-    }
-
     static Reader reader(final String filepath, final AssetManager assetManager) throws IOException {
         return new InputStreamReader(assetManager.open(filepath));
     }

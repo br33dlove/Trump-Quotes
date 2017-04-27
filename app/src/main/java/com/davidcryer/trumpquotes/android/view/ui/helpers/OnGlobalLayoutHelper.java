@@ -5,10 +5,6 @@ import android.view.ViewTreeObserver;
 
 public class OnGlobalLayoutHelper {
 
-    public static void listen(final View view, final PostLayoutCallback callback) {
-        listen(view, null, callback);
-    }
-
     public static void listen(final View view, final PreLayoutCallback preLayoutCallback, final PostLayoutCallback postLayoutCallback) {
         if (preLayoutCallback != null) {
             preLayoutCallback.onPreLayout();

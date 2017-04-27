@@ -2,10 +2,6 @@ package com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite;
 
 public class QueryHelper {
 
-    public static String createSelectionEquals(final String column) {
-        return column + " = ?";
-    }
-
     public static String createSelectionIn(final String column, final int arguments) {
         String bindArgsString = "";
         for (int i = 0; i < arguments; i++) {

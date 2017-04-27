@@ -5,6 +5,7 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.network.qu
 public class GumpQuote implements Quote {
     private final String quote;
 
+    @SuppressWarnings("unused")
     public GumpQuote(String quote) {
         this.quote = quote;
     }

@@ -1,5 +1,5 @@
 package com.davidcryer.trumpquotes.platformindependent.model.framework.network;
 
-public interface ApiProvider {
+public interface TrumpQuoteApiProvider {
     String baseUrl();
 }
