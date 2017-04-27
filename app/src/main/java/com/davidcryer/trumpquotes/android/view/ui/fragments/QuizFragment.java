@@ -228,7 +228,7 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
         setupQuestion(question, new CardPostLayoutRunnable() {
             @Override
             public void run(QuoteCard card) {
-                card.setY(swipeRefreshLayout.getHeight() - card.getHeight() / 2.0f);
+                card.setY((swipeRefreshLayout.getHeight() - card.getHeight()) / 2.0f);
                 swipeLayout.listenForChildGestures(card, true);
             }
         });
@@ -349,6 +349,12 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
         if (hasListener()) {
             listener().onClickStartNewGame();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        swipeLayout.removeAllViews();
     }
 
     @Override
