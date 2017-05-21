@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.view.uimodels;
+package com.davidcryer.trumpquotes.android.presenter.quiz.uimodels;
 
 public class QuizUiModelFactory {
     private final static QuizUiModel.State DEFAULT_STATE = QuizUiModel.State.LOADING_NEW_GAME;

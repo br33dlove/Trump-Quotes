@@ -1,4 +1,4 @@
-package com.davidcryer.trumpquotes.android.view.uimodels.models;
+package com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

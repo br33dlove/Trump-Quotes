@@ -3,7 +3,7 @@ package com.davidcryer.trumpquotes.android.framework.uiwrapperrepositories;
 import android.support.annotation.NonNull;
 
 import com.davidc.uiwrapper.UiWrapperRepositoryFactory;
-import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
+import com.davidcryer.trumpquotes.android.presenter.uiwrapperfactories.UiWrapperFactory;
 
 public class UiWrapperRepositoryFactoryImpl implements UiWrapperRepositoryFactory<UiWrapperRepository> {
     private final UiWrapperFactory uiWrapperFactory;

@@ -1,11 +1,11 @@
-package com.davidcryer.trumpquotes.android.view.uimodels;
+package com.davidcryer.trumpquotes.android.presenter.quiz.uimodels;
 
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.davidc.uiwrapper.UiModel;
 import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.ViewQuestion;
+import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.models.ViewQuestion;
 
 import java.lang.ref.WeakReference;
 

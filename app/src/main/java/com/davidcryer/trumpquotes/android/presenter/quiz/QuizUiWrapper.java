@@ -1,12 +1,12 @@
-package com.davidcryer.trumpquotes.android.view;
+package com.davidcryer.trumpquotes.android.presenter.quiz;
 
 import android.os.Bundle;
 
 import com.davidc.uiwrapper.UiWrapper;
 import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
-import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModel;
-import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModelFactory;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.ViewQuestion;
+import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.QuizUiModel;
+import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.QuizUiModelFactory;
+import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.models.ViewQuestion;
 import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
 import com.davidcryer.trumpquotes.platformindependent.model.interactors.ActiveGameInteractors;
 import com.davidcryer.trumpquotes.platformindependent.model.interactors.AnswerQuestionInteractor;

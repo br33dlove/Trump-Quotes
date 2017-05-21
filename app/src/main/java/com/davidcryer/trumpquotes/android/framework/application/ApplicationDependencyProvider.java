@@ -21,8 +21,7 @@ import com.davidcryer.trumpquotes.android.model.framework.store.games.sqlite.SQL
 import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite.QuestionContract;
 import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite.QuestionContractImpl;
 import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite.SQLiteQuestionStoreFactory;
-import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
-import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactoryImpl;
+import com.davidcryer.trumpquotes.android.presenter.uiwrapperfactories.UiWrapperFactory;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.TrumpQuoteApiProvider;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.trumpapi.LiveTrumpQuoteApiProvider;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStoreFactory;
@@ -51,7 +50,7 @@ class ApplicationDependencyProvider {
     }
 
     private static UiWrapperFactory createViewStateFactory(final Context context) {
-        return new UiWrapperFactoryImpl(createInteractorFactory(context));
+        return new UiWrapperFactory(createInteractorFactory(context));
     }
 
     private static InteractorFactory createInteractorFactory(final Context context) {

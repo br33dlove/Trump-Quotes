@@ -25,7 +25,7 @@ import com.davidcryer.trumpquotes.android.view.ui.helpers.OnGlobalLayoutHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.ScoreViewAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.ViewQuestion;
+import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.models.ViewQuestion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

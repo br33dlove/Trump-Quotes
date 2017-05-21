@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.davidc.uiwrapper.UiWrapper;
+import com.davidcryer.trumpquotes.android.presenter.uiwrapperfactories.UiWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
-import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModel;
-import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
+import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.QuizUiModel;
 
 import java.util.HashMap;
 import java.util.Map;
