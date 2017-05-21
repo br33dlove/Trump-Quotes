@@ -3,76 +3,51 @@ package com.davidcryer.trumpquotes.android.view;
 import android.os.Bundle;
 
 import com.davidc.uiwrapper.UiWrapper;
+import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
 import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModel;
 import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModelFactory;
-import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
-import com.davidcryer.trumpquotes.platformindependent.presenter.presenters.QuizPresenterFactory;
-import com.davidcryer.trumpquotes.platformindependent.view.QuizView;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.QuizViewModel;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.ViewQuestion;
+import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.ActiveGameInteractors;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.AnswerQuestionInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.GetNextQuestionInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.InitialiseGameInteractor;
+import com.davidcryer.trumpquotes.platformindependent.model.interactors.LoadGameInteractor;
+
+import java.lang.ref.WeakReference;
 
 public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.Listener, QuizUiModel> {
-    private final static String ARG_UI_MODEL = QuizUiWrapper.class.getSimpleName();
-    private final QuizView.EventsListener viewEventsListener;
+    private final LoadGameInteractor loadGameInteractor;
+    private final InitialiseGameInteractor initialiseGameInteractor;
+    private ActiveGameInteractors activeGameInteractors;
 
-    private QuizUiWrapper(final QuizPresenterFactory<AndroidViewQuestion> presenterFactory, final QuizUiModel uiModel) {
+    private QuizUiWrapper(
+            final QuizUiModel uiModel,
+            final LoadGameInteractor loadGameInteractor,
+            final InitialiseGameInteractor initialiseGameInteractor
+    ) {
         super(uiModel);
-        viewEventsListener = presenterFactory.create(view).eventsListener();
+        this.loadGameInteractor = loadGameInteractor;
+        this.initialiseGameInteractor = initialiseGameInteractor;
     }
 
     public static UiWrapper<QuizUi, QuizUi.Listener, QuizUiModel> newInstance(
-            final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
-            final QuizUiModelFactory uiModelFactory
+            final LoadGameInteractor loadGameInteractor,
+            final InitialiseGameInteractor initialiseGameInteractor
     ) {
-        return new QuizUiWrapper(presenterFactory, uiModelFactory.create());
+        return new QuizUiWrapper(QuizUiModelFactory.create(), loadGameInteractor, initialiseGameInteractor);
     }
 
     public static UiWrapper<QuizUi, QuizUi.Listener, QuizUiModel> retrieveInstanceOrGetNew(
             final Bundle savedState,
-            final QuizPresenterFactory<AndroidViewQuestion> presenterFactory,
-            final QuizUiModelFactory uiModelFactory
+            final LoadGameInteractor loadGameInteractor,
+            final InitialiseGameInteractor initialiseGameInteractor
     ) {
-        final QuizUiModel viewModel = savedState.getParcelable(ARG_UI_MODEL);
-        return new QuizUiWrapper(presenterFactory, viewModel == null ? uiModelFactory.create() : viewModel);
+        final QuizUiModel uiModel = UiWrapper.savedUiModel(savedState);
+        return uiModel == null
+                ? newInstance(loadGameInteractor, initialiseGameInteractor)
+                : new QuizUiWrapper(uiModel, loadGameInteractor, initialiseGameInteractor);
     }
-
-    private final QuizView<AndroidViewQuestion> view = new QuizView<AndroidViewQuestion>() {
-        @Override
-        public void showScore(int correctAnswerCount, int questionCount) {
-            uiModel().showScore(ui(), correctAnswerCount, questionCount);
-        }
-
-        @Override
-        public void showStartNewGame() {
-            uiModel().showStartNewGame(ui());
-        }
-
-        @Override
-        public void showLoadingGame() {
-            uiModel().showLoadingGame(ui());
-        }
-
-        @Override
-        public void showFailureToLoadGame() {
-            uiModel().showFailureToLoadGame(ui());
-        }
-
-        @Override
-        public void showQuestion(AndroidViewQuestion question) {
-            uiModel().showQuestion(ui(), question);
-        }
-
-        @Override
-        public void showFinishedGame() {
-            uiModel().showFinishedGameState(ui());
-        }
-
-        @Override
-        public QuizViewModel viewModel() {
-            return uiModel();
-        }
-
-    };
 
     @Override
     protected QuizUi.Listener uiListener() {
@@ -82,22 +57,124 @@ public class QuizUiWrapper extends UiWrapper<QuizUi, QuizUi.Listener, QuizUiMode
     private final QuizUi.Listener uiListener = new QuizUi.Listener() {
         @Override
         public void onViewCreated() {
-            viewEventsListener.onInitialise();
+            initialiseView();
         }
 
         @Override
         public void onClickStartNewGame() {
-            viewEventsListener.onClickStartNewGame();
+            initialiseGame();
         }
 
         @Override
         public void onAnswerOptionA() {
-            viewEventsListener.onAnswerOptionA();
+            answerOptionA();
         }
 
         @Override
         public void onAnswerOptionB() {
-            viewEventsListener.onAnswerOptionB();
+            answerOptionB();
+        }
+    };
+
+    private void initialiseView() {
+        if (activeGameInteractors == null) {
+            if (uiModel().gameNotInitialised()) {
+                uiModel().showStartNewGame(ui());
+            } else {
+                loadGame();
+            }
+        }
+    }
+
+    private void loadGame() {
+        loadGameInteractor.runTask(new WeakReference<LoadGameInteractor.Callback>(new LoadGameInteractor.Callback() {
+            @Override
+            public void onLoadGame(ActiveGameInteractors interactors, int correctAnswers, int questionsAnswered) {
+                activeGameInteractors = interactors;
+                uiModel().showScore(ui(), correctAnswers, questionsAnswered);
+                getNextQuestion();
+            }
+
+            @Override
+            public void onNoSavedGameFound() {
+                uiModel().showStartNewGame(ui());
+            }
+
+            @Override
+            public void onGameCorrupted() {
+                uiModel().showStartNewGame(ui());
+            }
+
+            @Override
+            public void onError() {
+                uiModel().showStartNewGame(ui());
+            }
+        }));
+    }
+
+    private void initialiseGame() {
+        showLoadingState();
+        initialiseGameInteractor.runTask(new WeakReference<>(initialisationCallback));
+    }
+
+    private void showLoadingState() {
+        uiModel().showLoading(ui());
+    }
+
+    private final InitialiseGameInteractor.Callback initialisationCallback = new InitialiseGameInteractor.Callback() {
+        @Override
+        public void onInitialiseGame(ActiveGameInteractors interactors, int correctAnswers, int questionsAnswered) {
+            activeGameInteractors = interactors;
+            uiModel().showScore(ui(), correctAnswers, questionsAnswered);
+            getNextQuestion();
+        }
+
+        @Override
+        public void onError() {
+            uiModel().showFailureToLoadGame(ui());
+        }
+    };
+
+    private void answerOptionA() {
+        if (activeGameInteractors != null) {
+            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionA(new WeakReference<>(answerQuestionCallback));
+        }
+    }
+
+    private void answerOptionB() {
+        if (activeGameInteractors != null) {
+            activeGameInteractors.answerQuestionInteractor().runTaskAnswerOptionB(new WeakReference<>(answerQuestionCallback));
+        }
+    }
+
+    private final AnswerQuestionInteractor.Callback answerQuestionCallback = new AnswerQuestionInteractor.Callback() {
+        @Override
+        public void onRightAnswerGiven(int correctAnswers, int questionsAnswered) {
+            uiModel().showScore(ui(), correctAnswers, questionsAnswered);
+            getNextQuestion();
+        }
+
+        @Override
+        public void onWrongAnswerGiven(int correctAnswers, int questionsAnswered) {
+            uiModel().showScore(ui(), correctAnswers, questionsAnswered);
+            getNextQuestion();
+        }
+    };
+
+    private void getNextQuestion() {
+        activeGameInteractors.getNextQuestionInteractor().runTask(new WeakReference<>(getNextQuestionCallback));
+    }
+
+    private final GetNextQuestionInteractor.Callback getNextQuestionCallback = new GetNextQuestionInteractor.Callback() {
+        @Override
+        public void nextQuestion(QuizQuestion quizQuestion) {
+            uiModel().showQuestion(ui(), ViewQuestion.Factory.create(quizQuestion));
+        }
+
+        @Override
+        public void onGameFinished() {
+            uiModel().showFinishedGame(ui());
+            activeGameInteractors = null;
         }
     };
 }

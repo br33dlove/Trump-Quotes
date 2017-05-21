@@ -21,12 +21,6 @@ import com.davidcryer.trumpquotes.android.model.framework.store.games.sqlite.SQL
 import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite.QuestionContract;
 import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite.QuestionContractImpl;
 import com.davidcryer.trumpquotes.android.model.framework.store.questions.sqlite.SQLiteQuestionStoreFactory;
-import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactory;
-import com.davidcryer.trumpquotes.android.presenter.presenters.PresenterFactoryFactoryImpl;
-import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModelFactory;
-import com.davidcryer.trumpquotes.android.view.uimodels.QuizUiModelFactoryImpl;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestionFactory;
 import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactory;
 import com.davidcryer.trumpquotes.android.view.uiwrapperfactories.UiWrapperFactoryImpl;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.TrumpQuoteApiProvider;
@@ -43,7 +37,6 @@ import com.davidcryer.trumpquotes.platformindependent.model.framework.network.qu
 import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.requesters.RandomQuoteRequester;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
 import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizQuestionStore;
-import com.davidcryer.trumpquotes.platformindependent.view.viewmodels.models.ViewQuestionFactory;
 import com.google.gson.Gson;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -58,15 +51,7 @@ class ApplicationDependencyProvider {
     }
 
     private static UiWrapperFactory createViewStateFactory(final Context context) {
-        return new UiWrapperFactoryImpl(createPresenterFactory(context), createQuotesAndroidViewModelFactory());
-    }
-
-    private static PresenterFactoryFactory createPresenterFactory(final Context context) {
-        return new PresenterFactoryFactoryImpl(createViewQuestionFactory(), createInteractorFactory(context));
-    }
-
-    private static ViewQuestionFactory<AndroidViewQuestion> createViewQuestionFactory() {
-        return new AndroidViewQuestionFactory();
+        return new UiWrapperFactoryImpl(createInteractorFactory(context));
     }
 
     private static InteractorFactory createInteractorFactory(final Context context) {
@@ -128,10 +113,6 @@ class ApplicationDependencyProvider {
 
     private static SQLiteDatabase.CursorFactory createCursorFactory() {
         return null;
-    }
-
-    private static QuizUiModelFactory createQuotesAndroidViewModelFactory() {
-        return new QuizUiModelFactoryImpl();
     }
 
     private static GameContract createGameContract() {

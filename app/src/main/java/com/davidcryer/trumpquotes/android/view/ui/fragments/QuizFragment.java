@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -26,7 +25,7 @@ import com.davidcryer.trumpquotes.android.view.ui.helpers.OnGlobalLayoutHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.ScoreViewAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.helpers.nongeneric.StartNewGameContainerAnimationHelper;
 import com.davidcryer.trumpquotes.android.view.ui.swipe.SwipeDelegate;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.ViewQuestion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,7 +118,7 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     }
 
     @Override
-    public void animateInNewGameStartState() {
+    public void animateInStartNewGame() {
         animateInStartNewGameViews();
         setupNewGameStartState();
     }
@@ -145,7 +144,7 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     }
 
     @Override
-    public void animateInNewGameLoadingState() {
+    public void animateInNewGameLoading() {
         AlphaAnimationHelper.fadeOut(startNewGameButton, getResources().getInteger(R.integer.max_duration_fade_score_ms), View.INVISIBLE);
         setupNewGameLoadingState();
     }
@@ -167,7 +166,7 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     }
 
     @Override
-    public void animateInNewGameFailedToLoadGameState() {
+    public void animateInFailureToLoadGameFromLoading() {
         AlphaAnimationHelper.fadeIn(startNewGameButton, getResources().getInteger(R.integer.max_duration_fade_score_ms));
         setupNewGameFailedToLoadGameState();
     }
@@ -223,7 +222,7 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     }
 
     @Override
-    public void showQuestion(final AndroidViewQuestion question) {
+    public void showQuestion(final ViewQuestion question) {
         showPlayGameViews();
         setupQuestion(question, new CardPostLayoutRunnable() {
             @Override
@@ -235,7 +234,7 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
     }
 
     @Override
-    public void animateInQuestion(AndroidViewQuestion question) {
+    public void animateInQuestion(ViewQuestion question) {
         setupQuestion(question, new CardPostLayoutRunnable() {
             @Override
             public void run(final QuoteCard card) {
@@ -255,7 +254,7 @@ public class QuizFragment extends UiFragment<UiWrapperRepository, QuizUi.Listene
         });
     }
 
-    private void setupQuestion(final AndroidViewQuestion question, final CardPostLayoutRunnable postLayoutRunnable) {
+    private void setupQuestion(final ViewQuestion question, final CardPostLayoutRunnable postLayoutRunnable) {
         final int horizontalMargin = getResources().getDimensionPixelOffset(R.dimen.card_margin_horizontal);
         final QuoteCard card = new QuoteCard(getActivity());
         OnGlobalLayoutHelper.listen(card, new OnGlobalLayoutHelper.PreLayoutCallback() {

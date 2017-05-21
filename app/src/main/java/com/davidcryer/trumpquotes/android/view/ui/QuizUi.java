@@ -1,23 +1,23 @@
 package com.davidcryer.trumpquotes.android.view.ui;
 
 import com.davidc.uiwrapper.Ui;
-import com.davidcryer.trumpquotes.android.view.uimodels.models.AndroidViewQuestion;
+import com.davidcryer.trumpquotes.android.view.uimodels.models.ViewQuestion;
 
 public interface QuizUi extends Ui {
     void showNewGameStartState();
-    void animateInNewGameStartState();
+    void animateInStartNewGame();
     void showNewGameLoadingState();
-    void animateInNewGameLoadingState();
+    void animateInNewGameLoading();
     void showNewGameFailedToStartState();
-    void animateInNewGameFailedToLoadGameState();
+    void animateInFailureToLoadGameFromLoading();
     void showNewGameFinishedState(final int correctAnswerCount, final int questionCount);
     void animateInNewGameFinishedState(final int correctAnswerCount, final int questionCount);
     void hideNewGameScene();
     void animateOutNewGameScene(final Runnable endAction);
     void showScore(final int correctAnswerCount, final int questionCount);
     void animateInScore(final int correctAnswerCount, final int questionCount);
-    void showQuestion(final AndroidViewQuestion question);
-    void animateInQuestion(final AndroidViewQuestion question);
+    void showQuestion(final ViewQuestion question);
+    void animateInQuestion(final ViewQuestion question);
     void hideGameInPlayScene();
     void animateOutGameInPlayScene(final Runnable endAction);
 

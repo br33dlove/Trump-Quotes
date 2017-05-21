@@ -1,19 +1,22 @@
 package com.davidcryer.trumpquotes.android.view.uimodels.models;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
-class AndroidViewQuestionImpl implements AndroidViewQuestion {
+import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
+
+public class ViewQuestion implements Parcelable {
     private final String quote;
     private final String optionA;
     private final String optionB;
 
-    AndroidViewQuestionImpl(String quote, String optionA, String optionB) {
+    private ViewQuestion(String quote, String optionA, String optionB) {
         this.quote = quote;
         this.optionA = optionA;
         this.optionB = optionB;
     }
 
-    private AndroidViewQuestionImpl(final Parcel parcel) {
+    private ViewQuestion(final Parcel parcel) {
         quote = parcel.readString();
         optionA = parcel.readString();
         optionB = parcel.readString();
@@ -31,30 +34,36 @@ class AndroidViewQuestionImpl implements AndroidViewQuestion {
         dest.writeString(optionB);
     }
 
-    static final Creator<AndroidViewQuestion> CREATOR = new Creator<AndroidViewQuestion>() {
+    static final Creator<ViewQuestion> CREATOR = new Creator<ViewQuestion>() {
         @Override
-        public AndroidViewQuestion createFromParcel(Parcel source) {
-            return new AndroidViewQuestionImpl(source);
+        public ViewQuestion createFromParcel(Parcel source) {
+            return new ViewQuestion(source);
         }
 
         @Override
-        public AndroidViewQuestion[] newArray(int size) {
-            return new AndroidViewQuestionImpl[size];
+        public ViewQuestion[] newArray(int size) {
+            return new ViewQuestion[size];
         }
     };
 
-    @Override
     public String quote() {
         return quote;
     }
 
-    @Override
     public String optionA() {
         return optionA;
     }
 
-    @Override
     public String optionB() {
         return optionB;
+    }
+
+    public static class Factory {
+
+        private Factory() {}
+
+        public static ViewQuestion create(final QuizQuestion quizQuestion) {
+            return new ViewQuestion(quizQuestion.quote(), quizQuestion.optionA(), quizQuestion.optionB());
+        }
     }
 }
