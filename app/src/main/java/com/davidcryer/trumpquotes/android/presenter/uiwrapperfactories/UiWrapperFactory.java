@@ -6,9 +6,9 @@ import com.davidc.uiwrapper.UiWrapper;
 import com.davidcryer.trumpquotes.android.presenter.quiz.QuizUiWrapper;
 import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
 import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.QuizUiModel;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.InitialiseGameInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.InteractorFactory;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.LoadGameInteractor;
+import com.davidcryer.trumpquotes.android.model.interactors.InitialiseGameInteractor;
+import com.davidcryer.trumpquotes.android.model.interactors.InteractorFactory;
+import com.davidcryer.trumpquotes.android.model.interactors.LoadGameInteractor;
 
 public class UiWrapperFactory {
     private final InteractorFactory interactorFactory;

@@ -7,12 +7,12 @@ import com.davidcryer.trumpquotes.android.view.ui.QuizUi;
 import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.QuizUiModel;
 import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.QuizUiModelFactory;
 import com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.models.ViewQuestion;
-import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.ActiveGameInteractors;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.AnswerQuestionInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.GetNextQuestionInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.InitialiseGameInteractor;
-import com.davidcryer.trumpquotes.platformindependent.model.interactors.LoadGameInteractor;
+import com.davidcryer.trumpquotes.android.model.domainentities.QuizQuestion;
+import com.davidcryer.trumpquotes.android.model.interactors.ActiveGameInteractors;
+import com.davidcryer.trumpquotes.android.model.interactors.AnswerQuestionInteractor;
+import com.davidcryer.trumpquotes.android.model.interactors.GetNextQuestionInteractor;
+import com.davidcryer.trumpquotes.android.model.interactors.InitialiseGameInteractor;
+import com.davidcryer.trumpquotes.android.model.interactors.LoadGameInteractor;
 
 import java.lang.ref.WeakReference;
 

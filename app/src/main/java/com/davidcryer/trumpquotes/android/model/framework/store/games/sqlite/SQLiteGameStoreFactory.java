@@ -3,8 +3,8 @@ package com.davidcryer.trumpquotes.android.model.framework.store.games.sqlite;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStoreFactory;
+import com.davidcryer.trumpquotes.android.model.framework.store.stores.TrumpQuizGameStore;
+import com.davidcryer.trumpquotes.android.model.framework.store.stores.TrumpQuizGameStoreFactory;
 
 public class SQLiteGameStoreFactory implements TrumpQuizGameStoreFactory {
     private final static int DATABASE_VERSION = 1;

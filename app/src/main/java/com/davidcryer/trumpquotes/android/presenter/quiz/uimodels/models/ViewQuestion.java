@@ -3,7 +3,7 @@ package com.davidcryer.trumpquotes.android.presenter.quiz.uimodels.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.davidcryer.trumpquotes.platformindependent.model.domainentities.QuizQuestion;
+import com.davidcryer.trumpquotes.android.model.domainentities.QuizQuestion;
 
 public class ViewQuestion implements Parcelable {
     private final String quote;

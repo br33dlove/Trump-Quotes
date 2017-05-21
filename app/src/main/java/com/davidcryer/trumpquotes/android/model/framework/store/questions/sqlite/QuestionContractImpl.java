@@ -8,7 +8,7 @@ import android.provider.BaseColumns;
 
 import com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.QueryHelper;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.ArrayHelper;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizQuestionStorageModel;
+import com.davidcryer.trumpquotes.android.model.framework.store.models.TrumpQuizQuestionStorageModel;
 
 import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.CLOSE_BRACKET;
 import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.COMMA;

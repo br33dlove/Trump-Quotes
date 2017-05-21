@@ -1,8 +1,8 @@
 package com.davidcryer.trumpquotes.android.model.framework.network.retrofit.quotes;
 
-import com.davidcryer.trumpquotes.platformindependent.model.framework.network.Request;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.network.RequestCallback;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.network.quotes.Quote;
+import com.davidcryer.trumpquotes.android.model.framework.network.Request;
+import com.davidcryer.trumpquotes.android.model.framework.network.RequestCallback;
+import com.davidcryer.trumpquotes.android.model.framework.network.quotes.Quote;
 
 import retrofit2.Call;
 import retrofit2.Callback;

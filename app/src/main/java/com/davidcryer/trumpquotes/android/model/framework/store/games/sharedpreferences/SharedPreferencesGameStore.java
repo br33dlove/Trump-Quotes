@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.ArrayHelper;
 import com.davidcryer.trumpquotes.platformindependent.javahelpers.StringHelper;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.store.models.TrumpQuizGameStorageModel;
-import com.davidcryer.trumpquotes.platformindependent.model.framework.store.stores.TrumpQuizGameStore;
+import com.davidcryer.trumpquotes.android.model.framework.store.models.TrumpQuizGameStorageModel;
+import com.davidcryer.trumpquotes.android.model.framework.store.stores.TrumpQuizGameStore;
 
 import static com.davidcryer.trumpquotes.android.model.framework.store.helpers.sqlite.SQLHelper.DELIMITER_COMMA;
 
