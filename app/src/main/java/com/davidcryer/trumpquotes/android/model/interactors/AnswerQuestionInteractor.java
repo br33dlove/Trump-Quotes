@@ -1,68 +1,63 @@
 package com.davidcryer.trumpquotes.android.model.interactors;
 
 import com.davidc.interactor.Interactor;
-import com.davidc.interactor.Task;
-import com.davidc.interactor.TaskScheduler;
+import com.davidc.interactor.Scheduler;
 import com.davidcryer.trumpquotes.android.model.domainentities.QuizAnswer;
-import com.davidcryer.trumpquotes.android.model.domainentities.QuizGame;
+import com.davidcryer.trumpquotes.android.model.tasks.AnswerQuestionTask;
+import com.davidcryer.trumpquotes.android.model.tasks.AnswerQuestionTaskCallback;
 
 import java.lang.ref.WeakReference;
 
 public final class AnswerQuestionInteractor extends Interactor {
-    private final QuizGame game;
+    private final AnswerQuestionTask task;
 
-    AnswerQuestionInteractor(TaskScheduler taskScheduler, QuizGame game) {
-        super(taskScheduler);
-        this.game = game;
+    AnswerQuestionInteractor(Scheduler scheduler, AnswerQuestionTask task) {
+        super(scheduler);
+        this.task = task;
     }
 
-    public void runTaskAnswerOptionA(final WeakReference<Callback> callback) {
-        runTask(QuizAnswer.newInstanceA(), callback);
-    }
-
-    public void runTaskAnswerOptionB(final WeakReference<Callback> callback) {
-        runTask(QuizAnswer.newInstanceB(), callback);
-    }
-
-    private void runTask(final QuizAnswer answer, final WeakReference<Callback> callback) {
-        executeOnWorkerThread(new Task() {
+    public void answer(final QuizAnswer answer, final WeakReference<AnswerQuestionTaskCallback> callback) {
+        runOnWorkerThread(new Runnable() {
             @Override
-            public void execute() {
-                giveAnswer(answer, callback);
+            public void run() {
+                callAnswerOnTask(answer, callback);
             }
         });
     }
 
-    private void giveAnswer(final QuizAnswer answer, final WeakReference<Callback> callback) {
-        game.onAnswerGiven(answer, new QuizGame.AnswerCallback() {
+    private void callAnswerOnTask(final QuizAnswer answer, final WeakReference<AnswerQuestionTaskCallback> callback) {
+        task.answer(answer, new AnswerQuestionTaskCallback() {
             @Override
             public void onRightAnswerGiven(final int correctAnswers, final int questionsAnswered) {
-                executeOnCallbackThread(new Task() {
-                    @Override
-                    public void execute() {
-                        if (callback.get() != null) {
-                            callback.get().onRightAnswerGiven(correctAnswers, questionsAnswered);
-                        }
-                    }
-                });
+                callbackRightAnswerGiven(correctAnswers, questionsAnswered, callback.get());
             }
 
             @Override
             public void onWrongAnswerGiven(final int correctAnswers, final int questionsAnswered) {
-                executeOnCallbackThread(new Task() {
-                    @Override
-                    public void execute() {
-                        if (callback.get() != null) {
-                            callback.get().onWrongAnswerGiven(correctAnswers, questionsAnswered);
-                        }
-                    }
-                });
+                callbackWrongAnswerGiven(correctAnswers, questionsAnswered, callback.get());
             }
         });
     }
 
-    public interface Callback {
-        void onRightAnswerGiven(final int correctAnswers, final int questionsAnswered);
-        void onWrongAnswerGiven(final int correctAnswers, final int questionsAnswered);
+    private void callbackRightAnswerGiven(final int correctAnswers, final int questionsAnswered, final AnswerQuestionTaskCallback callback) {
+        runOnCallbackThread(new Runnable() {
+            @Override
+            public void run() {
+                if (callback != null) {
+                    callback.onRightAnswerGiven(correctAnswers, questionsAnswered);
+                }
+            }
+        });
+    }
+
+    private void callbackWrongAnswerGiven(final int correctAnswers, final int questionsAnswered, final AnswerQuestionTaskCallback callback) {
+        runOnCallbackThread(new Runnable() {
+            @Override
+            public void run() {
+                if (callback != null) {
+                    callback.onWrongAnswerGiven(correctAnswers, questionsAnswered);
+                }
+            }
+        });
     }
 }
